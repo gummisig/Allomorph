@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Allomorph", "Allomorph\Allomorph.csproj", "{E2B2791C-28FB-4F4B-97D7-E2800D13C856}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Allomorph.Tests", "Allomorph.Tests\Allomorph.Tests.csproj", "{3EEE4E58-77D4-4CA5-9B9F-9070FF7B93BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2B2791C-28FB-4F4B-97D7-E2800D13C856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B2791C-28FB-4F4B-97D7-E2800D13C856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B2791C-28FB-4F4B-97D7-E2800D13C856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B2791C-28FB-4F4B-97D7-E2800D13C856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EEE4E58-77D4-4CA5-9B9F-9070FF7B93BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EEE4E58-77D4-4CA5-9B9F-9070FF7B93BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EEE4E58-77D4-4CA5-9B9F-9070FF7B93BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EEE4E58-77D4-4CA5-9B9F-9070FF7B93BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

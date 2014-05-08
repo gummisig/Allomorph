@@ -1,0 +1,58 @@
+﻿@model Allomorph.Models.SubFile
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SubFile</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Folders.FolderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Folders.FolderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastChange)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastChange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastChangedByUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastChangedByUser)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

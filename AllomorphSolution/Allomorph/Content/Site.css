@@ -1,0 +1,79 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#masterhaus {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    padding-left: 20%;
+}
+
+#banner {
+    position: relative;
+    padding-left: 20%;
+    top: 1em;
+    margin: auto;
+}
+
+.input-group {
+    padding-left: 20%;
+    float: none;
+    top: 1em;
+    width: 100%;
+}
+
+#leit, btn {
+    padding-left: 0.5em;
+}
+
+.flokkar {
+    padding-top: 1em;
+}
+
+.flokkar, .check {
+    padding-left: 0.5em;
+}
+
+#masterFooter {
+    padding-left: 15em;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
