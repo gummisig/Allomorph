@@ -9,7 +9,8 @@ namespace Allomorph.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(Allomorph.DAL.SubtitleContext context)
