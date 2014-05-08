@@ -1,5 +1,6 @@
 ﻿@model Allomorph.Models.SubFile
 
+
 @{
     ViewBag.Title = "Senda inn skrá";
 }
@@ -18,26 +19,28 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FolderID, "FolderID", new { @class = "control-label col-md-2" })
+           
+            @Html.LabelFor(model => model.Folders.FolderName, "Folder Name:", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FolderID", String.Empty)
-                @Html.ValidationMessageFor(model => model.FolderID)
+                @Html.EditorFor(model => model.Folders.FolderName)
+                @Html.ValidationMessageFor(model => model.Folders.FolderName)
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserID, "UserID", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserID", String.Empty)
-                @Html.ValidationMessageFor(model => model.UserID)
-            </div>
-        </div>
+     
 
         <div class="form-group">
+           
             @Html.LabelFor(model => model.SubName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SubName)
                 @Html.ValidationMessageFor(model => model.SubName)
+            </div>
+        </div>
+        <div class="form-group">
+
+             <input type="file" id="inputfile"/>
+            <div class="col-md-10">
             </div>
         </div>
 
