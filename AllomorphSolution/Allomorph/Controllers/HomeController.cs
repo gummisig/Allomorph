@@ -26,5 +26,12 @@ namespace Allomorph.Controllers
 
             return View();
         }
+
+        public ActionResult Request()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
