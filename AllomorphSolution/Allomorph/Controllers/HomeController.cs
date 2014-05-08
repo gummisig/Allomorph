@@ -34,7 +34,7 @@ namespace Allomorph.Controllers
 
         public ActionResult Request()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Requests";
             return View();
         }
 

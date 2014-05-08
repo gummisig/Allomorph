@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Allomorph.Models.Request>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+        </tr>
+    }
+}

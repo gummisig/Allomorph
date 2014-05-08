@@ -9,7 +9,7 @@ namespace Allomorph.Models
     [Table("Request")]
     public class Request
     {
-        public IList<Request> Requests { get; private set; }
+        private IList<Request> Requests;
         public int ID { get; set; }
         //public int UserID { get; set; }
         public string RequestText { get; set; }
@@ -23,5 +23,14 @@ namespace Allomorph.Models
             this.Requests = new List<Request>();
             DateCreated = DateTime.Now;
         }
+
+        //public IEnumerable<Request> GetEnumerator()
+        //{
+        //    return Requests.GetEnumerator();
+        //}
+        //IEnumerator IEnumerable.GetEnumerator()
+        //{
+        //    return Requests.GetEnumerator();
+        //}
     }
 }
