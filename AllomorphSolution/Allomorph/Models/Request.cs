@@ -9,16 +9,18 @@ namespace Allomorph.Models
     [Table("Request")]
     public class Request
     {
+        public IList<Request> Requests { get; private set; }
         public int ID { get; set; }
         //public int UserID { get; set; }
         public string RequestText { get; set; }
-        public int Counter { get; set; }
+        public int? Counter { get; set; }
         public DateTime DateCreated { get; set; }
 
         //public virtual User Users { get; set; }
 
         public Request()
         {
+            this.Requests = new List<Request>();
             DateCreated = DateTime.Now;
         }
     }

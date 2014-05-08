@@ -1,12 +1,35 @@
-﻿@model Allomorph.Models.Request
+﻿@model Tuple<Allomorph.Models.Request, IEnumerable<Allomorph.Models.Request>>
 
 @{
-    ViewBag.Title = "Request";
+    ViewBag.Title = "Beiðnir";
 }
 
 @{ Html.RenderPartial("Search"); }
 
 <h2>Beiðnir</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Item1.RequestText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item1.DateCreated)
+        </th>
+    </tr>
+        @foreach (var item in Model.Item2)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+            </tr>
+        }
+
+</table>
 
 @using (Html.BeginForm())
 {
@@ -17,10 +40,10 @@
         @Html.ValidationSummary(true)
         
         <div class="form-group">
-            @Html.LabelFor(model => model.RequestText, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(tuple => tuple.Item1.RequestText, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RequestText)
-                @Html.ValidationMessageFor(model => model.RequestText)
+                @Html.EditorFor(tuple => tuple.Item1.RequestText)
+                @Html.ValidationMessageFor(tuple => tuple.Item1.RequestText)
             </div>
         </div>
 
