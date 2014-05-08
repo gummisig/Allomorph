@@ -1,4 +1,4 @@
-﻿@model Tuple<Allomorph.Models.SubFile, Allomorph.Models.Category>
+﻿@model Tuple<Allomorph.Models.SubFile,Allomorph.Models.Category,Allomorph.Models.Language>
 
 
 @{
@@ -27,37 +27,27 @@
             </div>
         </div>
 
-
-
-
      
 
         <div class="form-group">
-           
             @Html.LabelFor(model => model.Item1.SubName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Item1.SubName)
                 @Html.ValidationMessageFor(model => model.Item1.SubName)
             </div>
+           
         </div>
 
         <div class="form-group">
-
-             <input type="file" id="inputfile"/>
+            @Html.LabelFor(model => model.Item3.LanguageName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.EditorFor(model => model.Item3.LanguageName)
+                @Html.ValidationMessageFor(model => model.Item3.LanguageName)
             </div>
+
         </div>
 
-
-       
-        <div class="form-group">
-
-            @Html.LabelFor(model => model.Item1.Folders.Description, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Item1.Folders.Description)
-                @Html.ValidationMessageFor(model => model.Item1.Folders.Description)
-            </div>
-        </div>
+      
 
         <div class="form-group">
 
@@ -69,30 +59,53 @@
         </div>
 
         <div class="form-group">
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Item1.LastChange, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Item1.LastChange)
-                    @Html.ValidationMessageFor(model => model.Item1.LastChange)
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Item1.LastChangedByUser, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Item1.LastChangedByUser)
-                    @Html.ValidationMessageFor(model => model.Item1.LastChangedByUser)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+            <input type="file" id="inputfile" />
+            <div class="col-md-10">
             </div>
         </div>
+       
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Item1.Folders.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Item1.Folders.Description)
+                @Html.ValidationMessageFor(model => model.Item1.Folders.Description)
+            </div>
+        </div>
+
+
+
+
+
+       
+      
+
+
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.LastChange, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.LastChange)
+                @Html.ValidationMessageFor(model => model.Item1.LastChange)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.LastChangedByUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.LastChangedByUser)
+                @Html.ValidationMessageFor(model => model.Item1.LastChangedByUser)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
 
 <div>
