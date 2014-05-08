@@ -14,6 +14,7 @@ namespace Allomorph.Models
             this.SubFileLines = new HashSet<SubFileLine>();
             this.CategoryExtensions = new HashSet<CategoryExtension>();
             this.LastChange = DateTime.Now;
+            //this.LastChangedByUser = this.Users.UserName;
         }
         
         public int ID { get; set; }

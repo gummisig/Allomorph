@@ -12,6 +12,7 @@ namespace Allomorph.Models
         public Folder()
         {
             this.Subtitles = new HashSet<SubFile>();
+            //this.FolderName = SubFiles.SubName;
         }
         public int ID { get; set; }
         public int SubFileID { get; set; }
@@ -21,5 +22,6 @@ namespace Allomorph.Models
         public string Description { get; set; }
 
         public virtual ICollection<SubFile> Subtitles { get; set; }
+        //public virtual SubFile SubFiles { get; set; }
     }
 }

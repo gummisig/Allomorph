@@ -9,7 +9,7 @@ namespace Allomorph.Models
     [Table("Request")]
     public class Request
     {
-        private IList<Request> Requests;
+        public ICollection<Request> Requests;
         public int ID { get; set; }
         //public int UserID { get; set; }
         public string RequestText { get; set; }
@@ -20,7 +20,7 @@ namespace Allomorph.Models
 
         public Request()
         {
-            this.Requests = new List<Request>();
+            this.Requests = new HashSet<Request>();
             DateCreated = DateTime.Now;
         }
 
