@@ -1,10 +1,12 @@
 ﻿@model Allomorph.Models.SubFile
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Senda inn skrá";
 }
 
-<h2>Create</h2>
+@{ Html.RenderPartial("Search"); }
+
+<h2>Senda inn skrá</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +14,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SubFile</h4>
         <hr />
         @Html.ValidationSummary(true)
 
