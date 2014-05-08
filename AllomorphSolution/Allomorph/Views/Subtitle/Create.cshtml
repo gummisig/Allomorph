@@ -1,4 +1,5 @@
-﻿@model Allomorph.Models.SubFile
+﻿@model Tuple<Allomorph.Models.SubFile,Allomorph.Models.Category,Allomorph.Models.Language>
+
 
 @{
     ViewBag.Title = "Senda inn skrá";
@@ -18,42 +19,84 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FolderID, "FolderID", new { @class = "control-label col-md-2" })
+           
+            @Html.LabelFor(model => model.Item1.Folders.FolderName, "Folder Name:", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FolderID", String.Empty)
-                @Html.ValidationMessageFor(model => model.FolderID)
+                @Html.EditorFor(model => model.Item1.Folders.FolderName)
+                @Html.ValidationMessageFor(model => model.Item1.Folders.FolderName)
+            </div>
+        </div>
+
+     
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.SubName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.SubName)
+                @Html.ValidationMessageFor(model => model.Item1.SubName)
+            </div>
+           
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item3.LanguageName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item3.LanguageName)
+                @Html.ValidationMessageFor(model => model.Item3.LanguageName)
+            </div>
+
+        </div>
+
+      
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Item2.CategoryName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item2.CategoryName)
+                @Html.ValidationMessageFor(model => model.Item2.CategoryName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserID, "UserID", new { @class = "control-label col-md-2" })
+            <input type="file" id="inputfile" />
             <div class="col-md-10">
-                @Html.DropDownList("UserID", String.Empty)
-                @Html.ValidationMessageFor(model => model.UserID)
+            </div>
+        </div>
+       
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Item1.Folders.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Item1.Folders.Description)
+                @Html.ValidationMessageFor(model => model.Item1.Folders.Description)
+            </div>
+        </div>
+
+
+
+
+
+       
+      
+
+
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.LastChange, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.LastChange)
+                @Html.ValidationMessageFor(model => model.Item1.LastChange)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.LastChangedByUser, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SubName)
-                @Html.ValidationMessageFor(model => model.SubName)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastChange, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastChange)
-                @Html.ValidationMessageFor(model => model.LastChange)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastChangedByUser, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastChangedByUser)
-                @Html.ValidationMessageFor(model => model.LastChangedByUser)
+                @Html.EditorFor(model => model.Item1.LastChangedByUser)
+                @Html.ValidationMessageFor(model => model.Item1.LastChangedByUser)
             </div>
         </div>
 
