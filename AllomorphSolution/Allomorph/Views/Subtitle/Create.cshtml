@@ -1,26 +1,94 @@
-﻿@model Allomorph.Models.SubFile
+﻿@model Tuple<Allomorph.Models.SubFile, Allomorph.Models.Category, Allomorph.Models.Language>
+
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Senda inn skrá";
 }
 
-<h2>Senda inn skjátexta</h2>
+@{ Html.RenderPartial("Search"); }
+
+<h2>Senda inn skrá</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>SubFile</h4>
         <hr />
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubName, new { @class = "control-label col-md-2" })
+
+            @Html.LabelFor(model => model.Item1.Folders.FolderName, "Folder Name:", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SubName)
-                @Html.ValidationMessageFor(model => model.SubName)
+                @Html.EditorFor(model => model.Item1.Folders.FolderName)
+                @Html.ValidationMessageFor(model => model.Item1.Folders.FolderName)
+            </div>
+        </div>
+
+
+
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item3.LanguageName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.SubName)
+                @Html.ValidationMessageFor(model => model.Item1.SubName)
+            </div>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Item2.CategoryName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item2.CategoryName)
+                @Html.ValidationMessageFor(model => model.Item2.CategoryName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="file" id="inputfile" />
+            <div class="col-md-10">
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Item1.Folders.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Item1.Folders.Description)
+                @Html.ValidationMessageFor(model => model.Item1.Folders.Description)
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.LastChange, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.LastChange)
+                @Html.ValidationMessageFor(model => model.Item1.LastChange)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.LastChangedByUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.LastChangedByUser)
+                @Html.ValidationMessageFor(model => model.Item1.LastChangedByUser)
             </div>
         </div>
 
