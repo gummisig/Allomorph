@@ -109,7 +109,7 @@ namespace Allomorph.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             SubFile subfile = db.SubFiles.Find(id);
             if (subfile == null)
@@ -144,14 +144,14 @@ namespace Allomorph.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
-            SubFile subfile = db.SubFiles.Find(id);
-            if (subfile == null)
+            Folder folder = db.Folders.Find(id);
+            if (folder == null)
             {
                 return HttpNotFound();
             }
-            return View(subfile);
+            return View(folder);
         }
 
         // POST: /Subtitle/Delete/5
@@ -159,8 +159,8 @@ namespace Allomorph.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SubFile subfile = db.SubFiles.Find(id);
-            db.SubFiles.Remove(subfile);
+            Folder folder = db.Folders.Find(id);
+            db.Folders.Remove(folder);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
