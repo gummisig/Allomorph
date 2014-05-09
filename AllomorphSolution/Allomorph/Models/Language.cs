@@ -16,6 +16,7 @@ namespace Allomorph.Models
 
         public int ID { get; set; }
         public string LanguageName { get; set; }
+        public int SubFileLineTranslationID { get; set; }
 
         public virtual ICollection<SubFileLineTranslation> SubFileLineTranslations { get; set; }
     }

@@ -10,8 +10,8 @@ namespace Allomorph.Models
     public class SubFileLineTranslation
     {
         public int ID { get; set; }
-        public int? SubFileLineID { get; set; }
-        public int? LanguageID { get; set; }
+        public int SubFileLineID { get; set; }
+        public int LanguageID { get; set; }
         public string LineText { get; set; }
 
         public virtual SubFileLine SubFileLines { get; set; }

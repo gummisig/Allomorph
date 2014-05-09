@@ -10,10 +10,10 @@ namespace Allomorph.Models
     public class CategoryExtension
     {
         public int ID { get; set; }
-        public int? CategoryID { get; set; }
-        public int? SubFileID { get; set; }
+        public int CategoryID { get; set; }
+        public int FolderID { get; set; }
 
         public virtual Category Categories { get; set; }
-        public virtual SubFile SubFiles { get; set; }
+        public virtual Folder Folders { get; set; }
     }
 }

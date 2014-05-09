@@ -4,8 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-@{ Html.RenderPartial("Search"); }
-
 <h2>Index</h2>
 
 <p>
@@ -15,6 +13,12 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Folders.FolderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Users.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubFileLineID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SubName)
@@ -32,6 +36,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Folders.FolderName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubFileLineID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SubName)

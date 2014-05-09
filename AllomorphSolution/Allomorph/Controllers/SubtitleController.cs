@@ -50,7 +50,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,FolderID,UserID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
+        public ActionResult Create([Bind(Include="ID,UserID,FolderID,SubFileLineID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,FolderID,UserID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
+        public ActionResult Edit([Bind(Include="ID,UserID,FolderID,SubFileLineID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
         {
             if (ModelState.IsValid)
             {
