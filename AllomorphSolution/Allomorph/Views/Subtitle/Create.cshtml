@@ -1,4 +1,4 @@
-﻿@model Tuple<Allomorph.Models.SubFile, Allomorph.Models.Category, Allomorph.Models.Language>
+﻿@model Tuple<Allomorph.Models.Folder, Allomorph.Models.Category, Allomorph.Models.Language,Allomorph.Models.SubFile>
 
 
 @{
@@ -20,10 +20,10 @@
 
         <div class="form-group">
 
-            @Html.LabelFor(model => model.Item1.Folders.FolderName, "Folder Name:", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.FolderName, "Folder Name:", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.Folders.FolderName)
-                @Html.ValidationMessageFor(model => model.Item1.Folders.FolderName)
+                @Html.EditorFor(model => model.Item1.FolderName)
+                @Html.ValidationMessageFor(model => model.Item1.FolderName)
             </div>
         </div>
 
@@ -33,8 +33,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Item3.LanguageName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.SubName)
-                @Html.ValidationMessageFor(model => model.Item1.SubName)
+                @Html.EditorFor(model => model.Item4.SubName)
+                @Html.ValidationMessageFor(model => model.Item4.SubName)
             </div>
 
         </div>
@@ -58,10 +58,10 @@
 
         <div class="form-group">
 
-            @Html.LabelFor(model => model.Item1.Folders.Description, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Item1.Folders.Description)
-                @Html.ValidationMessageFor(model => model.Item1.Folders.Description)
+                @Html.TextAreaFor(model => model.Item1.Description)
+                @Html.ValidationMessageFor(model => model.Item1.Description)
             </div>
         </div>
 
@@ -77,18 +77,18 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Item1.LastChange, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item4.LastChange, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.LastChange)
-                @Html.ValidationMessageFor(model => model.Item1.LastChange)
+                @Html.EditorFor(model => model.Item4.LastChange)
+                @Html.ValidationMessageFor(model => model.Item4.LastChange)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Item1.LastChangedByUser, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item4.LastChangedByUser, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.LastChangedByUser)
-                @Html.ValidationMessageFor(model => model.Item1.LastChangedByUser)
+                @Html.EditorFor(model => model.Item4.LastChangedByUser)
+                @Html.ValidationMessageFor(model => model.Item4.LastChangedByUser)
             </div>
         </div>
 
