@@ -12,14 +12,12 @@ namespace Allomorph.Models
     {
         public SubFile()
         {
-            this.SubFileLines = new HashSet<SubFileLine>();
             this.LastChange = DateTime.Now;
             this.SubFileCounter = 0;
         }
         public int ID { get; set; }
         public int UserID { get; set; }
         public int FolderID { get; set; }
-        public int SubFileLineID { get; set; }
         public int SubFileCounter { get; set; }
         public string SubName { get; set; }
         public DateTime LastChange { get; set; }
@@ -27,6 +25,5 @@ namespace Allomorph.Models
 
         public virtual User Users { get; set; }
         public virtual Folder Folders { get; set; }
-        public virtual ICollection<SubFileLine> SubFileLines { get; set; }
     }
 }
