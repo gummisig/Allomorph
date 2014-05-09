@@ -8,12 +8,39 @@ using System.Web;
 using System.Web.Mvc;
 using Allomorph.Models;
 using Allomorph.DAL;
+using PagedList;
 
 namespace Allomorph.Controllers
 {
     public class SubtitleController : Controller
     {
         private SubtitleContext db = new SubtitleContext();
+
+        public ViewResult Search(string currentFilter, string searchString, int? page)
+        {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var folders = from s in db.Folders
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            int pageSize = 25;
+            int pageNumber = (page ?? 1);
+
+            return View(folders.ToPagedList(pageNumber, pageSize));
+        }
 
         // GET: /Subtitle/
         public ActionResult Index()
