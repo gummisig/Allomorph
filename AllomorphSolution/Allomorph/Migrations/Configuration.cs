@@ -21,7 +21,7 @@ namespace Allomorph.Migrations
             var subtitles = new List<SubFile>
             {
                 new SubFile{ID=1,FolderID=1,SubName="Game of Thrones s01e01",LastChangedByUser="Bertel"},
-                new SubFile{ID=2,FolderID=1,SubName="Game of Thrones s01e02",LastChangedByUser="Atli"}
+                new SubFile{ID=2,FolderID=2,SubName="Game of Thrones s01e02",LastChangedByUser="Atli"}
             };
             subtitles.ForEach(s => context.SubFiles.Add(s));
 

@@ -11,61 +11,43 @@ using Allomorph.DAL;
 
 namespace Allomorph.Controllers
 {
-    public class SubtitleController : Controller
+    public class FolderController : Controller
     {
         private SubtitleContext db = new SubtitleContext();
 
-        // GET: /Subtitle/
+        // GET: /Folder/
         public ActionResult Index()
         {
-            var folders = db.Folders;
-            return View(folders.ToList());
+            return View(db.Folders.ToList());
         }
 
-        // GET: /Subtitle/Details/5
+        // GET: /Folder/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubFile subfile = db.SubFiles.Find(id);
-            if (subfile == null)
+            Folder folder = db.Folders.Find(id);
+            if (folder == null)
             {
                 return HttpNotFound();
             }
-            return View(subfile);
+            return View(folder);
         }
 
-        // GET: /Subtitle/Create
+        // GET: /Folder/Create
         public ActionResult Create()
         {
-            ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName");
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
             return View();
         }
 
-        // POST: /Subtitle/Create
+        // POST: /Folder/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include="ID,UserID,FolderID,SubFileLineID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.SubFiles.Add(subfile);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-        //    ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);
-        //    return View(subfile);
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Create([Bind(Include="ID,FolderName,Link,Poster,Description")] Folder folder)
         {
             if (ModelState.IsValid)
             {
@@ -77,63 +59,59 @@ namespace Allomorph.Controllers
             return View(folder);
         }
 
-        // GET: /Subtitle/Edit/5
+        // GET: /Folder/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubFile subfile = db.SubFiles.Find(id);
-            if (subfile == null)
+            Folder folder = db.Folders.Find(id);
+            if (folder == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);
-            return View(subfile);
+            return View(folder);
         }
 
-        // POST: /Subtitle/Edit/5
+        // POST: /Folder/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,UserID,FolderID,SubFileLineID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
+        public ActionResult Edit([Bind(Include="ID,FolderName,Link,Poster,Description")] Folder folder)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(subfile).State = EntityState.Modified;
+                db.Entry(folder).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);
-            return View(subfile);
+            return View(folder);
         }
 
-        // GET: /Subtitle/Delete/5
+        // GET: /Folder/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubFile subfile = db.SubFiles.Find(id);
-            if (subfile == null)
+            Folder folder = db.Folders.Find(id);
+            if (folder == null)
             {
                 return HttpNotFound();
             }
-            return View(subfile);
+            return View(folder);
         }
 
-        // POST: /Subtitle/Delete/5
+        // POST: /Folder/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SubFile subfile = db.SubFiles.Find(id);
-            db.SubFiles.Remove(subfile);
+            Folder folder = db.Folders.Find(id);
+            db.Folders.Remove(folder);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
