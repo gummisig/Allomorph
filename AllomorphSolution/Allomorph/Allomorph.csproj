@@ -166,7 +166,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DAL\SubtitleContext.cs" />
-    <Compile Include="DAL\SubtitleInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,6 +194,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Allomorph1.mdf" />
+    <Content Include="App_Data\Allomorph1_log.ldf">
+      <DependentUpon>Allomorph1.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -252,9 +255,7 @@
     <Content Include="Views\Home\Request.cshtml" />
     <Content Include="Views\Shared\RequestLoop.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
