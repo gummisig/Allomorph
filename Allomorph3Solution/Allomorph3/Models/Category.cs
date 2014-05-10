@@ -19,13 +19,11 @@ namespace Allomorph3.Models
         {
             this.Folders = new List<Folder>();
         }
+
         [Key]
         public int CategoryID { get; set; }
-        [Required]
-        public int FolderID { get; set; }
         public CategoryName CategoryName { get; set; }
 
-        [ForeignKey("FolderID")]
         public virtual ICollection<Folder> Folders { get; set; }
     }
 }

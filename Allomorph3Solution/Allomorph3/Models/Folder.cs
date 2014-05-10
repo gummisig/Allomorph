@@ -12,8 +12,8 @@ namespace Allomorph3.Models
     {
         public Folder()
         {
-            this.Languages = new List<Language>();
-            this.Subtitles = new List<Subtitle>();
+            //this.Languages = new List<Language>();
+            //this.Subtitles = new List<Subtitle>();
         }
         [Key]
         public int FolderID { get; set; }
@@ -31,8 +31,8 @@ namespace Allomorph3.Models
         [ForeignKey("CategoryID")]
         public virtual Category Categorys { get; set; }
         [ForeignKey("LanguageID")]
-        public virtual ICollection<Language> Languages { get; set; }
+        public virtual Language Languages { get; set; }
         [ForeignKey("SubtitleID")]
-        public virtual ICollection<Subtitle> Subtitles { get; set; }
+        public virtual Subtitle Subtitles { get; set; }
     }
 }

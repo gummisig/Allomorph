@@ -22,7 +22,7 @@ namespace Allomorph3.Models
         public int UserID { get; set; }
         public int? SubtitleLineID { get; set; }
         public int DownloadCounter { get; set; }
-        public int SubtitleName { get; set; }
+        public string SubtitleName { get; set; }
         public DateTime LastChanged { get; set; }
 
         [ForeignKey("UserID")]

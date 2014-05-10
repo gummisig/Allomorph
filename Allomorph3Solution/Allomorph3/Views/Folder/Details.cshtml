@@ -1,63 +1,15 @@
 ﻿@model Allomorph3.Models.Folder
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Upplýsingar";
 }
 
-<h2>Details</h2>
+<h2>Upplýsingar um skrá</h2>
 
 <div>
     <h4>Folder</h4>
 	<hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Categorys.CategoryID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categorys.CategoryID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Languages.LanguageName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Languages.LanguageName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Subtitles.SubtitleID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Subtitles.SubtitleID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CategoryID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LanguageID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LanguageID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SubtitleID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubtitleID)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.FolderName)
         </dt>
@@ -65,34 +17,9 @@
         <dd>
             @Html.DisplayFor(model => model.FolderName)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Link)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Link)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Poster)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Poster)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FolderID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Breyta", "Edit", new { id = Model.FolderID }) |
+    @Html.ActionLink("Til baka", "Index")
 </p>

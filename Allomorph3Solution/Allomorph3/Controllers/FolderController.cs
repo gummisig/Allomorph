@@ -54,7 +54,7 @@ namespace Allomorph3.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
             Folder folder = db.Folders.Find(id);
             if (folder == null)
@@ -67,10 +67,7 @@ namespace Allomorph3.Controllers
         // GET: /Folder/Create
         public ActionResult Create()
         {
-            ViewBag.FolderID = new SelectList(db.Categorys, "CategoryID", "CategoryID");
-            ViewBag.FolderID = new SelectList(db.Languages, "LanguageID", "LanguageName");
-            ViewBag.FolderID = new SelectList(db.Subtitles, "SubtitleID", "SubtitleID");
-            return View();
+            return View(new Folder());
         }
 
         // POST: /Folder/Create
@@ -78,7 +75,7 @@ namespace Allomorph3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="FolderID,CategoryID,LanguageID,SubtitleID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Create([Bind(Include = "FolderID,FolderName,Link,Poster,Description")] Folder folder)
         {
             if (ModelState.IsValid)
             {
@@ -86,10 +83,6 @@ namespace Allomorph3.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.FolderID = new SelectList(db.Categorys, "CategoryID", "CategoryID", folder.FolderID);
-            ViewBag.FolderID = new SelectList(db.Languages, "LanguageID", "LanguageName", folder.FolderID);
-            ViewBag.FolderID = new SelectList(db.Subtitles, "SubtitleID", "SubtitleID", folder.FolderID);
             return View(folder);
         }
 
@@ -105,9 +98,6 @@ namespace Allomorph3.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.FolderID = new SelectList(db.Categorys, "CategoryID", "CategoryID", folder.FolderID);
-            ViewBag.FolderID = new SelectList(db.Languages, "LanguageID", "LanguageName", folder.FolderID);
-            ViewBag.FolderID = new SelectList(db.Subtitles, "SubtitleID", "SubtitleID", folder.FolderID);
             return View(folder);
         }
 
@@ -116,7 +106,7 @@ namespace Allomorph3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="FolderID,CategoryID,LanguageID,SubtitleID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Edit([Bind(Include = "FolderID,FolderName,Link,Poster,Description")] Folder folder)
         {
             if (ModelState.IsValid)
             {
@@ -124,9 +114,6 @@ namespace Allomorph3.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FolderID = new SelectList(db.Categorys, "CategoryID", "CategoryID", folder.FolderID);
-            ViewBag.FolderID = new SelectList(db.Languages, "LanguageID", "LanguageName", folder.FolderID);
-            ViewBag.FolderID = new SelectList(db.Subtitles, "SubtitleID", "SubtitleID", folder.FolderID);
             return View(folder);
         }
 
