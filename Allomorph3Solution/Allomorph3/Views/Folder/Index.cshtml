@@ -20,7 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink(item.FolderName, "Details", new { id = item.ID })
+            @Html.ActionLink(item.FolderName, "Details", new { id = item.FolderID })
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.FolderID }) |
