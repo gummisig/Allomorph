@@ -8,33 +8,21 @@ namespace Allomorph.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.CategoryExtension",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        CategoryID = c.Int(nullable: false),
-                        FolderID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
                 "dbo.Category",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         CategoryName = c.String(),
-                        CategoryExtension_ID = c.Int(),
+                        FolderID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.CategoryExtension", t => t.CategoryExtension_ID)
-                .Index(t => t.CategoryExtension_ID);
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.Folder",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        CategoryExtensionID = c.Int(nullable: false),
+                        CategoryID = c.Int(nullable: false),
                         FolderName = c.String(),
                         Link = c.String(),
                         Poster = c.String(),
@@ -136,17 +124,17 @@ namespace Allomorph.Migrations
                 .Index(t => t.FolderID);
             
             CreateTable(
-                "dbo.FolderCategoryExtension",
+                "dbo.FolderCategory",
                 c => new
                     {
                         Folder_ID = c.Int(nullable: false),
-                        CategoryExtension_ID = c.Int(nullable: false),
+                        Category_ID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Folder_ID, t.CategoryExtension_ID })
+                .PrimaryKey(t => new { t.Folder_ID, t.Category_ID })
                 .ForeignKey("dbo.Folder", t => t.Folder_ID, cascadeDelete: true)
-                .ForeignKey("dbo.CategoryExtension", t => t.CategoryExtension_ID, cascadeDelete: true)
+                .ForeignKey("dbo.Category", t => t.Category_ID, cascadeDelete: true)
                 .Index(t => t.Folder_ID)
-                .Index(t => t.CategoryExtension_ID);
+                .Index(t => t.Category_ID);
             
         }
         
@@ -159,11 +147,10 @@ namespace Allomorph.Migrations
             DropForeignKey("dbo.SubFileLineTranslation", "LanguageID", "dbo.Language");
             DropForeignKey("dbo.Request", "UserID", "dbo.User");
             DropForeignKey("dbo.Comment", "UserID", "dbo.User");
-            DropForeignKey("dbo.FolderCategoryExtension", "CategoryExtension_ID", "dbo.CategoryExtension");
-            DropForeignKey("dbo.FolderCategoryExtension", "Folder_ID", "dbo.Folder");
-            DropForeignKey("dbo.Category", "CategoryExtension_ID", "dbo.CategoryExtension");
-            DropIndex("dbo.FolderCategoryExtension", new[] { "CategoryExtension_ID" });
-            DropIndex("dbo.FolderCategoryExtension", new[] { "Folder_ID" });
+            DropForeignKey("dbo.FolderCategory", "Category_ID", "dbo.Category");
+            DropForeignKey("dbo.FolderCategory", "Folder_ID", "dbo.Folder");
+            DropIndex("dbo.FolderCategory", new[] { "Category_ID" });
+            DropIndex("dbo.FolderCategory", new[] { "Folder_ID" });
             DropIndex("dbo.SubFile", new[] { "FolderID" });
             DropIndex("dbo.SubFile", new[] { "UserID" });
             DropIndex("dbo.SubFileLineTranslation", new[] { "LanguageID" });
@@ -171,8 +158,7 @@ namespace Allomorph.Migrations
             DropIndex("dbo.SubFileLine", new[] { "SubFileID" });
             DropIndex("dbo.Request", new[] { "UserID" });
             DropIndex("dbo.Comment", new[] { "UserID" });
-            DropIndex("dbo.Category", new[] { "CategoryExtension_ID" });
-            DropTable("dbo.FolderCategoryExtension");
+            DropTable("dbo.FolderCategory");
             DropTable("dbo.SubFile");
             DropTable("dbo.SubFileLineTranslation");
             DropTable("dbo.SubFileLine");
@@ -182,7 +168,6 @@ namespace Allomorph.Migrations
             DropTable("dbo.Comment");
             DropTable("dbo.Folder");
             DropTable("dbo.Category");
-            DropTable("dbo.CategoryExtension");
         }
     }
 }

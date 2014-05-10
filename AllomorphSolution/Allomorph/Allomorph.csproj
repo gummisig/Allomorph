@@ -176,9 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201405102016443_Initial.cs" />
-    <Compile Include="Migrations\201405102016443_Initial.Designer.cs">
-      <DependentUpon>201405102016443_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201405102307266_Initial.cs" />
+    <Compile Include="Migrations\201405102307266_Initial.Designer.cs">
+      <DependentUpon>201405102307266_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -254,10 +254,14 @@
     <Content Include="Views\Shared\Search.cshtml" />
     <Content Include="Views\Home\Request.cshtml" />
     <Content Include="Views\Shared\RequestLoop.cshtml" />
+    <Content Include="Views\Folder\Create.cshtml" />
+    <Content Include="Views\Folder\Delete.cshtml" />
+    <Content Include="Views\Folder\Details.cshtml" />
+    <Content Include="Views\Folder\Edit.cshtml" />
+    <Content Include="Views\Folder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Folder\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -267,8 +271,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405102016443_Initial.resx">
-      <DependentUpon>201405102016443_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405102307266_Initial.resx">
+      <DependentUpon>201405102307266_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
