@@ -46,7 +46,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FolderName)
+            @Html.ActionLink(item.FolderName, "Details", new { id = item.ID })
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.Users.UserName)

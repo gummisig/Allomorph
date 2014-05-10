@@ -1,4 +1,4 @@
-﻿@model Allomorph.Models.SubFile
+﻿@model Allomorph.Models.Folder
 
 @{
     ViewBag.Title = "Details";
@@ -7,31 +7,22 @@
 <h2>Details</h2>
 
 <div>
-    <h4>SubFile</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Folders.FolderName)
+            @Html.DisplayNameFor(model => model.FolderName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Folders.FolderName)
+            @Html.DisplayFor(model => model.FolderName)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Users.UserName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Users.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SubFileLineID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubFileLineID)
         </dd>
 
         <dt>
@@ -56,7 +47,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.LastChangedByUser)
-        </dd>
+        </dd>*@
 
     </dl>
 </div>

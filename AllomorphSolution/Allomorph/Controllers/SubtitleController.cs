@@ -54,22 +54,22 @@ namespace Allomorph.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error");
             }
-            SubFile subfile = db.SubFiles.Find(id);
-            if (subfile == null)
+            Folder folders = db.Folders.Find(id);
+            if (folders == null)
             {
                 return HttpNotFound();
             }
-            return View(subfile);
+            return View(folders);
         }
 
         // GET: /Subtitle/Create
         public ActionResult Create()
         {
-            ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName");
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
-            return View();
+            //ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName");
+            //ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
+            return View(new Folder());
         }
 
         // POST: /Subtitle/Create
