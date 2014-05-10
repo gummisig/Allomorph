@@ -10,7 +10,7 @@ namespace Allomorph.Models
     public class Request
     {
         public int ID { get; set; }
-        public string UserID { get; set; }
+        public int? UserID { get; set; }
         public string RequestText { get; set; }
         public int Counter { get; set; }
         public DateTime DateCreated { get; set; }

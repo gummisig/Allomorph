@@ -176,13 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201405081116354_update-database.cs" />
-    <Compile Include="Migrations\201405081116354_update-database.Designer.cs">
-      <DependentUpon>201405081116354_update-database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405081410485_migration1.cs" />
-    <Compile Include="Migrations\201405081410485_migration1.Designer.cs">
-      <DependentUpon>201405081410485_migration1.cs</DependentUpon>
+    <Compile Include="Migrations\201405102016443_Initial.cs" />
+    <Compile Include="Migrations\201405102016443_Initial.Designer.cs">
+      <DependentUpon>201405102016443_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -271,11 +267,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405081116354_update-database.resx">
-      <DependentUpon>201405081116354_update-database.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405081410485_migration1.resx">
-      <DependentUpon>201405081410485_migration1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405102016443_Initial.resx">
+      <DependentUpon>201405102016443_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
