@@ -1,45 +1,18 @@
 ﻿@model IEnumerable<Allomorph3.Models.Folder>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Textar";
 }
 
-<h2>Index</h2>
+<h2>Textar</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Senda inn", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Categorys.CategoryID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Languages.LanguageName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subtitles.SubtitleID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LanguageID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SubtitleID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FolderName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Link)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Poster)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th></th>
     </tr>
@@ -47,34 +20,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Categorys.CategoryID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Languages.LanguageName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subtitles.SubtitleID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LanguageID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubtitleID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FolderName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Link)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Poster)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.ActionLink(item.FolderName, "Details", new { id = item.ID })
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.FolderID }) |

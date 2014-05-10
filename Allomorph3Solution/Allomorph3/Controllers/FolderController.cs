@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Allomorph3.Models;
 using Allomorph3.DAL;
+using PagedList;
 
 namespace Allomorph3.Controllers
 {
@@ -15,10 +16,36 @@ namespace Allomorph3.Controllers
     {
         private SubtitleContext db = new SubtitleContext();
 
+        public ViewResult Search(string currentFilter, string searchString, int? page)
+        {
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var folders = from s in db.Folders
+                          select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            int pageSize = 25;
+            int pageNumber = (page ?? 1);
+
+            return View(folders.ToPagedList(pageNumber, pageSize));
+        }
+
         // GET: /Folder/
         public ActionResult Index()
         {
-            var folders = db.Folders.Include(f => f.Categorys).Include(f => f.Languages).Include(f => f.Subtitles);
+            var folders = db.Folders;
             return View(folders.ToList());
         }
 
