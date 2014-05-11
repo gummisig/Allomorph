@@ -1,4 +1,4 @@
-﻿@model Allomorph.Models.Folder
+﻿@model IEnumerable<Allomorph.Models.Folder>
 
 <div id="masterhaus">
     <div id="banner">
@@ -6,8 +6,16 @@
     </div>
     <div class="input-group" id="leitForm">
         <div id="leit">
-            <input type="text" class="form-control" placeholder="Leit...">
-            <button id="btnLeit" class="btn btn-default" type="button">Leita!</button>
+            @using (Html.BeginForm("Index", "Folder", FormMethod.Get))
+            {
+                <p>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita...", style = "width:200px;height:32px" })
+                    @*<input type="submit" value="Leit..." />*@
+                    <button id="btnLeit" class="btn btn-default" type="submit">Leita!</button>
+                </p>
+            }
+            @*<input type="text" class="form-control" placeholder="Leit...">
+            <button id="btnLeit" class="btn btn-default" type="button">Leita!</button>*@
         </div>
         <div class="flokkar">
             <span id="movie">

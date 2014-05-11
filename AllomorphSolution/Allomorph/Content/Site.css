@@ -10,10 +10,7 @@
 }
 
 #masterhaus {
-    margin: 0 auto;
-    float: none;
     padding-left: 20%;
-    width: 100%;
 }
 
 #banner {
@@ -62,7 +59,7 @@
 }
 
 #leit, btn {
-    padding-left: 0.5em;
+    padding-left: 8%;
 }
 
 .flokkar {

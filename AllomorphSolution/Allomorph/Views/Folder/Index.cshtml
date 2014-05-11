@@ -4,11 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@{ Html.RenderPartial("Search"); }
+
+<h2>Textar</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Senda inn", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>

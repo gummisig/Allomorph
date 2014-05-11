@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Allomorph.Models;
 using Allomorph.DAL;
+using PagedList;
 
 namespace Allomorph.Controllers
 {
@@ -15,11 +16,25 @@ namespace Allomorph.Controllers
     {
         private SubtitleContext db = new SubtitleContext();
 
-        // GET: /Folder/
-        public ActionResult Index()
+        public ViewResult Index(string currentFilter, string searchString)
         {
-            return View(db.Folders.ToList());
+            ViewBag.CurrentFilter = searchString;
+
+            var folders = from s in db.Folders
+                          select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            return View(folders.ToList());
         }
+
+        // GET: /Folder/
+        //public ActionResult Index()
+        //{
+        //    return View(db.Folders.ToList());
+        //}
 
         // GET: /Folder/Details/5
         public ActionResult Details(int? id)
