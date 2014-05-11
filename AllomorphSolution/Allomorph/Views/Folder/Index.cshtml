@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Allomorph.Models.Folder>
+﻿@*@model IEnumerable<Allomorph.Models.Folder>*@
+@model PagedList.IPagedList<Allomorph.Models.Folder>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -14,13 +17,13 @@
 
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.CategoryID)
-        </th>
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.FolderName)
+            @Html.ActionLink("Textar", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Link)
         </th>
         <th>
@@ -28,7 +31,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -58,3 +61,8 @@
 }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

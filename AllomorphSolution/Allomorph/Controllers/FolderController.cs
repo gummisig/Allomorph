@@ -16,18 +16,42 @@ namespace Allomorph.Controllers
     {
         private SubtitleContext db = new SubtitleContext();
 
-        public ViewResult Index(string currentFilter, string searchString)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewBag.CurrentFilter = searchString;
 
             var folders = from s in db.Folders
                           select s;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
             }
-
-            return View(folders.ToList());
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    folders = folders.OrderByDescending(s => s.FolderName);
+                    break;
+                default:  // Name ascending 
+                    folders = folders.OrderBy(s => s.FolderName);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(folders.ToPagedList(pageNumber, pageSize));
+            //return View(folders.ToList());
         }
 
         // GET: /Folder/
