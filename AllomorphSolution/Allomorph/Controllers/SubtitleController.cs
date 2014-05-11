@@ -75,21 +75,6 @@ namespace Allomorph.Controllers
         // POST: /Subtitle/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include="ID,UserID,FolderID,SubFileLineID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.SubFiles.Add(subfile);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-        //    ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);
-        //    return View(subfile);
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,FolderName,Link,Poster,Description")] Folder folder)

@@ -11,7 +11,7 @@ namespace Allomorph.Models
     {
         public SubFileLine()
         {
-            this.SubFileLineTranslations = new HashSet<SubFileLineTranslation>();
+            this.SubFileLineTranslations = new List<SubFileLineTranslation>();
         }
         public int ID { get; set; }
         public int SubFileID { get; set; }

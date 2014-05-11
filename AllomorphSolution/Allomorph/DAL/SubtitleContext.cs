@@ -14,7 +14,6 @@ namespace Allomorph.DAL
         }
         
         public DbSet<Category> Categorys { get; set; }
-        //public DbSet<CategoryExtension> CategoryExtensions { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Folder> Folders { get; set; }
         public DbSet<Language> Languages { get; set; }

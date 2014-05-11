@@ -13,7 +13,7 @@ namespace Allomorph.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201405102307266_Initial"; }
+            get { return "201405110051335_Initial"; }
         }
         
         string IMigrationMetadata.Source

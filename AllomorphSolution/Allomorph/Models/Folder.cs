@@ -16,14 +16,12 @@ namespace Allomorph.Models
         }
 
         public int ID { get; set; }
-       // public int CategoryExtensionID { get; set; }
         public int CategoryID { get; set; }
         public string FolderName { get; set; }
         public string Link { get; set; }
         public string Poster { get; set; }
         public string Description { get; set; }
 
-        //public virtual ICollection<CategoryExtension> CategoryExtensions { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
     }
 }

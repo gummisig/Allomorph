@@ -13,17 +13,20 @@ namespace Allomorph.Models
         public SubFile()
         {
             this.LastChange = DateTime.Now;
-            this.SubFileCounter = 0;
+            this.SubDownloadCounter = 0;
+            this.Languages = new List<Language>();
         }
         public int ID { get; set; }
         public int UserID { get; set; }
         public int FolderID { get; set; }
-        public int SubFileCounter { get; set; }
+        public int LanguageID { get; set; }
+        public int SubDownloadCounter { get; set; }
         public string SubName { get; set; }
         public DateTime LastChange { get; set; }
         public string LastChangedByUser { get; set; }
 
         public virtual User Users { get; set; }
         public virtual Folder Folders { get; set; }
+        public virtual ICollection<Language> Languages { get; set; }
     }
 }

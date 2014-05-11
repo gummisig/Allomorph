@@ -12,7 +12,7 @@ namespace Allomorph.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        CategoryName = c.String(),
+                        CategoryName = c.Int(nullable: false),
                         FolderID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
@@ -59,21 +59,24 @@ namespace Allomorph.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         LanguageName = c.String(),
+                        SubFile_ID = c.Int(),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.SubFile", t => t.SubFile_ID)
+                .Index(t => t.SubFile_ID);
             
             CreateTable(
                 "dbo.Request",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        UserID = c.Int(),
+                        UserID = c.Int(nullable: false),
                         RequestText = c.String(),
-                        Counter = c.Int(nullable: false),
+                        ReqUpvoteCounter = c.Int(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.User", t => t.UserID)
+                .ForeignKey("dbo.User", t => t.UserID, cascadeDelete: true)
                 .Index(t => t.UserID);
             
             CreateTable(
@@ -112,7 +115,8 @@ namespace Allomorph.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         UserID = c.Int(nullable: false),
                         FolderID = c.Int(nullable: false),
-                        SubFileCounter = c.Int(nullable: false),
+                        LanguageID = c.Int(nullable: false),
+                        SubDownloadCounter = c.Int(nullable: false),
                         SubName = c.String(),
                         LastChange = c.DateTime(nullable: false),
                         LastChangedByUser = c.String(),
@@ -142,6 +146,7 @@ namespace Allomorph.Migrations
         {
             DropForeignKey("dbo.SubFileLine", "SubFileID", "dbo.SubFile");
             DropForeignKey("dbo.SubFile", "UserID", "dbo.User");
+            DropForeignKey("dbo.Language", "SubFile_ID", "dbo.SubFile");
             DropForeignKey("dbo.SubFile", "FolderID", "dbo.Folder");
             DropForeignKey("dbo.SubFileLineTranslation", "SubFileLineID", "dbo.SubFileLine");
             DropForeignKey("dbo.SubFileLineTranslation", "LanguageID", "dbo.Language");
@@ -157,6 +162,7 @@ namespace Allomorph.Migrations
             DropIndex("dbo.SubFileLineTranslation", new[] { "SubFileLineID" });
             DropIndex("dbo.SubFileLine", new[] { "SubFileID" });
             DropIndex("dbo.Request", new[] { "UserID" });
+            DropIndex("dbo.Language", new[] { "SubFile_ID" });
             DropIndex("dbo.Comment", new[] { "UserID" });
             DropTable("dbo.FolderCategory");
             DropTable("dbo.SubFile");
