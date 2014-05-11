@@ -7,50 +7,61 @@
 <h2>Details</h2>
 
 <div>
-	<hr />
+	@*<hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.FolderName)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FolderName)
-        </dd>
+        <dd>*@
+           <h2>@Html.DisplayFor(model => model.FolderName)</h2>
+    
+       @* </dd>
+    <dt>
+       @Html.DisplayNameFor(model => model.Description)
+    </dt>
 
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Users.UserName)
-        </dt>
+    <dd>*@
+            @Html.DisplayFor(model => model.Description)
+    <div class="span2">
+        <p><button href="#" class="btn btn-success btn-danger">Ritstýra</button></p>
+    </div>
+        @*</dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Users.UserName)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Users.UserName)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Users.UserName)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SubName)
-        </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.SubName)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SubName)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.SubName)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastChange)
-        </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.LastChange)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastChange)
-        </dd>
+    <dd>
+        @Html.DisplayFor(model => model.LastChange)
+    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastChangedByUser)
-        </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.LastChangedByUser)
+    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastChangedByUser)
-        </dd>*@
+    <dd>
+        @Html.DisplayFor(model => model.LastChangedByUser)
+    </dd>*@
 
-    </dl>
+    <!--</dl>-->
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
