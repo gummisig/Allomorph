@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Allomorph.Models;
 using Allomorph.DAL;
 using PagedList;
+using System.IO;
 
 namespace Allomorph.Controllers
 {
@@ -86,12 +87,73 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+
                 db.Folders.Add(folder);
                 db.SaveChanges();
+
+                try
+                {
+                    // read from file or write to file
+                    StreamReader streamReader = new StreamReader(file.InputStream);
+                    int i = 1;
+                    // Needs more stuff to add like for example language, user ID
+                    SubFile subfile = new SubFile { FolderID = folder.ID, LastChange = DateTime.Now, SubName = file.FileName};
+                    db.SubFiles.Add(subfile);
+                    db.SaveChanges();
+                    while (streamReader.Peek() != -1)
+                    {
+                        SubFileLine tempLine = new SubFileLine();
+                        SubFileLineTranslation tempTranslation = new SubFileLineTranslation();
+                        
+
+                        string lineNumber = streamReader.ReadLine();
+                        string timeLine = streamReader.ReadLine();
+
+                        string firstTime = timeLine.Substring(0, 12);
+                        string secondTime = timeLine.Substring(17);
+
+                        string text = streamReader.ReadLine();
+                        string nextline = streamReader.ReadLine();
+
+                        if (nextline != "")
+                        {
+                            text += "\n" + nextline;
+                            streamReader.ReadLine();
+                        }
+
+                        tempLine.LineNumber = Convert.ToInt32(lineNumber);
+                        tempLine.StartTime = firstTime;
+                        tempLine.EndTime = secondTime;
+
+                        db.SubFileLines.Add(tempLine);
+                        db.SaveChanges();
+
+                        tempTranslation.SubFileLineID = tempLine.ID;
+                        tempTranslation.LineText = text;
+                        i++;
+
+                        db.SubFileLineTranslations.Add(tempTranslation);
+                        db.SaveChanges();
+                    }
+
+
+
+                    /*List<Text> texts = context.Texts.ToList();
+                    if (texts.Count == 0)
+                    {
+                        return Redirect("http://localhost:40272/Home/");
+                    }
+                    return View(texts);
+                    */
+                }
+                catch (Exception e)
+                {
+                    ViewBag.Message = "ERROR:" + e.Message.ToString();
+                } 
                 return RedirectToAction("Index");
             }
 
