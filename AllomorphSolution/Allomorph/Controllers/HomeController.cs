@@ -35,7 +35,8 @@ namespace Allomorph.Controllers
         public ActionResult Request()
         {
             ViewBag.Message = "Requests";
-            return View();
+            var request = db.Requests;
+            return View(request.ToList());
         }
 
         // POST: /Home/Request
@@ -52,5 +53,7 @@ namespace Allomorph.Controllers
 
             return View(request);
         }
+        
+        
     }
 }
