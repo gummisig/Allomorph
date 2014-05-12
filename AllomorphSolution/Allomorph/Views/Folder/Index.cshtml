@@ -40,15 +40,7 @@
         <td>
             @Html.ActionLink(item.FolderName, "Details", new { id = item.ID })
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Link)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Poster)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |

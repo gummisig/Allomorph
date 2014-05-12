@@ -11,7 +11,5 @@ namespace Allomorph.Models
     {
         public int ID { get; set; }
         public string CategoryName { get; set; }
-
-        public virtual ICollection<Folder> Folders { get; set; }
     }
 }

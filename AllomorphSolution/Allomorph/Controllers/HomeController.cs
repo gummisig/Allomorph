@@ -34,8 +34,9 @@ namespace Allomorph.Controllers
 
         public ActionResult Request()
         {
-            ViewBag.Message = "Requests";
-            return View();
+            var req = from r in db.Requests
+                          select r;
+            return View(req.ToList());
         }
 
         // POST: /Home/Request
