@@ -11,12 +11,10 @@ namespace Allomorph.Models
     {
         public Folder()
         {
-            //this.CategoryExtensions = new List<CategoryExtension>();
             this.Categories = new List<Category>();
         }
 
         public int ID { get; set; }
-        public int CategoryID { get; set; }
         public string FolderName { get; set; }
         public string Link { get; set; }
         public string Poster { get; set; }
