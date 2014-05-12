@@ -34,9 +34,7 @@ namespace Allomorph.Controllers
 
         public ActionResult Request()
         {
-            var req = from r in db.Requests
-                          select r;
-            return View(req.ToList());
+            return View();
         }
 
         // POST: /Home/Request

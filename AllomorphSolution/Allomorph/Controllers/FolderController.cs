@@ -179,7 +179,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Edit([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder)
         {
             if (ModelState.IsValid)
             {
