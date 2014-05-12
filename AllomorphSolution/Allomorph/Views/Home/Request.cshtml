@@ -17,7 +17,7 @@
             @Html.DisplayNameFor(model => model.Requests.DateCreated)
         </th>
     </tr>
-    @foreach(var req in Model.RequestList) {
+    @*@foreach(var req in Model.RequestList) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => req.RequestText)
@@ -26,7 +26,7 @@
                 @Html.DisplayFor(modelItem => req.DateCreated)
             </td>
         </tr>
-    }
+    }*@
     @*@{ Html.RenderPartial("RequestLoop"); }*@
 
 </table>

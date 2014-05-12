@@ -9,7 +9,5 @@ namespace Allomorph.Models
     {
         public Request Requests { get; set; }
         public IEnumerable<Request> RequestList { get; set; }
-
-        //rofl
     }
 }
