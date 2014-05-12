@@ -6,11 +6,6 @@ using System.Web;
 
 namespace Allomorph.Models
 {
-    public enum CategoryName
-    {
-        Movie, Episode, Cartoon, Islenskt
-    }
-
     [Table("Category")]
     public class Category
     {
@@ -20,8 +15,8 @@ namespace Allomorph.Models
         }
 
         public int ID { get; set; }
-        public CategoryName CategoryName { get; set; }
-        public int FolderID { get; set; }
+        public string CategoryName { get; set; }
+        public int? FolderID { get; set; }
 
         public virtual ICollection<Folder> Folders { get; set; }
     }
