@@ -87,7 +87,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "ID,FolderName,Link,Poster,Description")] Folder folder, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -180,7 +180,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Edit([Bind(Include="ID,FolderName,Link,Poster,Description")] Folder folder)
         {
             if (ModelState.IsValid)
             {
