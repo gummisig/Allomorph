@@ -16,11 +16,9 @@ namespace Allomorph.Models
         }
 
         public int ID { get; set; }
-        public int? UserID { get; set; }
+        public int? ApplicationUserID { get; set; }
         public string RequestText { get; set; }
         public int ReqUpvoteCounter { get; set; }
         public DateTime DateCreated { get; set; }
-
-        public virtual User Users { get; set; }
     }
 }

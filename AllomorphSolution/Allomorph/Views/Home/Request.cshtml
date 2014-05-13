@@ -1,4 +1,4 @@
-﻿@model Allomorph.Models.RequestViewModel
+﻿@model Allomorph.Models.Request
 
 @{
     ViewBag.Title = "Beiðnir";
@@ -11,10 +11,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Requests.RequestText)
+            @Html.DisplayNameFor(model => model.RequestText)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Requests.DateCreated)
+            @Html.DisplayNameFor(model => model.DateCreated)
         </th>
     </tr>
     @*@foreach(var req in Model.RequestList) {
@@ -40,10 +40,10 @@
         @Html.ValidationSummary(true)
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Requests.RequestText, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RequestText, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Requests.RequestText)
-                @Html.ValidationMessageFor(model => model.Requests.RequestText)
+                @Html.TextAreaFor(model => model.RequestText)
+                @Html.ValidationMessageFor(model => model.RequestText)
             </div>
         </div>
 

@@ -34,15 +34,17 @@ namespace Allomorph.Controllers
 
         public ActionResult Request()
         {
-            ViewBag.Message = "Requests";
-            return View();
+            return View(new Request());
         }
 
         // POST: /Home/Request
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Request([Bind(Include = "RequestText")] Request request)
+        public ActionResult Request([Bind(Include = "ID,ApplicationUserID,RequestText,")] Request request)
         {
+            var user = from u in db.Users
+                       where u.ID == request.ApplicationUserID
+                       select u;
             if (ModelState.IsValid)
             {
                 db.Requests.Add(request);
