@@ -40,7 +40,7 @@ namespace Allomorph.Controllers
         // POST: /Home/Request
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Request([Bind(Include = "ID,ApplicationUserID,RequestName,RequestText,")] Request request)
+        public ActionResult Request([Bind(Include = "ID,ApplicationUserId,RequestText,")] Request request)
         {
             //var user = from u in db.Users
             //           where u.ID == request.ApplicationUserID

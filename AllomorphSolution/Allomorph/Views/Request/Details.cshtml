@@ -1,0 +1,58 @@
+﻿@model Allomorph.Models.Request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Request</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReqUpvoteCounter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReqUpvoteCounter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

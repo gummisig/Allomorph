@@ -287,7 +287,7 @@ namespace Allomorph.Controllers
                 {
                     strUser = strUser.Substring(slashPos + 1);
                 }
-                comm.ApplicationUserID = user.ID;
+                comm.UserID = user.ID;
 
                 db.Comments.Add(comm);
             }
