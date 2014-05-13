@@ -53,7 +53,7 @@ namespace Allomorph.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", "Slóstu nokkuð óvart inn vitlaust notendanafn eða lykilorð?");
                 }
             }
 
@@ -119,10 +119,10 @@ namespace Allomorph.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.ChangePasswordSuccess ? "Lykilorði þínu hefur nú verið breytt."
+                : message == ManageMessageId.SetPasswordSuccess ? "Lykilorðið þitt er stillt."
+                : message == ManageMessageId.RemoveLoginSuccess ? "Innskráning að utan hefur verið fjarlægð."
+                : message == ManageMessageId.Error ? "Villa kom upp."
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
