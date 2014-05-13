@@ -27,6 +27,7 @@ namespace Allomorph.Controllers
             
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
 
             if (searchString != null)
             {
@@ -74,6 +75,9 @@ namespace Allomorph.Controllers
             {
                 case "name_desc":
                     folders = folders.OrderByDescending(s => s.FolderName);
+                    break;
+                case "date_desc":
+                    folders = folders.OrderByDescending(s => s.DateCreated);
                     break;
                 default:  // Name ascending 
                     folders = folders.OrderBy(s => s.FolderName);
