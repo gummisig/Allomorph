@@ -171,12 +171,6 @@ namespace Allomorph.Controllers
             //return View(folders.ToList());
         }
 
-        // GET: /Folder/
-        //public ActionResult Index()
-        //{
-        //    return View(db.Folders.ToList());
-        //}
-
         // GET: /Folder/Details/5
         public ActionResult Details(int? id)
         {
