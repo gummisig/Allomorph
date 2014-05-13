@@ -1,4 +1,4 @@
-﻿@*@model Allomorph.Models.SearchViewModel*@
+﻿@model Allomorph.Models.Folder
 <div id="masterhaus">
     <div id="banner">
         <img src='@Url.Content( "~/Content/logo.png")' />
@@ -15,30 +15,15 @@
         </div>
         <div id="flokkar" class="form-group">
             <div class="col-md-10">
-                @*@Html.DropDownListFor(ViewBag.CategoryFilter,
+                @Html.DropDownListFor(model => model.ID,
                                new List<SelectListItem> {
+                                   new SelectListItem { Value = "0", Text = "Flokkur:"},
                                    new SelectListItem { Value = "1", Text = "Kvikmynd" },
                                    new SelectListItem { Value = "2", Text = "Þáttur" },
                                    new SelectListItem { Value = "3", Text = "Teiknimynd" },
                                    new SelectListItem { Value = "4", Text = "Íslenskt efni" }
                                },
-                               new { @class = "myselect" })*@
-                    <span id="checkflokka">
-                        @*@Html.CheckBoxFor(m => m.checkbox1) <a href="#"> Kvikmyndir</a>*@
-                        <input type="checkbox" name="checkbox1" value="true" /><a href="#"> Kvikmyndir</a>
-                    </span>
-                    <span id="checkflokka">
-                        @*@Html.CheckBoxFor(m => m.checkbox2) <a href="#"> Þættir</a>*@
-                        <input type="checkbox" name="checkbox2" value="true" /><a href="#"> Þættir</a>
-                    </span>
-                    <span id="checkflokka">
-                        @*@Html.CheckBoxFor(m => m.checkbox3) <a href="#"> Teiknimyndir</a>*@
-                        <input type="checkbox" name="checkbox3" value="true" /><a href="#"> Teiknimyndir</a>
-                    </span>
-                    <span id="checkflokka">
-                        @*@Html.CheckBoxFor(m => m.checkbox4) <a href="#"> Íslenskt efni</a>*@
-                        <input type="checkbox" name="checkbox4" value="true" /><a href="#"> Íslenskt efni</a>
-                    </span>
+                               new { @class = "myselect" })
             </div>
         </div>
     </div>

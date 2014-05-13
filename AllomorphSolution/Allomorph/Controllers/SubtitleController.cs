@@ -102,7 +102,7 @@ namespace Allomorph.Controllers
                 return HttpNotFound();
             }
             ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);
+            /*ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);*/
             return View(subfile);
         }
 
@@ -120,7 +120,7 @@ namespace Allomorph.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);
+            /*ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);*/
             return View(subfile);
         }
 

@@ -169,12 +169,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SubtitleController.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DAL\SubtitleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405131518315_Initial.cs" />
+    <Compile Include="Migrations\201405131518315_Initial.Designer.cs">
+      <DependentUpon>201405131518315_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -206,7 +207,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\CommentScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -245,11 +245,6 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Subtitle\Create.cshtml" />
-    <Content Include="Views\Subtitle\Delete.cshtml" />
-    <Content Include="Views\Subtitle\Details.cshtml" />
-    <Content Include="Views\Subtitle\Edit.cshtml" />
-    <Content Include="Views\Subtitle\Index.cshtml" />
     <Content Include="Views\Shared\Search.cshtml" />
     <Content Include="Views\Home\Request.cshtml" />
     <Content Include="Views\Shared\RequestLoop.cshtml" />
@@ -258,7 +253,6 @@
     <Content Include="Views\Folder\Details.cshtml" />
     <Content Include="Views\Folder\Edit.cshtml" />
     <Content Include="Views\Folder\Index.cshtml" />
-    <Content Include="Views\Shared\Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -269,6 +263,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201405131518315_Initial.resx">
+      <DependentUpon>201405131518315_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
