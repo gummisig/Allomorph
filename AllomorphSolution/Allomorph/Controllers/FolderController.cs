@@ -17,21 +17,83 @@ namespace Allomorph.Controllers
     {
         private SubtitleContext db = new SubtitleContext();
 
-        public ViewResult SearchView()
+        //public ViewResult SearchView()
+        //{
+        //    return View(new SearchViewModel());
+        //}
+
+        //[HttpPost]
+        //public ViewResult SearchView(SearchViewModel model)
+        //{
+
+        //    string sortOrder = model.sortOrder;
+        //    string currentFilter = model.currentFilter;
+        //    string searchString = model.searchString;
+        //    int? page = model.page;
+        //    int? category = model.category;
+
+        //    ViewBag.CurrentSort = sortOrder;
+        //    ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+        //    if (searchString != null)
+        //    {
+        //        page = 1;
+        //    }
+        //    else
+        //    {
+        //        searchString = currentFilter;
+        //    }
+
+        //    ViewBag.CurrentFilter = searchString;
+        //    ViewBag.CategoryFilter = category;
+
+        //    var folders = from s in db.Folders
+        //                  select s;
+
+        //    switch (category ?? 0)
+        //    {
+        //        case 1:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 1
+        //                      select s;
+        //            break;
+        //        case 2:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 2
+        //                      select s;
+        //            break;
+        //        case 3:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 3
+        //                      select s;
+        //            break;
+        //        case 4:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 4
+        //                      select s;
+        //            break;
+        //    }
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
+        //    }
+        //    switch (sortOrder)
+        //    {
+        //        case "name_desc":
+        //            folders = folders.OrderByDescending(s => s.FolderName);
+        //            break;
+        //        default:  // Name ascending 
+        //            folders = folders.OrderBy(s => s.FolderName);
+        //            break;
+        //    }
+        //    int pageSize = 5;
+        //    int pageNumber = (page ?? 1);
+        //    return View(folders.ToPagedList(pageNumber, pageSize));
+        //}
+
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(new SearchViewModel());
-        }
-
-        [HttpPost]
-        public ViewResult SearchView(SearchViewModel model)
-        {
-
-            string sortOrder = model.sortOrder;
-            string currentFilter = model.currentFilter;
-            string searchString = model.searchString;
-            int? page = model.page;
-            int? category = model.category;
-
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
@@ -45,96 +107,34 @@ namespace Allomorph.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-            ViewBag.CategoryFilter = category;
+            //ViewBag.CategoryFilter = category;
 
             var folders = from s in db.Folders
                           select s;
 
-            switch (category ?? 0)
-            {
-                case 1:
-                    folders = from s in folders
-                              where s.CategoryID == 1
-                              select s;
-                    break;
-                case 2:
-                    folders = from s in folders
-                              where s.CategoryID == 2
-                              select s;
-                    break;
-                case 3:
-                    folders = from s in folders
-                              where s.CategoryID == 3
-                              select s;
-                    break;
-                case 4:
-                    folders = from s in folders
-                              where s.CategoryID == 4
-                              select s;
-                    break;
-            }
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
-            }
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    folders = folders.OrderByDescending(s => s.FolderName);
-                    break;
-                default:  // Name ascending 
-                    folders = folders.OrderBy(s => s.FolderName);
-                    break;
-            }
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            return View(folders.ToPagedList(pageNumber, pageSize));
-        }
-
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, int? category)
-        {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-            ViewBag.CategoryFilter = category;
-
-            var folders = from s in db.Folders
-                          select s;
-
-            switch (category ?? 0)
-            {
-                case 1:
-                    folders = from s in folders
-                              where s.CategoryID == 1
-                              select s;
-                    break;
-                case 2:
-                    folders = from s in folders
-                              where s.CategoryID == 2
-                              select s;
-                    break;
-                case 3:
-                    folders = from s in folders
-                              where s.CategoryID == 3
-                              select s;
-                    break;
-                case 4:
-                    folders = from s in folders
-                              where s.CategoryID == 4
-                              select s;
-                    break;
-            }
+            //switch (category ?? 0)
+            //{
+            //    case 1:
+            //        folders = from s in folders
+            //                  where s.CategoryID == 1
+            //                  select s;
+            //        break;
+            //    case 2:
+            //        folders = from s in folders
+            //                  where s.CategoryID == 2
+            //                  select s;
+            //        break;
+            //    case 3:
+            //        folders = from s in folders
+            //                  where s.CategoryID == 3
+            //                  select s;
+            //        break;
+            //    case 4:
+            //        folders = from s in folders
+            //                  where s.CategoryID == 4
+            //                  select s;
+            //        break;
+            //}
 
             if (!String.IsNullOrEmpty(searchString))
             {

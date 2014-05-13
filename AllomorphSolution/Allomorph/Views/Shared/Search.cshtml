@@ -2,30 +2,30 @@
     <div id="banner">
         <img src='@Url.Content( "~/Content/logo.png")' />
     </div>
+    @using (Html.BeginForm("Index", "Folder", FormMethod.Get))
+    {
     <div class="input-group" id="leitForm">
         <div id="leit">
-            @using (Html.BeginForm("Index", "Folder", FormMethod.Get))
-            {
                 <p>
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita...", style = "width:200px;height:32px" })
                     @*<input type="submit" value="Leit..." />*@
                     <button id="btnLeit" class="btn btn-default" type="submit">Leita!</button>
                 </p>
-                <div id="flokkar" class="form-group">
-                    <span id="checkflokka" >
-                        <input type="checkbox" /><a href="#"> Kvikmyndir</a>
-                    </span>
-                    <span id="checkflokka" >
-                        <input type="checkbox" /><a href="#"> Þættir</a>
-                    </span>
-                    <span id="checkflokka" >
-                        <input type="checkbox" /><a href="#"> Teiknimyndir</a>
-                    </span>
-                    <span id="checkflokka" >
-                        <input type="checkbox" /><a href="#"> Íslenskt efni</a>
-                    </span>
-                </div>
-            }
+        </div>
+        <div id="flokkar" class="form-group">
+            <span id="checkflokka">
+                <input type="checkbox" /><a href="#"> Kvikmyndir</a>
+            </span>
+            <span id="checkflokka">
+                <input type="checkbox" /><a href="#"> Þættir</a>
+            </span>
+            <span id="checkflokka">
+                <input type="checkbox" /><a href="#"> Teiknimyndir</a>
+            </span>
+            <span id="checkflokka">
+                <input type="checkbox" /><a href="#"> Íslenskt efni</a>
+            </span>
         </div>
     </div>
+    }
 </div>
