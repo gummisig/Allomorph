@@ -18,6 +18,7 @@
 <div>
 	<hr />
     <dl class="dl-horizontal">
+
         <dt>
             @Html.DisplayNameFor(model => model.Item1.CategoryID)
         </dt>
@@ -95,7 +96,7 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 @Html.BeginForm("CreateComment", "Folder", FormMethod.Post) { 
