@@ -1,23 +1,33 @@
-﻿@model Allomorph.Models.Request
+﻿@model Allomorph.Models.RequestViewModel
 
 @{
     ViewBag.Title = "Beiðnir";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.SearchViewModel()); }
 
 <h2>Beiðnir</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RequestText)
+            @Html.DisplayNameFor(model => model.Requests.RequestText)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
+            @Html.DisplayNameFor(model => model.Requests.DateCreated)
         </th>
     </tr>
-    @{ Html.RenderPartial("RequestLoop"); }
+    @*@foreach(var req in Model.RequestList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => req.RequestText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => req.DateCreated)
+            </td>
+        </tr>
+    }*@
+    @*@{ Html.RenderPartial("RequestLoop"); }*@
 
 </table>
 
@@ -30,10 +40,10 @@
         @Html.ValidationSummary(true)
         
         <div class="form-group">
-            @Html.LabelFor(model => model.RequestText, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Requests.RequestText, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.RequestText)
-                @Html.ValidationMessageFor(model => model.RequestText)
+                @Html.TextAreaFor(model => model.Requests.RequestText)
+                @Html.ValidationMessageFor(model => model.Requests.RequestText)
             </div>
         </div>
 

@@ -17,8 +17,105 @@ namespace Allomorph.Controllers
     {
         private SubtitleContext db = new SubtitleContext();
 
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        //public ViewResult SearchView()
+        //{
+        //    return View(new SearchViewModel());
+        //}
+
+        //[HttpPost]
+        //public ViewResult SearchView(SearchViewModel model)
+        //{
+        //    string sortOrder = model.sortOrder;
+        //    string currentFilter = model.currentFilter;
+        //    string searchString = model.searchString;
+        //    int? page = model.page;
+        //    int? category = model.category;
+
+        //    if (model.checkbox1 == true)
+        //    {
+        //        category = 1;
+        //    }
+        //    else if (model.checkbox2 == true)
+        //    {
+        //        category = 2;
+        //    }
+        //    else if (model.checkbox3 == true)
+        //    {
+        //        category = 3;
+        //    }
+        //    else if (model.checkbox4 == true)
+        //    {
+        //        category = 4;
+        //    }
+
+        //    ViewBag.CurrentSort = sortOrder;
+        //    ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+        //    if (searchString != null)
+        //    {
+        //        page = 1;
+        //    }
+        //    else
+        //    {
+        //        searchString = currentFilter;
+        //    }
+
+        //    ViewBag.CurrentFilter = searchString;
+        //    ViewBag.CategoryFilter = category;
+
+        //    var folders = from s in db.Folders
+        //                  select s;
+
+        //    switch (category ?? 0)
+        //    {
+        //        case 1:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 1
+        //                      select s;
+        //            break;
+        //        case 2:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 2
+        //                      select s;
+        //            break;
+        //        case 3:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 3
+        //                      select s;
+        //            break;
+        //        case 4:
+        //            folders = from s in folders
+        //                      where s.CategoryID == 4
+        //                      select s;
+        //            break;
+        //    }
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
+        //    }
+        //    switch (sortOrder)
+        //    {
+        //        case "name_desc":
+        //            folders = folders.OrderByDescending(s => s.FolderName);
+        //            break;
+        //        default:  // Name ascending 
+        //            folders = folders.OrderBy(s => s.FolderName);
+        //            break;
+        //    }
+        //    int pageSize = 5;
+        //    int pageNumber = (page ?? 1);
+        //    return View(folders.ToPagedList(pageNumber, pageSize));
+        //}
+
+        public ViewResult Index(SearchViewModel svm)
         {
+            string sortOrder = svm.sortOrder;
+            string currentFilter = svm.currentFilter;
+            string searchString = svm.searchString;
+            int? page = svm.page;
+            int category = svm.ID;
+            
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
@@ -35,6 +132,30 @@ namespace Allomorph.Controllers
 
             var folders = from s in db.Folders
                           select s;
+
+            switch (category)
+            {
+                case 1:
+                    folders = from s in folders
+                              where s.CategoryID == 1
+                              select s;
+                    break;
+                case 2:
+                    folders = from s in folders
+                              where s.CategoryID == 2
+                              select s;
+                    break;
+                case 3:
+                    folders = from s in folders
+                              where s.CategoryID == 3
+                              select s;
+                    break;
+                case 4:
+                    folders = from s in folders
+                              where s.CategoryID == 4
+                              select s;
+                    break;
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -55,12 +176,6 @@ namespace Allomorph.Controllers
             //return View(folders.ToList());
         }
 
-        // GET: /Folder/
-        //public ActionResult Index()
-        //{
-        //    return View(db.Folders.ToList());
-        //}
-
         // GET: /Folder/Details/5
         public ActionResult Details(int? id)
         {
@@ -71,24 +186,15 @@ namespace Allomorph.Controllers
             Folder folder = db.Folders.Find(id);
             if (folder == null)
             {
-                return HttpNotFound();            
+                return HttpNotFound();
             }
-
-  
-            IEnumerable<SubFile> subtitles = (from s in db.SubFiles
-                             where s.FolderID == folder.ID
-                             select s).ToList();
-
-
-            return View(Tuple.Create(folder, subtitles));
+            return View(folder);
         }
 
         // GET: /Folder/Create
-        [HttpGet]
         public ActionResult Create()
         {
-            Folder f = new Folder();
-            return View(f);
+            return View();
         }
 
         // POST: /Folder/Create
@@ -103,14 +209,13 @@ namespace Allomorph.Controllers
 
                 db.Folders.Add(folder);
                 db.SaveChanges();
-
-                //try
-                //{
+                try
+                {
                     // read from file or write to file
                     StreamReader streamReader = new StreamReader(file.InputStream);
                     int i = 1;
                     // Needs more stuff to add like for example language, user ID
-                    SubFile subfile = new SubFile { FolderID = folder.ID, SubName = file.FileName, LastChange = DateTime.Now  };
+                    SubFile subfile = new SubFile { FolderID = folder.ID, LastChange = DateTime.Now, SubName = file.FileName};
                     db.SubFiles.Add(subfile);
                     db.SaveChanges();
                     while (streamReader.Peek() != -1)
@@ -137,20 +242,12 @@ namespace Allomorph.Controllers
                         tempLine.LineNumber = Convert.ToInt32(lineNumber);
                         tempLine.StartTime = firstTime;
                         tempLine.EndTime = secondTime;
-                        tempLine.SubFileID = subfile.ID;
 
                         db.SubFileLines.Add(tempLine);
                         db.SaveChanges();
 
                         tempTranslation.SubFileLineID = tempLine.ID;
                         tempTranslation.LineText = text;
-                        if(db.Languages.Find(1) == null)
-                        {
-                            Language Enska = new Language() { LanguageName = "English" };
-                            db.Languages.Add(Enska);
-                            db.SaveChanges();
-                        }
-                        tempTranslation.LanguageID = 1;
                         i++;
 
                         db.SubFileLineTranslations.Add(tempTranslation);
@@ -165,17 +262,16 @@ namespace Allomorph.Controllers
                         return Redirect("http://localhost:40272/Home/");
                     }
                     return View(texts);
-                    
+                    */
                 }
                 catch (Exception e)
                 {
-                    return View("Error");
-                } */
-                
+                    ViewBag.Message = "ERROR:" + e.Message.ToString();
+                } 
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(folder);
         }
 
         // GET: /Folder/Edit/5
@@ -198,7 +294,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Edit([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder)
         {
             if (ModelState.IsValid)
             {

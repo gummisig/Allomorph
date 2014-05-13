@@ -62,11 +62,11 @@
     padding-left: 8%;
 }
 
-.flokkar {
+#flokkar {
     padding-top: 1em;
 }
 
-.flokkar, .check {
+#flokkar, #checkflokka {
     padding-left: 0.5em;
 }
 

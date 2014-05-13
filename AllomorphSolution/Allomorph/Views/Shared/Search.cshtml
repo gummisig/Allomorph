@@ -1,31 +1,31 @@
-﻿<div id="masterhaus">
+﻿@model Allomorph.Models.SearchViewModel
+<div id="masterhaus">
     <div id="banner">
         <img src='@Url.Content( "~/Content/logo.png")' />
     </div>
+    @using (Html.BeginForm("Index", "Folder", FormMethod.Get))
+    {
     <div class="input-group" id="leitForm">
         <div id="leit">
-            @using (Html.BeginForm("Index", "Folder", FormMethod.Get))
-            {
                 <p>
+                    @*@Html.TextBoxFor(m => m.currentFilter, new {placeholder = "   Leita...", style = "width:200px;height32px" })*@
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita...", style = "width:200px;height:32px" })
-                    @*<input type="submit" value="Leit..." />*@
                     <button id="btnLeit" class="btn btn-default" type="submit">Leita!</button>
                 </p>
-            }
         </div>
-        <div class="flokkar">
-            <span id="movie">
-                <input type="checkbox" /><a href="#"> Kvikmyndir</a>
-            </span>
-            <span class="check" id="episode">
-                <input type="checkbox" /><a href="#"> Þættir</a>
-            </span>
-            <span class="check" id="cartoon">
-                <input type="checkbox" /><a href="#"> Teiknimyndir</a>
-            </span>
-            <span class="check" id="islenskt">
-                <input type="checkbox" /><a href="#"> Íslenskt efni</a>
-            </span>
+        <div id="flokkar" class="form-group">
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ID,
+                               new List<SelectListItem> {
+                                   new SelectListItem { Value = "0", Text = "Flokkur:"},
+                                   new SelectListItem { Value = "1", Text = "Kvikmynd" },
+                                   new SelectListItem { Value = "2", Text = "Þáttur" },
+                                   new SelectListItem { Value = "3", Text = "Teiknimynd" },
+                                   new SelectListItem { Value = "4", Text = "Íslenskt efni" }
+                               },
+                               new { @class = "myselect" })
+            </div>
         </div>
     </div>
+    }
 </div>

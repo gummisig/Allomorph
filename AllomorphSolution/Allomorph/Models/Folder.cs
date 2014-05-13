@@ -9,12 +9,6 @@ namespace Allomorph.Models
     [Table("Folder")]
     public class Folder
     {
-        public Folder()
-        {
-            //this.CategoryExtensions = new List<CategoryExtension>();
-            this.Categories = new List<Category>();
-        }
-
         public int ID { get; set; }
         public int CategoryID { get; set; }
         public string FolderName { get; set; }
@@ -22,6 +16,6 @@ namespace Allomorph.Models
         public string Poster { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual Category Categories { get; set; }
     }
 }

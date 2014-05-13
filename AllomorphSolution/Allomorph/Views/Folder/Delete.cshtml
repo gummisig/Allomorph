@@ -4,7 +4,7 @@
     ViewBag.Title = "Delete";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.SearchViewModel()); }
 
 <h2>Delete</h2>
 
@@ -13,14 +13,6 @@
     <h4>Folder</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CategoryID)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.FolderName)
         </dt>

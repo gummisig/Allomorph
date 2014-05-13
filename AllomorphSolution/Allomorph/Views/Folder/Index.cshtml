@@ -7,7 +7,7 @@
     ViewBag.Title = "Index";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.SearchViewModel()); }
 
 <h2>Textar</h2>
 
@@ -17,41 +17,18 @@
 
 <table class="table">
     <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.CategoryID)
-        </th>*@
         <th>
             @Html.ActionLink("Textar", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Link)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Poster)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>*@
-
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoryID)
-        </td>
-        <td>
             @Html.ActionLink(item.FolderName, "Details", new { id = item.ID })
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Link)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Poster)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
