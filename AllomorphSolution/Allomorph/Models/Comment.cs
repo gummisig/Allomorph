@@ -15,7 +15,7 @@ namespace Allomorph.Models
         }
 
         public int ID { get; set; }
-        public int ApplicationUserID { get; set; }
+        public int UserID { get; set; }
         public int FolderID { get; set; }
         public string CommentText { get; set; }
         public DateTime DateCreated { get; set; }
