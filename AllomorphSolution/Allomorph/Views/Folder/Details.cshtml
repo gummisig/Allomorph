@@ -1,4 +1,4 @@
-﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>>
+﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Comment>>
 
 @{
     ViewBag.Title = "Upplýsingar um textaskrá";
@@ -99,6 +99,58 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-@Html.BeginForm("CreateComment", "Folder", FormMethod.Post) { 
-    { @Html.RenderPartial("Comment", Model.Item2); }
-}
+
+ @* @{Html.RenderPartial("Comment", Model.Item2);}*@
+
+@*
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/jquery.loadTemplate-1.4.1.min.js"></script>
+
+    <div class="list-group">
+        <ul id="appendlist" style="max-width: 560px;">
+            @foreach (var item in Model.Item2)
+            {
+
+                <li id="sir" class="list-group-item">
+                    <p>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="text-primary">@Html.DisplayFor(modelItem => item.ApplicationUserID)</span>
+                        <span>@Html.DisplayFor(modelItem => item.CommentText)</span>
+                    </p>
+                    <p id="@(item.ID-1)">
+                        <span class="text-muted">@item.DateCreated.ToString("dd. MMMM HH:mm") - </span>
+                        <a class="like-comment">Like <span class="glyphicon glyphicon-thumbs-up"></span></a>
+                    </p>
+                    <ul class="list-unstyled">
+                        <li>Patrekur liked this</li>
+                        <li>Siggi liked this</li>
+                    </ul>
+                </li>
+            }
+        </ul>
+
+        <ul style="max-width: 560px;">
+            <li class="list-group-item">
+                <div class="form-horizontal">
+                    <label class="sr-only" for="theComment">Comment</label>
+                    <textarea class="form-control" rows="3" id="theComment" name="theComment"></textarea>
+                    <button id="submitter" value="save" class="btn btn-primary">Send</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script id="commentTemplate" type="text/html">
+        <li class="list-group-item">
+            <p>
+                <span class="glyphicon glyphicon-user"></span>
+                <span class="text-primary" data-content="username"></span>
+                <span data-content="commenttext"></span>
+            </p>
+            <p>
+                <span class="text-muted" data-content="date"></span>
+                <a class="like-comment">Like<span class="glyphicon glyphicon-thumbs-up"></span></a>
+            </p>
+        </li>
+    </script>
+*@
