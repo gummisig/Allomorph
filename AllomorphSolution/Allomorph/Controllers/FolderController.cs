@@ -194,7 +194,7 @@ namespace Allomorph.Controllers
         // GET: /Folder/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Folder());
         }
 
         // POST: /Folder/Create
@@ -209,8 +209,8 @@ namespace Allomorph.Controllers
 
                 db.Folders.Add(folder);
                 db.SaveChanges();
-                try
-                {
+                //try
+                //{
                     // read from file or write to file
                     StreamReader streamReader = new StreamReader(file.InputStream);
                     int i = 1;
@@ -242,16 +242,26 @@ namespace Allomorph.Controllers
                         tempLine.LineNumber = Convert.ToInt32(lineNumber);
                         tempLine.StartTime = firstTime;
                         tempLine.EndTime = secondTime;
+                        tempLine.SubFileID = subfile.ID;
 
                         db.SubFileLines.Add(tempLine);
                         db.SaveChanges();
 
                         tempTranslation.SubFileLineID = tempLine.ID;
                         tempTranslation.LineText = text;
-                        i++;
+                        
+                        if(db.Languages.Find(1) == null)
+                        {
+                            Language Enska = new Language() { LanguageName = "English" };
+                            db.Languages.Add(Enska);
+                            db.SaveChanges();
+                        }
+                        tempTranslation.LanguageID = 1;
 
                         db.SubFileLineTranslations.Add(tempTranslation);
                         db.SaveChanges();
+
+                        i++;
                     }
 
 
@@ -262,13 +272,13 @@ namespace Allomorph.Controllers
                         return Redirect("http://localhost:40272/Home/");
                     }
                     return View(texts);
-                    */
+                    
                 }
                 catch (Exception e)
                 {
                     ViewBag.Message = "ERROR:" + e.Message.ToString();
                 } 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");*/
             }
 
             return View(folder);
