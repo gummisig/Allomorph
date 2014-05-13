@@ -4,7 +4,7 @@
     ViewBag.Title = "Beiðnir";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.SearchViewModel()); }
 
 <h2>Beiðnir</h2>
 
