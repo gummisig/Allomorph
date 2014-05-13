@@ -188,7 +188,12 @@ namespace Allomorph.Controllers
             {
                 return HttpNotFound();
             }
-            return View(folder);
+            IEnumerable<SubFile> subtitles = (from s in db.SubFiles
+                                              where s.FolderID == folder.ID
+                                              select s).ToList();
+
+
+            return View(Tuple.Create(folder, subtitles));
         }
 
         // GET: /Folder/Create
