@@ -7,7 +7,7 @@
     ViewBag.Title = "Index";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
 <h2>Textar</h2>
 
@@ -18,7 +18,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Textar", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Nafn", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th></th>
     </tr>
