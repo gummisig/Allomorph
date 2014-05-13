@@ -4,7 +4,7 @@
     ViewBag.Title = "Upplýsingar um textaskrá";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
 <h2>@Model.Item1.FolderName</h2>
 
@@ -98,5 +98,3 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-@{ Html.RenderPartial("Comment"); }
