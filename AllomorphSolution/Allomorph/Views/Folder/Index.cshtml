@@ -20,6 +20,9 @@
         <th>
             @Html.ActionLink("Nafn", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
+        <th>
+            @Html.ActionLink("Sett inn", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,10 @@
     <tr>
         <td>
             @Html.ActionLink(item.FolderName, "Details", new { id = item.ID })
+        </td>
+
+        <td>
+            @Html.ActionLink(item.DateCreated.ToString(), "Details", new { id = item.ID })
         </td>
         
         <td>
