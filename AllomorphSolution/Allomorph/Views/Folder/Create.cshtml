@@ -4,7 +4,7 @@
     ViewBag.Title = "Senda inn";
 }
 
-@{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
+@{ Html.RenderPartial("Search"); }
 
 <h2>Senda inn texta</h2>
 
@@ -84,6 +84,7 @@
     <input type="file" name="file" id="file" /><br><br>
     <input type="submit" value="Upload Text" />
 }
+<p>gummi</p>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
