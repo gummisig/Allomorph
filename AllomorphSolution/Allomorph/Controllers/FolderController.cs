@@ -17,7 +17,7 @@ namespace Allomorph.Controllers
     {
         private SubtitleContext db = new SubtitleContext();
 
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, int? category)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -32,9 +32,34 @@ namespace Allomorph.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
+            ViewBag.CategoryFilter = category;
 
             var folders = from s in db.Folders
                           select s;
+
+            switch (category ?? 0)
+            {
+                case 1:
+                    folders = from s in folders
+                              where s.CategoryID == 1
+                              select s;
+                    break;
+                case 2:
+                    folders = from s in folders
+                              where s.CategoryID == 2
+                              select s;
+                    break;
+                case 3:
+                    folders = from s in folders
+                              where s.CategoryID == 3
+                              select s;
+                    break;
+                case 4:
+                    folders = from s in folders
+                              where s.CategoryID == 4
+                              select s;
+                    break;
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
