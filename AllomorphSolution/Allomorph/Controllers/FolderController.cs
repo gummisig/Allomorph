@@ -71,15 +71,24 @@ namespace Allomorph.Controllers
             Folder folder = db.Folders.Find(id);
             if (folder == null)
             {
-                return HttpNotFound();
+                return HttpNotFound();            
             }
-            return View(folder);
+
+  
+            IEnumerable<SubFile> subtitles = (from s in db.SubFiles
+                             where s.FolderID == folder.ID
+                             select s).ToList();
+
+
+            return View(Tuple.Create(folder, subtitles));
         }
 
         // GET: /Folder/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            Folder f = new Folder();
+            return View(f);
         }
 
         // POST: /Folder/Create
@@ -95,13 +104,13 @@ namespace Allomorph.Controllers
                 db.Folders.Add(folder);
                 db.SaveChanges();
 
-                try
-                {
+                //try
+                //{
                     // read from file or write to file
                     StreamReader streamReader = new StreamReader(file.InputStream);
                     int i = 1;
                     // Needs more stuff to add like for example language, user ID
-                    SubFile subfile = new SubFile { FolderID = folder.ID, LastChange = DateTime.Now, SubName = file.FileName};
+                    SubFile subfile = new SubFile { FolderID = folder.ID, SubName = file.FileName, LastChange = DateTime.Now  };
                     db.SubFiles.Add(subfile);
                     db.SaveChanges();
                     while (streamReader.Peek() != -1)
@@ -128,12 +137,20 @@ namespace Allomorph.Controllers
                         tempLine.LineNumber = Convert.ToInt32(lineNumber);
                         tempLine.StartTime = firstTime;
                         tempLine.EndTime = secondTime;
+                        tempLine.SubFileID = subfile.ID;
 
                         db.SubFileLines.Add(tempLine);
                         db.SaveChanges();
 
                         tempTranslation.SubFileLineID = tempLine.ID;
                         tempTranslation.LineText = text;
+                        if(db.Languages.Find(1) == null)
+                        {
+                            Language Enska = new Language() { LanguageName = "English" };
+                            db.Languages.Add(Enska);
+                            db.SaveChanges();
+                        }
+                        tempTranslation.LanguageID = 1;
                         i++;
 
                         db.SubFileLineTranslations.Add(tempTranslation);
@@ -148,16 +165,17 @@ namespace Allomorph.Controllers
                         return Redirect("http://localhost:40272/Home/");
                     }
                     return View(texts);
-                    */
+                    
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Message = "ERROR:" + e.Message.ToString();
-                } 
+                    return View("Error");
+                } */
+                
                 return RedirectToAction("Index");
             }
 
-            return View(folder);
+            return View();
         }
 
         // GET: /Folder/Edit/5
