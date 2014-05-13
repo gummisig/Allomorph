@@ -1,4 +1,4 @@
-﻿@model Allomorph.Models.SearchViewModel
+﻿@*@model Allomorph.Models.SearchViewModel*@
 <div id="masterhaus">
     <div id="banner">
         <img src='@Url.Content( "~/Content/logo.png")' />
@@ -8,29 +8,38 @@
     <div class="input-group" id="leitForm">
         <div id="leit">
                 <p>
-                    @Html.TextBoxFor(m => m.currentFilter, new {placeholder = "   Leita...", style = "width:200px;height32px" })
-                    @*@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita...", style = "width:200px;height:32px" })*@
-                    @*<input type="submit" value="Leit..." />*@
+                    @*@Html.TextBoxFor(m => m.currentFilter, new {placeholder = "   Leita...", style = "width:200px;height32px" })*@
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita...", style = "width:200px;height:32px" })
                     <button id="btnLeit" class="btn btn-default" type="submit">Leita!</button>
                 </p>
         </div>
         <div id="flokkar" class="form-group">
-            <span id="checkflokka">
-                @Html.CheckBoxFor(m => m.checkbox1) <a href="#"> Kvikmyndir</a>
-                @*<input type="checkbox" /><a href="#"> Kvikmyndir</a>*@
-            </span>
-            <span id="checkflokka">
-                @Html.CheckBoxFor(m => m.checkbox2) <a href="#"> Þættir</a>
-                @*<input type="checkbox" /><a href="#"> Þættir</a>*@
-            </span>
-            <span id="checkflokka">
-                @Html.CheckBoxFor(m => m.checkbox3) <a href="#"> Teiknimyndir</a>
-                @*<input type="checkbox" /><a href="#"> Teiknimyndir</a>*@
-            </span>
-            <span id="checkflokka">
-                @Html.CheckBoxFor(m => m.checkbox4) <a href="#"> Íslenskt efni</a>
-                @*<input type="checkbox" /><a href="#"> Íslenskt efni</a>*@
-            </span>
+            <div class="col-md-10">
+                @*@Html.DropDownListFor(ViewBag.CategoryFilter,
+                               new List<SelectListItem> {
+                                   new SelectListItem { Value = "1", Text = "Kvikmynd" },
+                                   new SelectListItem { Value = "2", Text = "Þáttur" },
+                                   new SelectListItem { Value = "3", Text = "Teiknimynd" },
+                                   new SelectListItem { Value = "4", Text = "Íslenskt efni" }
+                               },
+                               new { @class = "myselect" })*@
+                    <span id="checkflokka">
+                        @*@Html.CheckBoxFor(m => m.checkbox1) <a href="#"> Kvikmyndir</a>*@
+                        <input type="checkbox" name="checkbox1" value="true" /><a href="#"> Kvikmyndir</a>
+                    </span>
+                    <span id="checkflokka">
+                        @*@Html.CheckBoxFor(m => m.checkbox2) <a href="#"> Þættir</a>*@
+                        <input type="checkbox" name="checkbox2" value="true" /><a href="#"> Þættir</a>
+                    </span>
+                    <span id="checkflokka">
+                        @*@Html.CheckBoxFor(m => m.checkbox3) <a href="#"> Teiknimyndir</a>*@
+                        <input type="checkbox" name="checkbox3" value="true" /><a href="#"> Teiknimyndir</a>
+                    </span>
+                    <span id="checkflokka">
+                        @*@Html.CheckBoxFor(m => m.checkbox4) <a href="#"> Íslenskt efni</a>*@
+                        <input type="checkbox" name="checkbox4" value="true" /><a href="#"> Íslenskt efni</a>
+                    </span>
+            </div>
         </div>
     </div>
     }
