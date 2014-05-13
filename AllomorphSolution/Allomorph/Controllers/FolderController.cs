@@ -191,8 +191,9 @@ namespace Allomorph.Controllers
                 catch (Exception e)
                 {
                     ViewBag.Message = "ERROR:" + e.Message.ToString();
-                } 
-                return RedirectToAction("Index");*/
+                } */
+
+                return RedirectToAction("Index");
             }
 
             return View(folder);
