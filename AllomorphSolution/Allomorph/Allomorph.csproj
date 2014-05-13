@@ -189,6 +189,7 @@
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\RequestViewModel.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\SubFile.cs" />
     <Compile Include="Models\SubFileLine.cs" />
     <Compile Include="Models\SubFileLineTranslation.cs" />
