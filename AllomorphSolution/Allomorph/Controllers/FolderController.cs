@@ -340,5 +340,43 @@ namespace Allomorph.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpPost]
+        public ActionResult CreateComment(Comment comm, User user)
+        {
+            String strUser = null;
+            if(user != null){
+                strUser = user.UserName;
+            }
+            else {
+                strUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            }
+
+            if (!String.IsNullOrEmpty(strUser))
+            {
+                int slashPos = strUser.IndexOf("\\");
+                if (slashPos != -1)
+                {
+                    strUser = strUser.Substring(slashPos + 1);
+                }
+                comm.UserID = user.ID;
+
+                db.Comments.Add(comm);
+            }
+
+            var comments = db.Comments;
+
+            var newResult = from c in comments
+                           // where c.FolderID
+                            select new
+                            {
+                                CommentDate = c.DateCreated.ToString(),
+                                ID = c.ID,
+                                CommentText = c.CommentText,
+                                Username = user.UserName
+                            };
+
+            return Json(newResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }
