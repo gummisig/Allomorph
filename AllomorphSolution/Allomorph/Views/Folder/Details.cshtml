@@ -96,9 +96,9 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 @Html.BeginForm("CreateComment", "Folder", FormMethod.Post) { 
-    { Html.Partial("Comment", model.Comments); }
+    { @Html.RenderPartial("Comment", Model.Item2); }
 }
