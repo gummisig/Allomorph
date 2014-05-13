@@ -108,7 +108,7 @@ namespace Allomorph.Controllers
         //    return View(folders.ToPagedList(pageNumber, pageSize));
         //}
 
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, int? category)
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, bool checkbox1 = false, bool checkbox2 = false, bool checkbox3 = false, bool checkbox4 = false)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -121,14 +121,29 @@ namespace Allomorph.Controllers
             {
                 searchString = currentFilter;
             }
-
+            if (checkbox1 == true)
+            {
+                ViewBag.CategoryFilter = 1;
+            }
+            else if (checkbox2 == true)
+            {
+                ViewBag.CategoryFilter = 2;
+            }
+            else if (checkbox3 == true)
+            {
+                ViewBag.CategoryFilter = 3;
+            }
+            else if (checkbox4 == true)
+            {
+                ViewBag.CategoryFilter = 4;
+            }
             ViewBag.CurrentFilter = searchString;
-            ViewBag.CategoryFilter = category;
+            int category = ViewBag.CategoryFilter ?? 0;
 
             var folders = from s in db.Folders
                           select s;
 
-            switch (category ?? 0)
+            switch (category)
             {
                 case 1:
                     folders = from s in folders
