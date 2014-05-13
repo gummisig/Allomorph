@@ -108,8 +108,14 @@ namespace Allomorph.Controllers
         //    return View(folders.ToPagedList(pageNumber, pageSize));
         //}
 
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page, bool checkbox1 = false, bool checkbox2 = false, bool checkbox3 = false, bool checkbox4 = false)
+        public ViewResult Index(SearchViewModel svm)
         {
+            string sortOrder = svm.sortOrder;
+            string currentFilter = svm.currentFilter;
+            string searchString = svm.searchString;
+            int? page = svm.page;
+            int category = svm.ID;
+            
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
@@ -121,24 +127,8 @@ namespace Allomorph.Controllers
             {
                 searchString = currentFilter;
             }
-            if (checkbox1 == true)
-            {
-                ViewBag.CategoryFilter = 1;
-            }
-            else if (checkbox2 == true)
-            {
-                ViewBag.CategoryFilter = 2;
-            }
-            else if (checkbox3 == true)
-            {
-                ViewBag.CategoryFilter = 3;
-            }
-            else if (checkbox4 == true)
-            {
-                ViewBag.CategoryFilter = 4;
-            }
+
             ViewBag.CurrentFilter = searchString;
-            int category = ViewBag.CategoryFilter ?? 0;
 
             var folders = from s in db.Folders
                           select s;
@@ -205,7 +195,7 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            return View();
+            return View(new Folder());
         }
 
         // POST: /Folder/Create
@@ -220,8 +210,8 @@ namespace Allomorph.Controllers
 
                 db.Folders.Add(folder);
                 db.SaveChanges();
-                try
-                {
+                //try
+                //{
                     // read from file or write to file
                     StreamReader streamReader = new StreamReader(file.InputStream);
                     int i = 1;
@@ -253,16 +243,26 @@ namespace Allomorph.Controllers
                         tempLine.LineNumber = Convert.ToInt32(lineNumber);
                         tempLine.StartTime = firstTime;
                         tempLine.EndTime = secondTime;
+                        tempLine.SubFileID = subfile.ID;
 
                         db.SubFileLines.Add(tempLine);
                         db.SaveChanges();
 
                         tempTranslation.SubFileLineID = tempLine.ID;
                         tempTranslation.LineText = text;
-                        i++;
+                        
+                        if(db.Languages.Find(1) == null)
+                        {
+                            Language Enska = new Language() { LanguageName = "English" };
+                            db.Languages.Add(Enska);
+                            db.SaveChanges();
+                        }
+                        tempTranslation.LanguageID = 1;
 
                         db.SubFileLineTranslations.Add(tempTranslation);
                         db.SaveChanges();
+
+                        i++;
                     }
 
 
@@ -273,13 +273,13 @@ namespace Allomorph.Controllers
                         return Redirect("http://localhost:40272/Home/");
                     }
                     return View(texts);
-                    */
+                    
                 }
                 catch (Exception e)
                 {
                     ViewBag.Message = "ERROR:" + e.Message.ToString();
                 } 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");*/
             }
 
             return View(folder);
@@ -349,6 +349,44 @@ namespace Allomorph.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public ActionResult CreateComment(Comment comm, User user)
+        {
+            String strUser = null;
+            if(user != null){
+                strUser = user.UserName;
+            }
+            else {
+                strUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            }
+
+            if (!String.IsNullOrEmpty(strUser))
+            {
+                int slashPos = strUser.IndexOf("\\");
+                if (slashPos != -1)
+                {
+                    strUser = strUser.Substring(slashPos + 1);
+                }
+                comm.UserID = user.ID;
+
+                db.Comments.Add(comm);
+            }
+
+            var comments = db.Comments;
+
+            var newResult = from c in comments
+                           // where c.FolderID
+                            select new
+                            {
+                                CommentDate = c.DateCreated.ToString(),
+                                ID = c.ID,
+                                CommentText = c.CommentText,
+                                Username = user.UserName
+                            };
+
+            return Json(newResult, JsonRequestBehavior.AllowGet);
         }
     }
 }
