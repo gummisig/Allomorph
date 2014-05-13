@@ -52,5 +52,6 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-@{ Html.RenderPartial("Comment"); }
+@Html.BeginForm("CreateComment", "Folder", FormMethod.Post) { 
+    { Html.Partial("Comment", model.Comments); }
+}

@@ -342,7 +342,7 @@ namespace Allomorph.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateComment(Comment comm, User user)
+        public ActionResult CreateComment(Comment comm, User user, Folder folder)
         {
             String strUser = null;
             if(user != null){
@@ -364,17 +364,9 @@ namespace Allomorph.Controllers
                 db.Comments.Add(comm);
             }
 
-            var comments = db.Comments;
-
-            var newResult = from c in comments
-                           // where c.FolderID
-                            select new
-                            {
-                                CommentDate = c.DateCreated.ToString(),
-                                ID = c.ID,
-                                CommentText = c.CommentText,
-                                Username = user.UserName
-                            };
+            var newResult = from c in db.Comments
+                            where c.FolderID == folder.ID
+                            select c;
 
             return Json(newResult, JsonRequestBehavior.AllowGet);
         }
