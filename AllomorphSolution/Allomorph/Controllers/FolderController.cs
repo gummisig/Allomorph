@@ -132,10 +132,6 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if (reqName != "")
-                //{
-                //    folder.FolderName = reqName;
-                //}
                 db.Folders.Add(folder);
                 db.SaveChanges();
                 //try
