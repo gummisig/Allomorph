@@ -1,10 +1,10 @@
-﻿@model Allomorph.Models.Folder
+﻿@model Tuple<Allomorph.Models.Folder, Allomorph.Models.SubFile>
 
 @{
     ViewBag.Title = "Senda inn";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
 <h2>Senda inn texta</h2>
 
@@ -19,77 +19,73 @@
         <hr />
         @Html.ValidationSummary(true)
         
-    <div class="form-group">
-        @Html.LabelFor(model => model.FolderName, "Nafn:", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.FolderName, new { @Value = @ViewBag.newName })
-            @Html.ValidationMessageFor(model => model.FolderName)
-        </div>
-    </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.CategoryID, "Flokkur:", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CategoryID,
-                new List<SelectListItem> {
-                new SelectListItem { Value = "1", Text = "Kvikmynd" },
-                new SelectListItem { Value = "2", Text = "Þáttur" },
-                new SelectListItem { Value = "3", Text = "Teiknimynd" },
-                new SelectListItem { Value = "4", Text = "Íslenskt efni" }
-                },
-                new { @class = "myselect" })
-            @Html.ValidationMessageFor(model => model.CategoryID)
-        </div>
-</div>
-    @*
         <div class="form-group">
-            <input type="file" id="file" />
-            <span class="label"></span>
+            @Html.LabelFor(model => model.Item1.FolderName, "Nafn:", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Item1.FolderName, new { @Value = @ViewBag.newName })
+                @Html.ValidationMessageFor(model => model.Item1.FolderName)
             </div>
         </div>
-    *@
-   
-    <div class="form-group">
-        @Html.LabelFor(model => model.Link, "Linkur:", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Link)
-            @Html.ValidationMessageFor(model => model.Link)
-        </div>
-    </div>
-     
-    <div class="form-group">
-        @Html.LabelFor(model => model.Poster, "Plakat:", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Poster)
-            @Html.ValidationMessageFor(model => model.Poster)
-        </div>
-    </div>
     
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, "Lýsing", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-    </div>
         <div class="form-group">
-            <input type="file" name="file" id="file" /><br><br>
+            @Html.LabelFor(model => model.Item1.CategoryID, "Flokkur:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Item1.CategoryID,
+                    new List<SelectListItem> {
+                    new SelectListItem { Value = "1", Text = "Kvikmynd" },
+                    new SelectListItem { Value = "2", Text = "Þáttur" },
+                    new SelectListItem { Value = "3", Text = "Teiknimynd" },
+                    new SelectListItem { Value = "4", Text = "Íslenskt efni" }
+                    },
+                    new { @class = "myselect", style = "width:155px" })
+                @Html.ValidationMessageFor(model => model.Item1.CategoryID)
+            </div>
         </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+   
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.Link, "Linkur:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.Link)
+                @Html.ValidationMessageFor(model => model.Item1.Link)
+            </div>
+        </div>
+     
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.Poster, "Plakat:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.Poster)
+                @Html.ValidationMessageFor(model => model.Item1.Poster)
+            </div>
+        </div>
+    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.Description, "Lýsing", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Item1.Description)
+                @Html.ValidationMessageFor(model => model.Item1.Description)
             </div>
         </div>
 
-
-
-    <label for="file">Upload Text:</label>
-    
-    <input type="submit" value="Upload Text" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item2.LanguageID, "Flokkur:", new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Item2.LanguageID,
+                    new List<SelectListItem> {
+                    new SelectListItem { Value = "1", Text = "Enska" },
+                    new SelectListItem { Value = "2", Text = "Íslenska" }
+                    },
+                    new { @class = "myselect", style ="width:155px" })
+                @Html.ValidationMessageFor(model => model.Item2.LanguageID)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="file" name="file" id="fileupload" /><br />
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
-<p>gummi</p>
 
 <div>
     @Html.ActionLink("Til baka í texta", "Index")

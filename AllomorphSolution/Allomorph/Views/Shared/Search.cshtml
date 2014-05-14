@@ -8,7 +8,6 @@
     <div class="input-group" id="leitForm">
         <div id="leit">
                 <p>
-                    @*@Html.TextBoxFor(m => m.currentFilter, new {placeholder = "   Leita...", style = "width:200px;height32px" })*@
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita að texta...", style = "width:200px;height:32px" })
                     <button id="btnLeit" class="btn btn-default" type="submit">Leita!</button>
                 </p>

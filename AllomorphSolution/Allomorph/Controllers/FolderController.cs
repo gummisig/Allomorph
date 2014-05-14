@@ -120,7 +120,7 @@ namespace Allomorph.Controllers
         public ActionResult Create(string reqName = "")
         {
             ViewBag.newName = reqName;
-            return View(new Folder());
+            return View(Tuple.Create(new Folder(), new SubFile()));
         }
 
         // POST: /Folder/Create

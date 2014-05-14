@@ -21,6 +21,12 @@
     resize: both;
 }
 
+#languageDropDown {
+    height: 32px;
+    width: 100px;
+    padding-left: 20%;
+}
+
 #topDiv {
     padding-top: 7%;
     padding-bottom: 10%;
@@ -81,13 +87,6 @@
 
 #myselect {
     padding-left: 7%;
-}
-
-#requesttextbox {
-}
-
-#requestnamebox {
-   
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
