@@ -1,0 +1,46 @@
+﻿@model Tuple<IEnumerable<Allomorph.Models.Comment>, Allomorph.Models.Folder>
+
+<p>
+    @Html.ActionLink("Skrá nýja athugasemnd", "CreateComment", new { id = Model.Item2.ID })
+</p>
+<table class="table">
+    @{ var dummy = Model.Item1.FirstOrDefault(); }
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => dummy.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => dummy.FolderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => dummy.CommentText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => dummy.DateCreated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Item1) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FolderID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommentText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
