@@ -272,6 +272,7 @@ namespace Allomorph.Controllers
             base.Dispose(disposing);
         }
 
+        [Authorize]
         public ActionResult CreateComment(int? id)
         {
             Folder folder = db.Folders.Find(id);
@@ -293,12 +294,12 @@ namespace Allomorph.Controllers
                 string usr = System.Web.HttpContext.Current.User.Identity.Name;
                 if (usr == null)
                 {
-                    return RedirectToAction("Details");
+                    return RedirectToAction("Index");
                 }
                 comment.UserName = usr;
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Details");
+                return RedirectToAction("Index");
             }
             return View(comment);
 
