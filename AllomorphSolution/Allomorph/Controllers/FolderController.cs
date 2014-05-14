@@ -116,6 +116,7 @@ namespace Allomorph.Controllers
         }
 
         // GET: /Folder/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View(new Folder());
