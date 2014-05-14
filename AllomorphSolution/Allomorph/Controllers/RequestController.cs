@@ -43,7 +43,8 @@ namespace Allomorph.Controllers
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+            ViewBag.VoteSortParm = sortOrder == "vote_asc" ? "vote_desc" : "vote_asc";
 
             if (searchString != null)
             {
@@ -74,6 +75,15 @@ namespace Allomorph.Controllers
                     break;
                 case "date_desc":
                     req = req.OrderByDescending(s => s.DateCreated);
+                    break;
+                case "date_asc":
+                    req = req.OrderBy(s => s.DateCreated);
+                    break;
+                case "vote_desc":
+                    req = req.OrderByDescending(s => s.ReqUpvoteCounter);
+                    break;
+                case "vote_asc":
+                    req = req.OrderBy(s => s.ReqUpvoteCounter);
                     break;
                 default:  // Name ascending 
                     req = req.OrderBy(s => s.RequestName);
@@ -152,7 +162,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="RequestName,RequestText")] Request request)
+        public ActionResult Edit([Bind(Include = "ID,UserName,RequestName,RequestText,ReqUpvoteCounter,DateCreated")] Request request)
         {
             if (ModelState.IsValid)
             {
