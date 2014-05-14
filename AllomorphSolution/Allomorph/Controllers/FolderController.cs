@@ -343,5 +343,43 @@ namespace Allomorph.Controllers
 
             //return Json(newResult, JsonRequestBehavior.AllowGet);
         }
+
+        public FileStreamResult GetFile(int id)
+        {
+            IEnumerable<SubFile> file = from s in db.SubFiles
+                       where id == s.ID
+                       select s;
+
+            FileInfo info = new FileInfo(file.First().SubName);
+
+            IEnumerable<SubFileLine> lines = from t in db.SubFileLines
+                                             where t.SubFileID == id
+                                             select t;
+
+
+
+
+            if (!info.Exists)
+            {
+                using (StreamWriter writer = info.CreateText())
+                {
+                    foreach(var line in lines)
+                    {
+                        writer.WriteLine(line.LineNumber);
+                        writer.Write(line.StartTime);
+                        writer.Write(" --> ");
+                        writer.WriteLine(line.EndTime);
+                        //TODO: get text
+
+                        //End of Textblock
+                        writer.WriteLine("");
+                    }
+                        
+
+                }
+            }
+
+            return File(info.OpenRead(), "text/plain", file.First().SubName);
+        }
     }
 }
