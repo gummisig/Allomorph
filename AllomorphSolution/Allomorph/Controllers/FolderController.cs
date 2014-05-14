@@ -105,8 +105,11 @@ namespace Allomorph.Controllers
                                               where s.FolderID == folder.ID
                                               select s).ToList();
 
+            IEnumerable<Comment> comment = (from c in db.Comments
+                                           where c.FolderID == folder.ID
+                                           select c).ToList();
 
-            return View(Tuple.Create(folder, subtitles));
+            return View(Tuple.Create(folder, subtitles, comment));
         }
 
         // GET: /Folder/Create
@@ -199,7 +202,7 @@ namespace Allomorph.Controllers
 
                 return RedirectToAction("Index");
             }
-
+            
             return View(folder);
         }
 
@@ -269,26 +272,35 @@ namespace Allomorph.Controllers
             base.Dispose(disposing);
         }
 
+        public ActionResult CreateComment(int? id)
+        {
+            Folder folder = db.Folders.Find(id);
+            if (folder == null)
+            {
+                return HttpNotFound();
+            }
+            Comment comment = new Comment();
+            comment.FolderID = folder.ID;
+            return View(comment);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment([Bind(Include = "ID,UserName,FolderID,CommentText")] Comment comm)
+        public ActionResult CreateComment([Bind(Include = "ID,UserName,FolderID,CommentText,DateCreated")] Comment comment)
         {
             if (ModelState.IsValid)
             {
                 string usr = System.Web.HttpContext.Current.User.Identity.Name;
-                if (usr != null)
+                if (usr == null)
                 {
-                    comm.UserName = usr;
+                    return RedirectToAction("Details");
                 }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
-                db.Comments.Add(comm);
+                comment.UserName = usr;
+                db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Details");
             }
-            return View(comm);
+            return View(comment);
 
             //return View(request);
             //String strUser = null;

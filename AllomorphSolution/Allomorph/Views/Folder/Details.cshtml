@@ -1,4 +1,4 @@
-﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>>
+﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Comment>>
 
 @{
     ViewBag.Title = "Upplýsingar um textaskrá";
@@ -83,4 +83,6 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-@{ Html.RenderPartial("CreateComment", new Allomorph.Models.Comment()); }
+@{ Html.RenderPartial("ShowComments", Tuple.Create(Model.Item3, Model.Item1)); }
+
+@*@{ Html.RenderPartial("CreateComment", new Allomorph.Models.Comment()); }*@
