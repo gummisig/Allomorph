@@ -82,6 +82,8 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<hr />
+<h3>Athugasemndir</h3>
 
 @{ Html.RenderPartial("ShowComments", Tuple.Create(Model.Item3, Model.Item1)); }
 
