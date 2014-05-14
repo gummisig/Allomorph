@@ -83,7 +83,7 @@ namespace Allomorph.Controllers
                     folders = folders.OrderBy(s => s.FolderName);
                     break;
             }
-            int pageSize = 5;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(folders.ToPagedList(pageNumber, pageSize));
             //return View(folders.ToList());

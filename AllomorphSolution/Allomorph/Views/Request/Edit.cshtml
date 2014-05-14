@@ -1,10 +1,10 @@
 ﻿@model Allomorph.Models.Request
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Breyta beiðni";
 }
 
-<h2>Edit</h2>
+<h2>Breyta</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Request</h4>
         <hr />
         @Html.ValidationSummary(true)
 

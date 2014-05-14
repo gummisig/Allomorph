@@ -82,6 +82,13 @@
     padding-left: 7%;
 }
 
+#requesttextbox {
+}
+
+#requestnamebox {
+   
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
