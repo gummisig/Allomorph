@@ -37,7 +37,7 @@
                     new SelectListItem { Value = "3", Text = "Teiknimynd" },
                     new SelectListItem { Value = "4", Text = "Íslenskt efni" }
                     },
-                    new { @class = "myselect", style = "width:155px" })
+                new { @class = "btn btn-default btn-sm dropdown-toggle", style = "width:155px" })
                 @Html.ValidationMessageFor(model => model.Item1.CategoryID)
             </div>
         </div>
@@ -74,7 +74,7 @@
                     new SelectListItem { Value = "1", Text = "Enska" },
                     new SelectListItem { Value = "2", Text = "Íslenska" }
                     },
-                    new { @class = "myselect", style ="width:155px" })
+                new { @class = "btn btn-default btn-sm dropdown-toggle", style = "width:155px" })
                 @Html.ValidationMessageFor(model => model.Item2.LanguageID)
             </div>
         </div>
