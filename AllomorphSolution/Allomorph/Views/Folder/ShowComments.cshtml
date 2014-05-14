@@ -1,7 +1,7 @@
 ﻿@model Tuple<IEnumerable<Allomorph.Models.Comment>, Allomorph.Models.Folder>
 
 <p>
-    @Html.ActionLink("Skrá nýja athugasemnd", "CreateComment", new { id = Model.Item2.ID })
+    @Html.ActionLink("Skrá nýja athugasemd", "CreateComment", new { id = Model.Item2.ID })
 </p>
 <table class="table">
     @{ var dummy = Model.Item1.FirstOrDefault(); }

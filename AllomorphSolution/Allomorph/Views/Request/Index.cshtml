@@ -48,7 +48,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.RequestName, "Details", new { id = item.ID })
+                @Html.ActionLink(item.RequestName, "Create", "Folder", new { reqName = item.RequestName }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RequestText)

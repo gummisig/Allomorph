@@ -1,10 +1,10 @@
 ﻿@model Allomorph.Models.Comment
 
 @{
-    ViewBag.Title = "Skrá athugasemnd";
+    ViewBag.Title = "Skrá athugasemd";
 }
 
-<h2>Skrá athugasemnd</h2>
+<h2>Skrá athugasemd</h2>
 
 
 @using (Html.BeginForm("CreateComment",
@@ -35,7 +35,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Details")
+    @Html.ActionLink("Til baka í möppu", "Details", new { id = ViewBag.folderid })
 </div>
 
 @section Scripts {

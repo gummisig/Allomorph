@@ -22,7 +22,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.FolderName, "Nafn:", new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.FolderName)
+            @Html.TextBoxFor(model => model.FolderName, new { @Value = @ViewBag.newName })
             @Html.ValidationMessageFor(model => model.FolderName)
         </div>
     </div>
@@ -87,7 +87,7 @@
 <p>gummi</p>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Til baka í texta", "Index")
 </div>
 
 @section Scripts {

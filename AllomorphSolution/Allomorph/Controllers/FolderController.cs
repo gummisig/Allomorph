@@ -117,8 +117,9 @@ namespace Allomorph.Controllers
 
         // GET: /Folder/Create
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(string reqName = "")
         {
+            ViewBag.newName = reqName;
             return View(new Folder());
         }
 
@@ -131,7 +132,10 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                //if (reqName != "")
+                //{
+                //    folder.FolderName = reqName;
+                //}
                 db.Folders.Add(folder);
                 db.SaveChanges();
                 //try
@@ -279,6 +283,7 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult CreateComment(int? id)
         {
+            ViewBag.folderid = id;
             return View(new Comment());
         }
 
