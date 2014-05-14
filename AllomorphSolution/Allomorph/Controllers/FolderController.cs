@@ -275,31 +275,30 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult CreateComment(int? id)
         {
-            Folder folder = db.Folders.Find(id);
-            if (folder == null)
-            {
-                return HttpNotFound();
-            }
-            Comment comment = new Comment();
-            comment.FolderID = folder.ID;
-            return View(comment);
+            return View(new Comment());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment([Bind(Include = "ID,UserName,FolderID,CommentText,DateCreated")] Comment comment)
+        public ActionResult CreateComment([Bind(Include = "ID,UserName,FolderID,CommentText,DateCreated")] Comment comment, int id)
         {
             if (ModelState.IsValid)
             {
                 string usr = System.Web.HttpContext.Current.User.Identity.Name;
                 if (usr == null)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", new { ID = id });
                 }
+                Folder folder = db.Folders.Find(id);
+                if (folder == null)
+                {
+                    return HttpNotFound();
+                }
+                comment.FolderID = folder.ID;
                 comment.UserName = usr;
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { ID = id });
             }
             return View(comment);
 
