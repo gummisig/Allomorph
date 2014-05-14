@@ -1,4 +1,4 @@
-﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Comment>>
+﻿@model Tuple<Allomorph.Models.Folder, Allomorph.Models.SubFile, IEnumerable<Allomorph.Models.Comment>>
 
 @{
     ViewBag.Title = "Upplýsingar um textaskrá";
@@ -12,7 +12,7 @@
 <img src="@Model.Item1.Poster" alt="Ekki til mynd" width="420" height="420">
 
 <div>
-    @Html.ActionLink("Ritstýring", "TextEdit", Model.Item1.ID)
+    @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.ID })
 </div>
 
 <div>

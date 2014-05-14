@@ -262,6 +262,7 @@
     <Content Include="Views\Request\Delete.cshtml" />
     <Content Include="Views\Request\Details.cshtml" />
     <Content Include="Views\Shared\FileUpload.cshtml" />
+    <Content Include="Views\Folder\TextEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -104,9 +104,9 @@ namespace Allomorph.Controllers
             {
                 return HttpNotFound();
             }
-            IEnumerable<SubFile> subtitles = (from s in db.SubFiles
-                                              where s.FolderID == folder.ID
-                                              select s).ToList();
+            var subtitles = (from s in db.SubFiles
+                             where s.FolderID == folder.ID
+                             select s);
 
             IEnumerable<Comment> comment = (from c in db.Comments
                                            where c.FolderID == folder.ID
@@ -344,6 +344,19 @@ namespace Allomorph.Controllers
             //                };
 
             //return Json(newResult, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult TextEdit(int? id)
+        {
+
+            IEnumerable<SubFileLine> lines = (from s in db.SubFileLines
+                                             where s.SubFileID == id
+                                             select s).ToList();
+            SubFileLine rawr = lines.FirstOrDefault();
+
+         
+
+            return View(lines);
         }
 
         public FileStreamResult GetFile(int id)
