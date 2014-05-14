@@ -120,7 +120,7 @@ namespace Allomorph.Controllers
         public ActionResult Create(string reqName = "")
         {
             ViewBag.newName = reqName;
-            return View(Tuple.Create(new Folder(), new SubFile()));
+            return View(new Folder());
         }
 
         // POST: /Folder/Create
@@ -140,7 +140,9 @@ namespace Allomorph.Controllers
                     StreamReader streamReader = new StreamReader(file.InputStream);
                     int i = 1;
                     // Needs more stuff to add like for example language, user ID
-                    SubFile subfile = new SubFile { FolderID = folder.ID, LastChange = DateTime.Now, SubName = file.FileName};
+                    SubFile subfile = new SubFile();
+                    subfile.FolderID = folder.ID;
+                    subfile.SubName = file.FileName;
                     db.SubFiles.Add(subfile);
                     db.SaveChanges();
                     while (streamReader.Peek() != -1)
