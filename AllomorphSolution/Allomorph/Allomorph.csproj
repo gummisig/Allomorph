@@ -16,7 +16,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -169,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FolderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="DAL\SubtitleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -255,6 +257,11 @@
     <Content Include="Views\Folder\Details.cshtml" />
     <Content Include="Views\Folder\Edit.cshtml" />
     <Content Include="Views\Folder\Index.cshtml" />
+    <Content Include="Views\Request\Create.cshtml" />
+    <Content Include="Views\Request\Delete.cshtml" />
+    <Content Include="Views\Request\Details.cshtml" />
+    <Content Include="Views\Request\Edit.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

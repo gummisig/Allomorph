@@ -11,6 +11,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.RequestName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.RequestText)
         </th>
         <th>
@@ -40,8 +43,16 @@
         <hr />
         @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RequestText, new { @class = "control-label col-md-2" })
+        <div id="requestnamebox" class="form-group">
+            @Html.LabelFor(model => model.RequestName, "Nafn:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.RequestName)
+                @Html.ValidationMessageFor(model => model.RequestName)
+            </div>
+        </div>
+
+        <div id="requesttextbox" class="form-group">
+            @Html.LabelFor(model => model.RequestText, "Lýsing:", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextAreaFor(model => model.RequestText)
                 @Html.ValidationMessageFor(model => model.RequestText)

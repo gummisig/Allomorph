@@ -12,12 +12,22 @@ using PagedList;
 
 namespace Allomorph.Controllers
 {
-    public class SubtitleController : Controller
+    public class RequestController : Controller
     {
         private SubtitleContext db = new SubtitleContext();
 
-        public ViewResult Search(string currentFilter, string searchString, int? page)
+        // GET: /Request/
+        public ViewResult Index(RequestViewModel rvm)
         {
+            string sortOrder = rvm.sortOrder;
+            string currentFilter = rvm.currentFilter;
+            string searchString = rvm.searchString;
+            int? page = rvm.page;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
             if (searchString != null)
             {
                 page = 1;
@@ -29,123 +39,126 @@ namespace Allomorph.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var folders = from s in db.Folders
-                           select s;
+            var req = from s in db.Requests
+                          select s;
+
             if (!String.IsNullOrEmpty(searchString))
             {
-                folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
+                req = (from s in db.Requests
+                      where (s.RequestName.ToUpper().Contains(searchString.ToUpper()))
+                      || (s.RequestText.ToUpper().Contains(searchString.ToUpper()))
+                      select s);
+                //req = req.Where(s => s.RequestName.ToUpper().Contains(searchString.ToUpper()));
             }
-
-            int pageSize = 25;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    req = req.OrderByDescending(s => s.RequestName);
+                    break;
+                case "date_desc":
+                    req = req.OrderByDescending(s => s.DateCreated);
+                    break;
+                default:  // Name ascending 
+                    req = req.OrderBy(s => s.RequestName);
+                    break;
+            }
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
-
-            return View(folders.ToPagedList(pageNumber, pageSize));
+            return View(req.ToPagedList(pageNumber, pageSize));
+            //return View(db.Requests.ToList());
         }
 
-        // GET: /Subtitle/
-        public ActionResult Index()
-        {
-            var folders = db.Folders;
-            return View(folders.ToList());
-        }
-
-        // GET: /Subtitle/Details/5
+        // GET: /Request/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return View("Error");
             }
-            Folder folders = db.Folders.Find(id);
-            if (folders == null)
+            Request request = db.Requests.Find(id);
+            if (request == null)
             {
                 return HttpNotFound();
             }
-            return View(folders);
+            return View(request);
         }
 
-        // GET: /Subtitle/Create
+        // GET: /Request/Create
         public ActionResult Create()
         {
-            //ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName");
-            //ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
-            return View(new Folder());
+            return View();
         }
 
-        // POST: /Subtitle/Create
+        // POST: /Request/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Create([Bind(Include="RequestName,RequestText")] Request request)
         {
             if (ModelState.IsValid)
             {
-                db.Folders.Add(folder);
+                db.Requests.Add(request);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(folder);
+            return View(request);
         }
 
-        // GET: /Subtitle/Edit/5
+        // GET: /Request/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return View("Error");
             }
-            SubFile subfile = db.SubFiles.Find(id);
-            if (subfile == null)
+            Request request = db.Requests.Find(id);
+            if (request == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-            /*ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);*/
-            return View(subfile);
+            return View(request);
         }
 
-        // POST: /Subtitle/Edit/5
+        // POST: /Request/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,UserID,FolderID,SubFileLineID,SubName,LastChange,LastChangedByUser")] SubFile subfile)
+        public ActionResult Edit([Bind(Include="RequestName,RequestText")] Request request)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(subfile).State = EntityState.Modified;
+                db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.FolderID = new SelectList(db.Folders, "ID", "FolderName", subfile.FolderID);
-            /*ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", subfile.UserID);*/
-            return View(subfile);
+            return View(request);
         }
 
-        // GET: /Subtitle/Delete/5
+        // GET: /Request/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return View("Error");
             }
-            Folder folder = db.Folders.Find(id);
-            if (folder == null)
+            Request request = db.Requests.Find(id);
+            if (request == null)
             {
                 return HttpNotFound();
             }
-            return View(folder);
+            return View(request);
         }
 
-        // POST: /Subtitle/Delete/5
+        // POST: /Request/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Folder folder = db.Folders.Find(id);
-            db.Folders.Remove(folder);
+            Request request = db.Requests.Find(id);
+            db.Requests.Remove(request);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
