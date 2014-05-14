@@ -31,28 +31,5 @@ namespace Allomorph.Controllers
 
             return View();
         }
-
-        public ActionResult Request()
-        {
-            return View(new Request());
-        }
-
-        // POST: /Home/Request
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Request([Bind(Include = "ID,ApplicationUserId,RequestText,")] Request request)
-        {
-            //var user = from u in db.Users
-            //           where u.ID == request.ApplicationUserID
-            //           select u;
-            if (ModelState.IsValid)
-            {
-                db.Requests.Add(request);
-                db.SaveChanges();
-                return RedirectToAction("Request");
-            }
-
-            return View(request);
-        }
     }
 }

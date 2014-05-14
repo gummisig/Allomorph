@@ -270,41 +270,61 @@ namespace Allomorph.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateComment(Comment comm, User user)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment([Bind(Include = "ID,UserName,FolderID,CommentText")] Comment comm)
         {
-            String strUser = null;
-            if(user != null){
-                strUser = user.UserName;
-            }
-            else {
-                strUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            }
-
-            if (!String.IsNullOrEmpty(strUser))
+            if (ModelState.IsValid)
             {
-                int slashPos = strUser.IndexOf("\\");
-                if (slashPos != -1)
+                string usr = System.Web.HttpContext.Current.User.Identity.Name;
+                if (usr != null)
                 {
-                    strUser = strUser.Substring(slashPos + 1);
+                    comm.UserName = usr;
                 }
-                comm.UserID = user.ID;
-
+                else
+                {
+                    return RedirectToAction("Index");
+                }
                 db.Comments.Add(comm);
+                db.SaveChanges();
+                return RedirectToAction("Details");
             }
+            return View(comm);
 
-            var comments = db.Comments;
+            //return View(request);
+            //String strUser = null;
 
-            var newResult = from c in comments
-                           // where c.FolderID
-                            select new
-                            {
-                                CommentDate = c.DateCreated.ToString(),
-                                ID = c.ID,
-                                CommentText = c.CommentText,
-                                Username = user.UserName
-                            };
+            //if(user != null){
+            //    strUser = user.UserName;
+            //}
+            //else {
+            //    strUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            //}
 
-            return Json(newResult, JsonRequestBehavior.AllowGet);
+            //if (!String.IsNullOrEmpty(strUser))
+            //{
+            //    int slashPos = strUser.IndexOf("\\");
+            //    if (slashPos != -1)
+            //    {
+            //        strUser = strUser.Substring(slashPos + 1);
+            //    }
+            //    comm.UserName = user.ID;
+
+            //    db.Comments.Add(comm);
+            //}
+
+            //var comments = db.Comments;
+
+            //var newResult = from c in comments
+            //               // where c.FolderID
+            //                select new
+            //                {
+            //                    CommentDate = c.DateCreated.ToString(),
+            //                    ID = c.ID,
+            //                    CommentText = c.CommentText,
+            //                    Username = user.UserName
+            //                };
+
+            //return Json(newResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

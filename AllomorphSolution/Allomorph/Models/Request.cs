@@ -16,7 +16,7 @@ namespace Allomorph.Models
         }
 
         public int ID { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string UserName { get; set; }
         public string RequestName { get; set; }
         public string RequestText { get; set; }
         public int ReqUpvoteCounter { get; set; }

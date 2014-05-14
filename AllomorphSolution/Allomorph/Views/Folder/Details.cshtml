@@ -98,3 +98,5 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@{ Html.RenderPartial("CreateComment", new Allomorph.Models.Comment()); }
