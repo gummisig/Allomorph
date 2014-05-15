@@ -303,14 +303,14 @@ namespace Allomorph.Controllers
 
                                      var somethin = lines.FirstOrDefault();
 
-                                     var rawr = (from z in lines
+                                     IEnumerable < { int ID, int LineNumber, string LineText } > rawr = (from z in lines
                                             join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
                                             select new {z.ID, z.LineNumber, j.LineText}).ToList();
 
             var argur = rawr.FirstOrDefault();
 
             
-            return View();
+            return View(rawr);
         }
 
         public FileStreamResult GetFile(int id)

@@ -12,7 +12,7 @@
 <img src="@Model.Item1.Poster" alt="Ekki til mynd" width="320" height="320" />
 
 <div>
-    @Html.ActionLink("Ritstýring", "TextEdit", Model.Item2.ID)
+    @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.First().ID })
 </div>
 
 <div>
