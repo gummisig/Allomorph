@@ -298,57 +298,26 @@ namespace Allomorph.Controllers
         public ActionResult TextEdit(int? id)
         {
 
-                                     IEnumerable<SubFileLine> lines = (from s in db.SubFileLines
-                                              where s.SubFileID == id                                                                                         
-                                              select s).ToList();
+            IEnumerable<LinesAndTranslations> TextList = (from z in db.SubFileLines
+                                                          where z.SubFileID == id                           
+                                                select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
 
-                                     List<string> English = new List<string>();
-                                     List<string> Icelandic = new List<string>();
-           
-                                     foreach(var item in lines)
-                                     {
-                                         var line = from t in db.SubFileLineTranslations
-                                                    where t.SubFileLineID == item.ID
-                                                    select t;
-
-                                         var e = from j in line
-                                                 where j.LanguageID == 1
-                                                 select j;
-                                         var i = from k in line
-                                                 where k.LanguageID == 2
-                                                 select k;
-                                         /*
-                                         if(e.E == null)
-                                         {
-                                             English.Add("");
-                                         }
-                                         else
-                                         {
-                                            English.Add(e.First().LineText);
-                                         }
-                                         if(i.FirstOrDefault().LineText == null)
-                                         {
-                                             Icelandic.Add("");
-                                         }
-                                         else
-                                         {
-                                            Icelandic.Add(i.First().LineText);
-                                         }       */                            
-                                     }
+            foreach(var item in TextList)
+            {
+      
+                item.EngText = (from z in db.SubFileLineTranslations
+                                where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
+                                select z).First().LineText;
 
 
-                                     
-
-                                     IEnumerable < SubFileLine> rawr = (from z in lines
-                                           join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
-                                           select z).ToList();
-
-            var argur = rawr.FirstOrDefault();
-
-            
-          return View(Tuple.Create(lines, English, Icelandic));
+                item.IceText = (from z in db.SubFileLineTranslations
+                                where z.SubFileLineID == item.SubLineId && z.LanguageID == 2
+                                select z).FirstOrDefault().LineText;
+            }
+      
+            return View(TextList);
     
-     }
+        }
 
         public FileStreamResult GetFile(int id)
         {
