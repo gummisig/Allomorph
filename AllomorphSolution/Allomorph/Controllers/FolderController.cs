@@ -139,7 +139,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description,RequestID")] Folder folder, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description,RequestID")] Folder folder, HttpPostedFileBase file, SubFile subfile)
         {
             if (folder.RequestID != null)
             {
@@ -158,7 +158,7 @@ namespace Allomorph.Controllers
             if (ModelState.IsValid)
             {
                 StreamReader streamReader = new StreamReader(file.InputStream);
-                SubFile subfile = new SubFile();
+
                 subfile.FolderID = folder.ID;
                 subfile.SubName = file.FileName;
                 db.Folders.Add(folder);
@@ -179,10 +179,10 @@ namespace Allomorph.Controllers
                     string text = streamReader.ReadLine();
                     string nextline = streamReader.ReadLine();
 
-                    if (nextline != "")
+                    while (nextline != "")
                     {
                         text += "\n" + nextline;
-                        streamReader.ReadLine();
+                        nextline = streamReader.ReadLine();
                     }
 
                     tempLine.LineNumber = Convert.ToInt32(lineNumber);
@@ -194,14 +194,8 @@ namespace Allomorph.Controllers
 
                     tempTranslation.SubFileLineID = tempLine.ID;
                     tempTranslation.LineText = text;
+                    tempTranslation.LanguageID = subfile.LanguageID;
                         
-                    if(db.Languages.Find(1) == null)
-                    {
-                        Language Enska = new Language() { LanguageName = "English" };
-                        db.Languages.Add(Enska);
-                    }
-                    tempTranslation.LanguageID = 1;
-
                     db.SubFileLineTranslations.Add(tempTranslation);
                     db.SaveChanges();
                     i++;
@@ -319,10 +313,10 @@ namespace Allomorph.Controllers
 
             IEnumerable<LinesAndTranslations> TextList = (from z in db.SubFileLines
                                                           where z.SubFileID == id                           
-                                                          select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
+                                                select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
 
             foreach(var item in TextList)
-            {
+                                     {
 
                 var tempEng = (from z in db.SubFileLineTranslations
                                 where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
@@ -357,38 +351,52 @@ namespace Allomorph.Controllers
                 }
             }
             return View(TextList);
-        }
+     }
 
-        public FileStreamResult GetFile(int id)
+        public FileStreamResult GetFile(int id, int langid)
         {
             IEnumerable<SubFile> file = from s in db.SubFiles
                                         where id == s.ID
                                         select s;
 
-            FileInfo info = new FileInfo(file.First().SubName);
-
+            string name = file.First().SubName;
+            FileInfo info = new FileInfo(name);
+            /*
             IEnumerable<SubFileLine> lines = from t in db.SubFileLines
                                              where t.SubFileID == id
                                              select t;
 
-            if (!info.Exists)
+            IEnumerable<SubFileLineTranslation> translines = from t in db.SubFileLineTranslations
+                                                             where t.SubFileLineID == lines.ID && t.LanguageID == langid
+                                                             select t;*/
+
+            var combi = from z in db.SubFileLines
+                        join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
+                        where j.LanguageID == langid
+                        select new { z.LineNumber, z.StartTime, z.EndTime, j.LineText };
+            
+
+            if (info.Exists)
             {
+                int temp = name.Length;
+                name = name.Substring(0,temp - 4) + "-I.srt"; 
+            }
                 using (StreamWriter writer = info.CreateText())
                 {
-                    foreach(var line in lines)
+                foreach (var line in combi)
                     {
                         writer.WriteLine(line.LineNumber);
                         writer.Write(line.StartTime);
                         writer.Write(" --> ");
                         writer.WriteLine(line.EndTime);
-                        //TODO: get text
+                    writer.WriteLine(line.LineText);
 
                         //End of Textblock
                         writer.WriteLine("");
                     }
                 }
-            }
-            return File(info.OpenRead(), "text/plain", file.First().SubName);
+
+            return File(info.OpenRead(), "text/plain", name);
         }
     }
 }
