@@ -114,7 +114,11 @@ namespace Allomorph.Controllers
                                            where c.FolderID == folder.ID
                                            select c).ToList();
 
-            return View(Tuple.Create(folder, subtitles, comment));
+            IEnumerable<Folder> folders = (from f in db.Folders
+                                           where f.ID == folder.ID
+                                           select f).ToList();
+
+            return View(Tuple.Create(folder, subtitles, comment, folders));
         }
 
         // GET: /Folder/Create
@@ -312,10 +316,10 @@ namespace Allomorph.Controllers
 
             IEnumerable<LinesAndTranslations> TextList = (from z in db.SubFileLines
                                                           where z.SubFileID == id                           
-                                                select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
+                                                          select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
 
             foreach(var item in TextList)
-                                     {
+            {
 
                 var tempEng = (from z in db.SubFileLineTranslations
                                 where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
@@ -349,10 +353,8 @@ namespace Allomorph.Controllers
                     item.IceText = tempEng.LineText;
                 }
             }
-      
             return View(TextList);
-    
-     }
+        }
 
         public FileStreamResult GetFile(int id)
         {
@@ -383,7 +385,6 @@ namespace Allomorph.Controllers
                     }
                 }
             }
-
             return File(info.OpenRead(), "text/plain", file.First().SubName);
         }
     }

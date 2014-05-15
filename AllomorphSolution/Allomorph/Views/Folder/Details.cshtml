@@ -1,4 +1,4 @@
-﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Comment>>
+﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Comment>, IEnumerable<Allomorph.Models.Folder>>
 
 @{
     ViewBag.Title = "Upplýsingar um textaskrá";
@@ -56,6 +56,7 @@
             </th>
             <th></th>
         </tr>
+        @{ var dumdum = Model.Item4; }
         @foreach (var item in Model.Item2)
         {
             <tr>
@@ -66,10 +67,10 @@
                     @Html.DisplayFor(modelItem => item.LanguageID)
                 </td>
                 <td>
-                    @Html.ActionLink("Download", "GetFile", new { id = item.ID }) |
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = dumdum.FirstOrDefault().ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = dumdum.FirstOrDefault().ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = dumdum.FirstOrDefault().ID })
                 </td>
             </tr>
         }
