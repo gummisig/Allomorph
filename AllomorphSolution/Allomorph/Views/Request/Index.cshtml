@@ -12,17 +12,19 @@
 
 @using (Html.BeginForm("Index", "Request", FormMethod.Get))
 {      
-    <form class="navbar-form navbar-left" role="search">
+    <div role="search">
         <div class="form-group" id="leitFormBeidnir">
             @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "  Leita í beiðnum...", style = "width:200px" })
         </div>
         <button id="btnLeitBeidnir" class="btn btn-default" type="submit">Leita!</button>
-    </form>
+    </div>
 }
+<span id="btnBuaTilBeidni">
+    <button class="btn-sm">
+        @Html.ActionLink("Búa til nýja beiðni", "Create")
+    </button>
+</span>
 
-<p>
-    @Html.ActionLink("Búa til nýja beiðni", "Create")
-</p>
 
 <table class="table">
     <tr>

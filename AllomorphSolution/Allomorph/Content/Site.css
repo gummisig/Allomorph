@@ -21,6 +21,10 @@
     resize: both;
 }
 
+#textAreaFor {
+   
+}
+
 #languageDropDown {
     height: 32px;
     width: 100px;
@@ -59,34 +63,50 @@
 }
 
 #leitForm {
-    padding-left: 20%;
-    float: none;
     padding-top: 3%;
-    width: 100%;
+    padding-left: 4.5%;
+    margin-bottom: 6%;
 }
 
-#leit, btn {
-    padding-left: 8%;
+#leitFormBeidnir {
+    float: left;
+    padding-bottom: 3%;
 }
 
-#flokkar {
-    padding-top: 1em;
+#leitMaster {
+    left: 20px;
+    float: left;
+    padding-left: 15%;
 }
 
-#flokkar, #checkflokka {
-    padding-left: 0.5em;
+#flokkarLeitMaster {
+    float: left;
+    left: 20px;
+    margin-left: 0.5%;
+}
+
+#btnLeitTextar {
+    float: left;
+    left: auto;
+    height: 32px;
+    margin-left: 0.5%;
+}
+
+#btnBuaTilBeidni button {
+    float: right;
+    font-size: larger;
+}
+
+#createTextForm {
+    
 }
 
 #masterFooter {
-    padding-top: 30%;
+    padding-top: 5%;
 }
 
 .masterFooterLink {
     padding-left: 18%;
-}
-
-#myselect {
-    padding-left: 7%;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

@@ -15,7 +15,7 @@
 {         
     @Html.AntiForgeryToken()
    
-    <div class="form-horizontal">
+    <div class="form-horizontal" id="createTextForm">
         <hr />
         @Html.ValidationSummary(true)
 
@@ -62,7 +62,7 @@
     
         <div class="form-group">
             @Html.LabelFor(model => model.Description, "Lýsing", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-10" id="textAreaFor">
                 @Html.TextAreaFor(model => model.Description)
                 @Html.ValidationMessageFor(model => model.Description)
             </div>

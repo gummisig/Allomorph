@@ -5,26 +5,22 @@
     </div>
     @using (Html.BeginForm("Index", "Folder", FormMethod.Get))
     {
-    <div class="input-group" id="leitForm">
-        <div id="leit">
-                <p>
-                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita að texta...", style = "width:200px;height:32px" })
-                    <button id="btnLeit" class="btn btn-default" type="submit">Leita!</button>
-                </p>
+    <div role="search" id="leitForm">
+        <div class="form-group" id="leitMaster">
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "  Leita að texta...", style = "width:200px;height:32px;" })
         </div>
-        <div id="flokkar" class="form-group">
-            <div id="myselect" class=" col-md-10">
-                @Html.DropDownListFor(model => model.ID,
-                               new List<SelectListItem> {
-                                   new SelectListItem { Value = "0", Text = "Flokkur:"},
-                                   new SelectListItem { Value = "1", Text = "Kvikmynd" },
-                                   new SelectListItem { Value = "2", Text = "Þáttur" },
-                                   new SelectListItem { Value = "3", Text = "Teiknimynd" },
-                                   new SelectListItem { Value = "4", Text = "Íslenskt efni" }
-                               },
-                         new { @class = "btn btn-default btn-sm dropdown-toggle", style = "width:200px" })
-            </div>
+        <div id="flokkarLeitMaster" class="form-group">
+            @Html.DropDownListFor(model => model.ID,
+                            new List<SelectListItem> {
+                                new SelectListItem { Value = "0", Text = "Flokkur:"},
+                                new SelectListItem { Value = "1", Text = "Kvikmynd" },
+                                new SelectListItem { Value = "2", Text = "Þáttur" },
+                                new SelectListItem { Value = "3", Text = "Teiknimynd" },
+                                new SelectListItem { Value = "4", Text = "Íslenskt efni" }
+                            },
+                        new { @class = "btn btn-default btn-sm dropdown-toggle", style="height:32px;" })
         </div>
+        <button id="btnLeitTextar" class="btn btn-default" type="submit">Leita!</button>
     </div>
     }
 </div>
