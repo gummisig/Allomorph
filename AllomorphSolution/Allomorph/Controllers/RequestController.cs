@@ -66,7 +66,6 @@ namespace Allomorph.Controllers
                       where (s.RequestName.ToUpper().Contains(searchString.ToUpper()))
                       || (s.RequestText.ToUpper().Contains(searchString.ToUpper()))
                       select s);
-                //req = req.Where(s => s.RequestName.ToUpper().Contains(searchString.ToUpper()));
             }
             switch (sortOrder)
             {
@@ -92,7 +91,6 @@ namespace Allomorph.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(req.ToPagedList(pageNumber, pageSize));
-            //return View(db.Requests.ToList());
         }
 
         // GET: /Request/Details/5
@@ -129,10 +127,6 @@ namespace Allomorph.Controllers
                 if (usr != null)
                 {
                     request.UserName = usr;
-                }
-                else
-                {
-                    request.UserName = "allomorph gestur";
                 }
                 db.Requests.Add(request);
                 db.SaveChanges();

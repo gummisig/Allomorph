@@ -303,8 +303,8 @@ namespace Allomorph.Controllers
                                                 select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
 
             foreach(var item in TextList)
-            {
-      
+                                     {
+
                 item.EngText = (from z in db.SubFileLineTranslations
                                 where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
                                 select z).First().LineText;
@@ -317,7 +317,7 @@ namespace Allomorph.Controllers
       
             return View(TextList);
     
-        }
+     }
 
         public FileStreamResult GetFile(int id)
         {

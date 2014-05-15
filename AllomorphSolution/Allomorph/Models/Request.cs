@@ -14,6 +14,7 @@ namespace Allomorph.Models
             this.DateCreated = DateTime.Now;
             this.ReqUpvoteCounter = 0;
             this.RequestText = "";
+            this.UserName = "allomorph gestur";
         }
 
         public int ID { get; set; }
