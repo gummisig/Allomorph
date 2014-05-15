@@ -1,5 +1,5 @@
-﻿@*@model Tuple<IEnumerable<Allomorph.Models.SubFileLine>,IEnumerable<Allomorph.Models.SubFileLineTranslation>>*@
-@model IEnumerable<Allomorph.Models.SubFileLine>
+﻿@model Tuple<IEnumerable<Allomorph.Models.SubFileLine>,List<string>, List<string>>
+
 @{
     ViewBag.Title = "TextEdit";
 }
@@ -8,28 +8,50 @@
 
 <h3>Ritstýring</h3>
 
-<table>
-    <thead>
-        <tr>
-            <th>GummaRow</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            @foreach(var s in Model)
-        {
-
-        <td>
+    <table>
+        <thead>
+            <tr>
+                <th>GummaRow</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+           
+                @foreach (var s in Model.Item1)
+{
+    <tr>
+        
+        
+        
 
             @Html.DisplayFor(ModelItem => s.LineNumber)
-            
-        </td>
+
+        
+        </tr>
         }
+        
+            @foreach (var i in Model.Item2)
+            {
+                <tr>
+                    
+                        @Html.Display(i)
+                    
+                </tr>
+                
+            }
+            @foreach (var m in Model.Item3)
+            {
+               <tr>
+                   @Html.Display(m)
+               </tr>
+            }
+        
+}
 
-    </tr>
-     
-     
+       
 
 
-    </tbody>
-</table>
+
+
+        </tbody>
+    </table>
