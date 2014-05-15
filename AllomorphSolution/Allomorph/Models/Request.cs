@@ -13,6 +13,7 @@ namespace Allomorph.Models
         {
             this.DateCreated = DateTime.Now;
             this.ReqUpvoteCounter = 0;
+            this.RequestText = "";
         }
 
         public int ID { get; set; }

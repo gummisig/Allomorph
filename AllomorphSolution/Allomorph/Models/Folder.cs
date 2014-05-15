@@ -22,6 +22,9 @@ namespace Allomorph.Models
         public Folder()
         {
             this.DateCreated = DateTime.Now;
+            this.Link = "";
+            this.Poster = "";
+            this.Description = "";
         }
     }
 }

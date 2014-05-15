@@ -11,16 +11,13 @@
 <h3>Beiðnir</h3>
 
 @using (Html.BeginForm("Index", "Request", FormMethod.Get))
-{
-    <div class="input-group" id="leitFormBeidnir">
-        <div id="leitBeidnir">
-            <p>
-                @*@Html.TextBoxFor(m => m.currentFilter, new {placeholder = "   Leita...", style = "width:200px;height32px" })*@
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { placeholder = "  Leita í beiðnum...", style = "width:200px;height:32px" })
-                <button id="btnLeitBeidnir" class="btn btn-default" type="submit">Leita!</button>
-            </p>
+{      
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group" id="leitFormBeidnir">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "  Leita í beiðnum...", style = "width:200px" })
         </div>
-    </div>
+        <button id="btnLeitBeidnir" class="btn btn-default" type="submit">Leita!</button>
+    </form>
 }
 
 <p>
@@ -30,8 +27,8 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Nafn", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
+            <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+            @Html.ActionLink("Nafn", "Index", new { sortOrder = ViewBag.NameSortParm })</th>
         <th>
             @Html.ActionLink("Lýsing", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
@@ -54,8 +51,8 @@
                 @Html.DisplayFor(modelItem => item.RequestText)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReqUpvoteCounter)
-            </td>
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                @Html.DisplayFor(modelItem => item.ReqUpvoteCounter)</td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
