@@ -74,8 +74,11 @@
 }
 
 #leitFormBeidnir {
+    float: none;
+}
+
+#leitFormBeidnir, btn {
     float: left;
-    padding-bottom: 4%;
 }
 
 #leitMaster {
@@ -99,6 +102,7 @@
 
 #btnBuaTilBeidni {
     float: right;
+    padding-top: 1%;
 }
 
 table {
