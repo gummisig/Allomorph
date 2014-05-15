@@ -12,7 +12,7 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Lina</th>
+                <th class="textEditLineNr">Lina</th>
                 <th>Enskur Texti</th>
                 <th>Islenskur Texti</th>
             </tr>
@@ -20,7 +20,7 @@
             {
                 
             <tr>
-                <td id="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
+                <td class="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
                 <td >@Html.TextAreaFor(ModelItem => s.EngText, new { @class="textEditTranslation"})</td>
                 <td class="textEditTranslation">@Html.TextAreaFor(ModelItem => s.IceText, new { @class="textEditTranslation"})</td>
             </tr>
