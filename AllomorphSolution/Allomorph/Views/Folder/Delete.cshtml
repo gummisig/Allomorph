@@ -6,11 +6,9 @@
 
 @{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
-<h2>Eyða möppu</h2>
+<h3>Eyða @Model.FolderName</h3>
 
-<h3>@Model.FolderName</h3>
-
-<h3>Ertu viss um að þú viljir eyða þessu?</h3>
+<h4>Ertu viss um að þú viljir eyða þessu?</h4>
 <div>
     <hr />
     <dl class="dl-horizontal">
