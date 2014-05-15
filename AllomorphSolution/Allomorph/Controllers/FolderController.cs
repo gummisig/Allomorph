@@ -213,6 +213,7 @@ namespace Allomorph.Controllers
         }
 
         // GET: /Folder/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -244,6 +245,7 @@ namespace Allomorph.Controllers
         }
 
         // GET: /Folder/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -311,6 +313,7 @@ namespace Allomorph.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult TextEdit(int? id)
         {
 
