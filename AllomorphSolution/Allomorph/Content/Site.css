@@ -40,6 +40,7 @@
 
 #topDiv {
     padding-top: 3%;
+    padding-bottom: 50%;
 }
 
 #top10label {
@@ -124,7 +125,7 @@ td {
 
 #masterFooter {
     float: none;
-    padding-top: 40%;
+    
 }
 
 .masterFooterLink {
