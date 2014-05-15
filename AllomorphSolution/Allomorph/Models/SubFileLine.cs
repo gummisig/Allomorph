@@ -17,5 +17,10 @@ namespace Allomorph.Models
 
         public virtual SubFile SubFiles { get; set; }
 
+        public SubFileLine()
+        {
+            this.StartTime = "";
+            this.EndTime = "";
+        }
     }
 }

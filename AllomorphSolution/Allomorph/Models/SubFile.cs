@@ -14,6 +14,7 @@ namespace Allomorph.Models
         {
             this.LastChange = DateTime.Now;
             this.SubDownloadCounter = 0;
+            this.SubName = "";
             this.Languages = new List<Language>();
         }
         public int ID { get; set; }
