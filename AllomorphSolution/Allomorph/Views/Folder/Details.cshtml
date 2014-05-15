@@ -1,4 +1,4 @@
-﻿@model Tuple<Allomorph.Models.Folder, Allomorph.Models.SubFile, IEnumerable<Allomorph.Models.Comment>>
+﻿@model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Comment>>
 
 @{
     ViewBag.Title = "Upplýsingar um textaskrá";
@@ -7,16 +7,16 @@
 @{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
 
-<h2>@Model.Item1.FolderName</h2>
+<h3>@Model.Item1.FolderName</h3>
 
-<img src="@Model.Item1.Poster" alt="Ekki til mynd" width="420" height="420">
+<img src="@Model.Item1.Poster" alt="Ekki til mynd" width="320" height="320" />
 
 <div>
-    @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.ID })
+    @Html.ActionLink("Ritstýring", "TextEdit", Model.Item1.ID)
 </div>
 
 <div>
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal" id="folderTags">
         <dt>
             @Html.Label(Model.Item1.FolderName, "Nafn:", new { @class = "control-label col-md-2" })
         </dt>
@@ -26,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Item1.Link)
+            @Html.Label(Model.Item1.Link, "Linkur:", new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -34,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Item1.Description)
+            @Html.Label(Model.Item1.Description, "Lýsing:", new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -45,37 +45,34 @@
 </div>
 
 <div>
-    <table>
-        <thead>
+    <table class="table" id="folderContent">
+        @{ var dummy = Model.Item2.FirstOrDefault(); }
+        <tr>
+            <th>
+                @Html.LabelFor(model => dummy.SubName, "Textaskrá", new { @class = "control-label col-md-2" })
+            </th>
+            <th>
+                @Html.LabelFor(model => dummy.LanguageID, "Tungumál", new { @class = "control-label col-md-2" })
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Item2)
+        {
             <tr>
-                <th>
-                    Subtitle name
-                </th>
-                <th>
-                    language
-                </th>
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LanguageID)
+                </td>
+                <td>
+                    @Html.ActionLink("Download", "GetFile", new { id = item.ID }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Item2)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SubName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LanguageID)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Download", "GetFile", new { id = item.ID }) |
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
-            }
-        </tbody>
+        }
     </table>
 </div>
 <p>

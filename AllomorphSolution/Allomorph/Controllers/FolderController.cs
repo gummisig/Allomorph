@@ -89,7 +89,6 @@ namespace Allomorph.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(folders.ToPagedList(pageNumber, pageSize));
-            //return View(folders.ToList());
         }
 
         // GET: /Folder/Details/5
@@ -104,9 +103,9 @@ namespace Allomorph.Controllers
             {
                 return HttpNotFound();
             }
-            var subtitles = (from s in db.SubFiles
-                             where s.FolderID == folder.ID
-                             select s);
+            IEnumerable<SubFile> subtitles = (from s in db.SubFiles
+                                             where s.FolderID == folder.ID
+                                             select s).ToList();
 
             IEnumerable<Comment> comment = (from c in db.Comments
                                            where c.FolderID == folder.ID
@@ -308,42 +307,6 @@ namespace Allomorph.Controllers
                 return RedirectToAction("Details", new { ID = id });
             }
             return View(comment);
-
-            //return View(request);
-            //String strUser = null;
-
-            //if(user != null){
-            //    strUser = user.UserName;
-            //}
-            //else {
-            //    strUser = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            //}
-
-            //if (!String.IsNullOrEmpty(strUser))
-            //{
-            //    int slashPos = strUser.IndexOf("\\");
-            //    if (slashPos != -1)
-            //    {
-            //        strUser = strUser.Substring(slashPos + 1);
-            //    }
-            //    comm.UserName = user.ID;
-
-            //    db.Comments.Add(comm);
-            //}
-
-            //var comments = db.Comments;
-
-            //var newResult = from c in comments
-            //               // where c.FolderID
-            //                select new
-            //                {
-            //                    CommentDate = c.DateCreated.ToString(),
-            //                    ID = c.ID,
-            //                    CommentText = c.CommentText,
-            //                    Username = user.UserName
-            //                };
-
-            //return Json(newResult, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult TextEdit(int? id)
