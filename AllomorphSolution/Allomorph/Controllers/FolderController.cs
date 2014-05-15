@@ -356,19 +356,17 @@ namespace Allomorph.Controllers
         public FileStreamResult GetFile(int id, int langid)
         {
             IEnumerable<SubFile> file = from s in db.SubFiles
-                                        where id == s.ID
+                                        where id == s.FolderID
                                         select s;
 
             string name = file.First().SubName;
             FileInfo info = new FileInfo(name);
-            /*
+            
             IEnumerable<SubFileLine> lines = from t in db.SubFileLines
-                                             where t.SubFileID == id
+                                             where t.SubFileID == file.First().ID
                                              select t;
 
-            IEnumerable<SubFileLineTranslation> translines = from t in db.SubFileLineTranslations
-                                                             where t.SubFileLineID == lines.ID && t.LanguageID == langid
-                                                             select t;*/
+
 
             var combi = from z in db.SubFileLines
                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID

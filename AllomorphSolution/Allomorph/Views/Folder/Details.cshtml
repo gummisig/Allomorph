@@ -67,7 +67,7 @@
                     @Html.DisplayFor(modelItem => item.LanguageID)
                 </td>
                 <td>
-                    @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID }) |
+                    @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID , langid = dummy.LanguageID }) |
                     @Html.ActionLink("Edit", "Edit", new { id = dumdum.FirstOrDefault().ID }) |
                     @Html.ActionLink("Details", "Details", new { id = dumdum.FirstOrDefault().ID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = dumdum.FirstOrDefault().ID })
