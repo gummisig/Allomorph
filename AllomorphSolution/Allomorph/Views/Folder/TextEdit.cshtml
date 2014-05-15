@@ -1,0 +1,35 @@
+﻿@model Tuple<IEnumerable<Allomorph.Models.SubFileLine>,IEnumerable<Allomorph.Models.SubFileLineTranslation>>
+
+@{
+    ViewBag.Title = "TextEdit";
+}
+
+@{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
+
+<h2>TextEdit</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>GummaRow</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach(var s in Model.Item1)
+        {
+
+        <td>
+
+            @Html.DisplayFor(ModelItem => s.LineNumber)
+            
+        </td>
+        
+
+    </tr>
+     
+       }
+
+
+    </tbody>
+</table>
