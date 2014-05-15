@@ -71,6 +71,7 @@ namespace Allomorph.Controllers
             {
                 folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
             }
+
             switch (sortOrder)
             {
                 case "name_desc":
@@ -86,6 +87,7 @@ namespace Allomorph.Controllers
                     folders = folders.OrderBy(s => s.FolderName);
                     break;
             }
+
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(folders.ToPagedList(pageNumber, pageSize));
@@ -103,6 +105,7 @@ namespace Allomorph.Controllers
             {
                 return HttpNotFound();
             }
+
             IEnumerable<SubFile> subtitles = (from s in db.SubFiles
                                              where s.FolderID == folder.ID
                                              select s).ToList();
@@ -131,80 +134,55 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
+                StreamReader streamReader = new StreamReader(file.InputStream);
+                SubFile subfile = new SubFile();
+                subfile.FolderID = folder.ID;
+                subfile.SubName = file.FileName;
                 db.Folders.Add(folder);
-                db.SaveChanges();
-                //try
-                //{
-                    // read from file or write to file
-                    StreamReader streamReader = new StreamReader(file.InputStream);
-                    int i = 1;
-                    // Needs more stuff to add like for example language, user ID
-                    SubFile subfile = new SubFile();
-                    subfile.FolderID = folder.ID;
-                    subfile.SubName = file.FileName;
-                    db.SubFiles.Add(subfile);
-                    db.SaveChanges();
-                    while (streamReader.Peek() != -1)
-                    {
-                        SubFileLine tempLine = new SubFileLine();
-                        SubFileLineTranslation tempTranslation = new SubFileLineTranslation();
-                        
+                db.SubFiles.Add(subfile);
+                int i = 1;
 
-                        string lineNumber = streamReader.ReadLine();
-                        string timeLine = streamReader.ReadLine();
-
-                        string firstTime = timeLine.Substring(0, 12);
-                        string secondTime = timeLine.Substring(17);
-
-                        string text = streamReader.ReadLine();
-                        string nextline = streamReader.ReadLine();
-
-                        if (nextline != "")
-                        {
-                            text += "\n" + nextline;
-                            streamReader.ReadLine();
-                        }
-
-                        tempLine.LineNumber = Convert.ToInt32(lineNumber);
-                        tempLine.StartTime = firstTime;
-                        tempLine.EndTime = secondTime;
-                        tempLine.SubFileID = subfile.ID;
-
-                        db.SubFileLines.Add(tempLine);
-                        db.SaveChanges();
-
-                        tempTranslation.SubFileLineID = tempLine.ID;
-                        tempTranslation.LineText = text;
-                        
-                        if(db.Languages.Find(1) == null)
-                        {
-                            Language Enska = new Language() { LanguageName = "English" };
-                            db.Languages.Add(Enska);
-                            db.SaveChanges();
-                        }
-                        tempTranslation.LanguageID = 1;
-
-                        db.SubFileLineTranslations.Add(tempTranslation);
-                        db.SaveChanges();
-
-                        i++;
-                    }
-
-
-
-                    /*List<Text> texts = context.Texts.ToList();
-                    if (texts.Count == 0)
-                    {
-                        return Redirect("http://localhost:40272/Home/");
-                    }
-                    return View(texts);
-                    
-                }
-                catch (Exception e)
+                while (streamReader.Peek() != -1)
                 {
-                    ViewBag.Message = "ERROR:" + e.Message.ToString();
-                } */
+                    SubFileLine tempLine = new SubFileLine();
+                    SubFileLineTranslation tempTranslation = new SubFileLineTranslation();
+                        
+                    string lineNumber = streamReader.ReadLine();
+                    string timeLine = streamReader.ReadLine();
 
+                    string firstTime = timeLine.Substring(0, 12);
+                    string secondTime = timeLine.Substring(17);
+
+                    string text = streamReader.ReadLine();
+                    string nextline = streamReader.ReadLine();
+
+                    if (nextline != "")
+                    {
+                        text += "\n" + nextline;
+                        streamReader.ReadLine();
+                    }
+
+                    tempLine.LineNumber = Convert.ToInt32(lineNumber);
+                    tempLine.StartTime = firstTime;
+                    tempLine.EndTime = secondTime;
+                    tempLine.SubFileID = subfile.ID;
+
+                    db.SubFileLines.Add(tempLine);
+
+                    tempTranslation.SubFileLineID = tempLine.ID;
+                    tempTranslation.LineText = text;
+                        
+                    if(db.Languages.Find(1) == null)
+                    {
+                        Language Enska = new Language() { LanguageName = "English" };
+                        db.Languages.Add(Enska);
+                    }
+                    tempTranslation.LanguageID = 1;
+
+                    db.SubFileLineTranslations.Add(tempTranslation);
+                    db.SaveChanges();
+                    i++;
+                }
                 return RedirectToAction("Index");
             }
             
