@@ -298,13 +298,16 @@ namespace Allomorph.Controllers
         {
 
             IEnumerable<SubFileLine> lines = (from s in db.SubFileLines
-                                             where s.SubFileID == id
-                                             select s).ToList();
-            SubFileLine rawr = lines.FirstOrDefault();
+                                              where s.SubFileID == id
+                                              select s);
+
+            IEnumerable<SubFileLine> rawr = (from z in lines
+                       join j in db.SubFileLineTranslations on  z.ID equals j.SubFileLineID
+                       select z).ToList();
 
          
 
-            return View(lines);
+            return View(rawr);
         }
 
         public FileStreamResult GetFile(int id)

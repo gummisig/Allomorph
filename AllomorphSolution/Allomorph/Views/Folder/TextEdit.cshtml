@@ -1,5 +1,5 @@
-﻿@model Tuple<IEnumerable<Allomorph.Models.SubFileLine>,IEnumerable<Allomorph.Models.SubFileLineTranslation>>
-
+﻿@*@model Tuple<IEnumerable<Allomorph.Models.SubFileLine>,IEnumerable<Allomorph.Models.SubFileLineTranslation>>*@
+@model IEnumerable<Allomorph.Models.SubFileLine>
 @{
     ViewBag.Title = "TextEdit";
 }
@@ -16,7 +16,7 @@
     </thead>
     <tbody>
         <tr>
-            @foreach(var s in Model.Item1)
+            @foreach(var s in Model)
         {
 
         <td>
@@ -24,11 +24,11 @@
             @Html.DisplayFor(ModelItem => s.LineNumber)
             
         </td>
-        
+        }
 
     </tr>
      
-       }
+     
 
 
     </tbody>
