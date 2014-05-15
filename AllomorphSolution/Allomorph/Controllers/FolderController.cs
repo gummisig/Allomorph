@@ -94,7 +94,7 @@ namespace Allomorph.Controllers
         }
 
         // GET: /Folder/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? subid, int? id)
         {
             if (id == null)
             {
@@ -293,6 +293,7 @@ namespace Allomorph.Controllers
             }
             return View(comment);
         }
+
         [HttpGet]
         public ActionResult TextEdit(int? id)
         {
@@ -313,17 +314,14 @@ namespace Allomorph.Controllers
         public FileStreamResult GetFile(int id)
         {
             IEnumerable<SubFile> file = from s in db.SubFiles
-                       where id == s.ID
-                       select s;
+                                        where id == s.ID
+                                        select s;
 
             FileInfo info = new FileInfo(file.First().SubName);
 
             IEnumerable<SubFileLine> lines = from t in db.SubFileLines
                                              where t.SubFileID == id
                                              select t;
-
-
-
 
             if (!info.Exists)
             {
@@ -340,8 +338,6 @@ namespace Allomorph.Controllers
                         //End of Textblock
                         writer.WriteLine("");
                     }
-                        
-
                 }
             }
 

@@ -19,12 +19,12 @@
         <button id="btnLeitBeidnir" class="btn btn-default" type="submit">Leita!</button>
     </div>
 }
-<span id="btnBuaTilBeidni">
-    <button class="btn-sm">
-        @Html.ActionLink("Búa til nýja beiðni", "Create")
-    </button>
-</span>
 
+<div id="btnBuaTilBeidni">
+    <label>
+        @Html.ActionLink("Búa til nýja beiðni", "Create", "Request", new { @class = "list-group-item" })
+    </label>
+</div>
 
 <table class="table">
     <tr>
@@ -65,7 +65,6 @@
             </td>
         </tr>
     }
-
 </table>
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

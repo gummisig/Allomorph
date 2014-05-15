@@ -15,7 +15,15 @@ namespace Allomorph.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<SubFile> subfiles = (from s in db.SubFiles
+                                             orderby s.SubDownloadCounter descending
+                                             select s).Take(10).ToList();
+
+            IEnumerable<Request> requests = (from r in db.Requests
+                                             orderby r.ReqUpvoteCounter descending
+                                             select r).Take(10).ToList();
+
+            return View(Tuple.Create(subfiles, requests));
         }
 
         public ActionResult About()

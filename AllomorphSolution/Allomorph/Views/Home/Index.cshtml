@@ -1,36 +1,39 @@
-﻿@model Tuple<Allomorph.Models.Folder, Allomorph.Models.Request>
+﻿@model Tuple<IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Request>>
 @{
     ViewBag.Title = "allomorph";
 }
 
-@{ Html.RenderPartial("Search"); }
+@{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
 <div id="topDiv">
     <div class="list-group" id="topsott-list">
         <span class ="label label-success" id="top10label">Top 10 Textar</span>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">game of thrones s04e06</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">fargo s01e05</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">modern family s05e22</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">the big bang theory s01e01</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">lord of the rings</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">drive</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">family guy s12e19</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">american dad s09e18</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">arrow s02e22</a>
-        <a href="@Url.Action("Index", "Folder")" class="list-group-item">south park s17e01</a>
+        <table>
+            @foreach (var subfile in Model.Item1)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Details", "Folder", new { subid = subfile.FolderID })" class="list-group-item">@subfile.SubName</a>
+                        @*@Html.ActionLink(subfile.SubName, "Details", "Folder", new { @class = "list-group-item", subid = subfile.FolderID })*@
+                    </td>
+                </tr>
+
+            }
+        </table>
     </div>
 
     <div class="list-group" id="request-list">
         <span class="label label-success" id="top10label">Top 10 Beiðnir</span>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">game of thrones s04e07</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">fargo s01e0</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">modern family s05e22</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">the big bang theory s01e01</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">lord of the rings</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">drive</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">family guy s12e19</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">american dad s09e18</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">arrow s02e22</a>
-        <a href="@Url.Action("Request", "Home")" class="list-group-item">south park s17e01</a>
+        <table>
+            @foreach (var request in Model.Item2)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Details", "Request", new { subid = request.ID })" class="list-group-item">@request.RequestName</a>
+                        @*@Html.ActionLink(request.RequestName, "Details", "Request", new { @class = "list-group-item", subid = request.ID })*@
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
 </div>
