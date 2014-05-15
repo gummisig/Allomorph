@@ -11,14 +11,19 @@
 <div class="panel panel-default">
     <table class="table">
         <tbody>
-
+            <tr>
+                <th class="textEditLineNr">Lina</th>
+                <th>Enskur Texti</th>
+                <th>Islenskur Texti</th>
+            </tr>
             @foreach (var s in Model)
             {
-                <tr>
-                    <td id="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
-                    <td id="textEditTranslation">@Html.EditorFor(ModelItem => s.EngText)</td>
-                    <td class="textEditTranslation">@Html.EditorFor(ModelItem => s.IceText)</td>
-                </tr>
+                
+            <tr>
+                <td class="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
+                <td >@Html.TextAreaFor(ModelItem => s.EngText, new { @class="textEditTranslation"})</td>
+                <td class="textEditTranslation">@Html.TextAreaFor(ModelItem => s.IceText, new { @class="textEditTranslation"})</td>
+            </tr>
             }
 
         </tbody>
