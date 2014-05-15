@@ -297,17 +297,20 @@ namespace Allomorph.Controllers
         public ActionResult TextEdit(int? id)
         {
 
-            IEnumerable<SubFileLine> lines = (from s in db.SubFileLines
+                                     IEnumerable<SubFileLine> lines = (from s in db.SubFileLines
                                               where s.SubFileID == id
-                                              select s);
+                                              select s).ToList();
 
-            IEnumerable<SubFileLine> rawr = (from z in lines
-                       join j in db.SubFileLineTranslations on  z.ID equals j.SubFileLineID
-                       select z).ToList();
+                                     var somethin = lines.FirstOrDefault();
 
-         
+                                     var rawr = (from z in lines
+                                            join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
+                                            select new {z.ID, z.LineNumber, j.LineText}).ToList();
 
-            return View(rawr);
+            var argur = rawr.FirstOrDefault();
+
+            
+            return View();
         }
 
         public FileStreamResult GetFile(int id)
