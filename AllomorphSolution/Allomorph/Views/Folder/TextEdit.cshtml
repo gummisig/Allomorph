@@ -16,8 +16,8 @@
             {
                 <tr>
                     <td id="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
-                    <td id="textEditTranslation">@Html.EditorFor(ModelItem => s.EngText)</td>
-                    <td class="textEditTranslation">@Html.EditorFor(ModelItem => s.IceText)</td>
+                    <td class="textEditTranslation">@Html.TextBoxFor(ModelItem => s.EngText, new { style="width:500px;height:32px;" })</td>
+                    <td class="textEditTranslation">@Html.TextBoxFor(ModelItem => s.IceText, new { style="width:500px;height:32px;" })</td>
                 </tr>
             }
 
