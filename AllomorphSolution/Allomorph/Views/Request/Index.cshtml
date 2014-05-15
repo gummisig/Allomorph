@@ -69,8 +69,6 @@
     }
 </table>
 
-<script src="~/Scripts/allomorph.js"></script>
-
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
