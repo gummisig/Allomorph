@@ -45,7 +45,7 @@
 </div>
 
 <div>
-    <table class="table" id="folderContent">
+    <table class="table-striped" id="folderContent">
         @{ var dummy = Model.Item2.FirstOrDefault(); }
         <tr>
             <th>
@@ -76,11 +76,8 @@
         }
     </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<hr />
+
+<hr/>
 <h3>Athugasemndir</h3>
 
 @{ Html.RenderPartial("ShowComments", Tuple.Create(Model.Item3, Model.Item1)); }
