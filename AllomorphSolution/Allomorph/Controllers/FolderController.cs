@@ -119,9 +119,9 @@ namespace Allomorph.Controllers
 
         // GET: /Folder/Create
         [Authorize]
-        public ActionResult Create(string reqName = "")
+        public ActionResult Create(int? requestID)
         {
-            ViewBag.newName = reqName;
+            ViewBag.request = db.Requests.Find(requestID);
             return View(new Folder());
         }
 
@@ -130,8 +130,15 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder, HttpPostedFileBase file, int? requestID)
         {
+            if (requestID != null)
+            {
+                var req = db.Requests.Find(requestID);
+                db.Requests.Remove(req);
+                db.SaveChanges();
+            }
+
             if (ModelState.IsValid)
             {
                 StreamReader streamReader = new StreamReader(file.InputStream);
