@@ -1,8 +1,8 @@
 ﻿@model Tuple<IEnumerable<Allomorph.Models.Comment>, Allomorph.Models.Folder>
 
-<p>
+<button class="btn-sm">
     @Html.ActionLink("Skrá nýja athugasemd", "CreateComment", new { id = Model.Item2.ID })
-</p>
+</button>
 
 <table class="table">
     @{ var dummy = Model.Item1.FirstOrDefault(); }
@@ -25,6 +25,7 @@
 @foreach (var item in Model.Item1) {
     <tr>
         <td>
+            <span class="glyphicon glyphicon-user"></span>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
@@ -38,7 +39,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
