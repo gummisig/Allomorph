@@ -16,5 +16,10 @@ namespace Allomorph.Models
 
         public virtual SubFileLine SubFileLines { get; set; }
         public virtual Language Languages { get; set; }
+
+        public SubFileLineTranslation()
+        {
+            this.LineText = "";
+        }
     }
 }

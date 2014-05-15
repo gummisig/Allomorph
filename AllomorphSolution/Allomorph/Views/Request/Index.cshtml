@@ -39,6 +39,7 @@
             @Html.ActionLink("Atkvæði", "Index", new { sortOrder = ViewBag.VoteSortParm })
         </th>
         <th>
+            <span class="glyphicon glyphicon-sort"></span>
             @Html.ActionLink("Dagsetning", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th></th>
@@ -54,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.RequestText)
             </td>
             <td>
-                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <button id="voteReqBtn" class="glyphicon glyphicon-thumbs-up"></button>
                 @Html.DisplayFor(modelItem => item.ReqUpvoteCounter)</td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
@@ -67,6 +68,8 @@
         </tr>
     }
 </table>
+
+<script src="~/Scripts/allomorph.js"></script>
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
