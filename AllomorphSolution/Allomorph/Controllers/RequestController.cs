@@ -96,7 +96,7 @@ namespace Allomorph.Controllers
         }
 
         // GET: /Request/Details/5
-        public ActionResult Details(int? subid, int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {

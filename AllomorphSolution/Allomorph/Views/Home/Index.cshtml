@@ -13,7 +13,7 @@
             {
                 <tr>
                     <td>
-                        <a href="@Url.Action("Details", "Folder", new { subid = subfile.FolderID })" class="list-group-item">@subfile.SubName</a>
+                        <a href="@Url.Action("Details", "Folder", new { id = subfile.FolderID }, null)" class="list-group-item">@subfile.SubName</a>
                         @*@Html.ActionLink(subfile.SubName, "Details", "Folder", new { @class = "list-group-item", subid = subfile.FolderID })*@
                     </td>
                 </tr>
@@ -29,7 +29,7 @@
             {
                 <tr>
                     <td>
-                        <a href="@Url.Action("Details", "Request", new { subid = request.ID })" class="list-group-item">@request.RequestName</a>
+                        <a href="@Url.Action("Details", "Request", new { id = request.ID }, null)" class="list-group-item">@request.RequestName</a>
                         @*@Html.ActionLink(request.RequestName, "Details", "Request", new { @class = "list-group-item", subid = request.ID })*@
                     </td>
                 </tr>
