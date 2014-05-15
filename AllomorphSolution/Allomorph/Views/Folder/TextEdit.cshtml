@@ -8,21 +8,19 @@
 
 <h3>Ritstýring</h3>
 
-    <table>
-        <tbody>          
-           
+<div class="panel panel-default">
+    <table class="table">
+        <tbody>
+
             @foreach (var s in Model)
             {
-                <tr>    
-                       
-        
-                    <td>@Html.DisplayFor(ModelItem => s.LineNr)</td>
-                    <td>@Html.DisplayFor(ModelItem => s.EngText)</td>
-                    <td>@Html.DisplayFor(ModelItem => s.IceText)</td>                   
-
-        
+                <tr>
+                    <td id="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
+                    <td id="textEditTranslation">@Html.EditorFor(ModelItem => s.EngText)</td>
+                    <td class="textEditTranslation">@Html.EditorFor(ModelItem => s.IceText)</td>
                 </tr>
-            }        
+            }
 
         </tbody>
     </table>
+</div>

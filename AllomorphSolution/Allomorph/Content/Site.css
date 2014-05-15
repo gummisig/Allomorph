@@ -13,6 +13,14 @@
     padding-left: 20%;
 }
 
+#textEditLineNr {
+    width: 10%;
+}
+
+#textEditTranslation {
+    
+}
+
 #banner {
     position: relative;
     padding-left: 5%;

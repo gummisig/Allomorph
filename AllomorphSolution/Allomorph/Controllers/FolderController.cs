@@ -305,14 +305,37 @@ namespace Allomorph.Controllers
             foreach(var item in TextList)
                                      {
 
-                item.EngText = (from z in db.SubFileLineTranslations
+                var tempEng = (from z in db.SubFileLineTranslations
                                 where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
-                                select z).First().LineText;
+                                select z).FirstOrDefault();
 
+                if (tempEng == null)
+                {
+                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 1 };
+                    db.SubFileLineTranslations.Add(temp);
+                    db.SaveChanges();
+                    item.EngText = "";
+                }
+                else
+                {
+                    item.EngText = tempEng.LineText;
+                }
 
-                item.IceText = (from z in db.SubFileLineTranslations
+                var tempIce = (from z in db.SubFileLineTranslations
                                 where z.SubFileLineID == item.SubLineId && z.LanguageID == 2
-                                select z).FirstOrDefault().LineText;
+                                select z).FirstOrDefault();
+
+                if (tempIce == null)
+                {
+                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 2 };
+                    db.SubFileLineTranslations.Add(temp);
+                    db.SaveChanges();
+                    item.IceText = "";
+                }
+                else
+                {
+                    item.IceText = tempEng.LineText;
+                }
             }
       
             return View(TextList);
