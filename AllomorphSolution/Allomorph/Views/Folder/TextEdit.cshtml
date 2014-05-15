@@ -1,4 +1,4 @@
-﻿@model list<new {Allomorph.Models.Subline.ID, Allomorph.Models.Subline.LineNumber, Allomorph.Models.SublineTranslation.LineText}>
+﻿@model Tuple<IEnumerable<Allomorph.Models.SubFileLine>,List<string>, List<string>>
 
 @{
     ViewBag.Title = "TextEdit";
@@ -7,7 +7,7 @@
 @{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
 <h3>Ritstýring</h3>
-@*
+
     <table>
         <thead>
             <tr>
@@ -15,22 +15,43 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                @foreach(var s in Model)
-            {
+            
+           
+                @foreach (var s in Model.Item1)
+{
+    <tr>
+        
+        
+        
 
-            <td>
+            @Html.DisplayFor(ModelItem => s.LineNumber)
 
-                @Html.DisplayFor(ModelItem => s.LineNumber)
-
-            </td>
-            }
-
+        
         </tr>
+        }
+        
+            @foreach (var i in Model.Item2)
+            {
+                <tr>
+                    
+                        @Html.Display(i)
+                    
+                </tr>
+                
+            }
+            @foreach (var m in Model.Item3)
+            {
+               <tr>
+                   @Html.Display(m)
+               </tr>
+            }
+        
+}
+
+       
 
 
 
 
         </tbody>
     </table>
-*@
