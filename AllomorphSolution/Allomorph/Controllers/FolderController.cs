@@ -121,14 +121,6 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult Create(int? requestID)
         {
-            //if (requestID != null)
-            //{
-            //    ViewBag.request = db.Requests.Find(requestID);
-            //}
-            //else
-            //{
-            //    return Redirect("~/Folder/CreateNew");
-            //}
             Folder folder = new Folder();
             if (requestID != null)
             {
@@ -228,67 +220,6 @@ namespace Allomorph.Controllers
             {
                 return HttpNotFound();
             }
-            return View(folder);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateNew([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder, HttpPostedFileBase file)
-        {
-            if (ModelState.IsValid)
-            {
-                StreamReader streamReader = new StreamReader(file.InputStream);
-                SubFile subfile = new SubFile();
-                subfile.FolderID = folder.ID;
-                subfile.SubName = file.FileName;
-                db.Folders.Add(folder);
-                db.SubFiles.Add(subfile);
-                int i = 1;
-
-                while (streamReader.Peek() != -1)
-                {
-                    SubFileLine tempLine = new SubFileLine();
-                    SubFileLineTranslation tempTranslation = new SubFileLineTranslation();
-
-                    string lineNumber = streamReader.ReadLine();
-                    string timeLine = streamReader.ReadLine();
-
-                    string firstTime = timeLine.Substring(0, 12);
-                    string secondTime = timeLine.Substring(17);
-
-                    string text = streamReader.ReadLine();
-                    string nextline = streamReader.ReadLine();
-
-                    if (nextline != "")
-                    {
-                        text += "\n" + nextline;
-                        streamReader.ReadLine();
-                    }
-
-                    tempLine.LineNumber = Convert.ToInt32(lineNumber);
-                    tempLine.StartTime = firstTime;
-                    tempLine.EndTime = secondTime;
-                    tempLine.SubFileID = subfile.ID;
-
-                    db.SubFileLines.Add(tempLine);
-
-                    tempTranslation.SubFileLineID = tempLine.ID;
-                    tempTranslation.LineText = text;
-
-                    if (db.Languages.Find(1) == null)
-                    {
-                        Language Enska = new Language() { LanguageName = "English" };
-                        db.Languages.Add(Enska);
-                    }
-                    tempTranslation.LanguageID = 1;
-
-                    db.SubFileLineTranslations.Add(tempTranslation);
-                    db.SaveChanges();
-                    i++;
-                }
-                return RedirectToAction("Index");
-            }
-
             return View(folder);
         }
 

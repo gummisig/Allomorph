@@ -19,8 +19,8 @@ namespace Allomorph.Models
 
         public SubFileLine()
         {
-            this.StartTime = "";
-            this.EndTime = "";
+            this.StartTime = " ";
+            this.EndTime = " ";
         }
     }
 }

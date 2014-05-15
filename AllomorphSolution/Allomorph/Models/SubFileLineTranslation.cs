@@ -19,7 +19,7 @@ namespace Allomorph.Models
 
         public SubFileLineTranslation()
         {
-            this.LineText = "";
+            this.LineText = " ";
         }
     }
 }

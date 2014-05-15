@@ -13,7 +13,7 @@ namespace Allomorph.Models
         {
             this.DateCreated = DateTime.Now;
             this.ReqUpvoteCounter = 0;
-            this.RequestText = "";
+            this.RequestText = " ";
             this.UserName = "allomorph gestur";
         }
 
