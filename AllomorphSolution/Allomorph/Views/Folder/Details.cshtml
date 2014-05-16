@@ -13,7 +13,7 @@
 
 <div id="btnRitstyring">
     <label class="btn btn-default btn-lg">
-        @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.First().ID })
+        @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.FirstOrDefault().ID })
     </label>
 </div>
 
