@@ -31,17 +31,18 @@
                     <td class="textEditLineNr">
                         @Html.DisplayFor(ModelItem => ModelItem[s].LineNr)
                     </td>
-                    <td>
+                    <td class="textEditTranslation">
                         @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
+                        <input type="submit" value="Uppfæra" class="btn btn-default" />
                         @Html.HiddenFor(ModelItem => ModelItem[s].SubLineId)
                     </td>
                     <td class="textEditTranslation">
                         @Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })
+                        <input type="submit" value="Uppfæra" class="btn btn-default" />
                     </td>
                 </tr>
                 }
             </tbody>
         </table>
-        <input type="submit" value="Uppfæra" class="btn btn-default" />
      }
 </div>
