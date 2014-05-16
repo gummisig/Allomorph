@@ -388,12 +388,50 @@ namespace Allomorph.Controllers
                                              where t.SubFileID == file.First().ID
                                              select t;
 
+            /*
+            IEnumerable<LinesAndTranslations> TextList = (from z in lines                                                         
+                                                          select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID });
 
+            foreach (var item in TextList)
+            {
 
-            var combi = from z in db.SubFileLines
+                var tempEng = (from z in db.SubFileLineTranslations
+                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
+                               select z).FirstOrDefault();
+
+                if (tempEng == null)
+                {
+                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 1 };
+                    db.SubFileLineTranslations.Add(temp);
+                    db.SaveChanges();
+                    item.EngText = "";
+                }
+                else
+                {
+                    item.EngText = tempEng.LineText;
+                }
+
+                var tempIce = (from z in db.SubFileLineTranslations
+                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 2
+                               select z).FirstOrDefault();
+
+                if (tempIce == null)
+                {
+                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 2 };
+                    db.SubFileLineTranslations.Add(temp);
+                    db.SaveChanges();
+                    item.IceText = "";
+                }
+                else
+                {
+                    item.IceText = tempIce.LineText;
+                }
+            }
+            */
+            var combi = (from z in db.SubFileLines
                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
                         where j.LanguageID == langid
-                        select new { z.LineNumber, z.StartTime, z.EndTime, j.LineText };
+                        select new { z.LineNumber, z.StartTime, z.EndTime, j.LineText });
             
 
             if (info.Exists)
@@ -401,20 +439,19 @@ namespace Allomorph.Controllers
                 int temp = name.Length;
                 name = name.Substring(0,temp - 4) + "-I.srt"; 
             }
-                using (StreamWriter writer = info.CreateText())
+            using (StreamWriter writer = info.CreateText())
+            {
+            foreach (var line in combi)
                 {
-                foreach (var line in combi)
-                    {
-                        writer.WriteLine(line.LineNumber);
-                        writer.Write(line.StartTime);
-                        writer.Write(" --> ");
-                        writer.WriteLine(line.EndTime);
+                    writer.WriteLine(line.LineNumber);
+                    writer.Write(line.StartTime);
+                    writer.Write(" --> ");
+                    writer.WriteLine(line.EndTime);
                     writer.WriteLine(line.LineText);
-
-                        //End of Textblock
-                        writer.WriteLine("");
-                    }
+                    //End of Textblock
+                    writer.WriteLine("");
                 }
+            }
 
             return File(info.OpenRead(), "text/plain", name);
         }
