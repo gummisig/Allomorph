@@ -27,7 +27,6 @@ namespace Allomorph.Controllers
         /// Application DB context
         /// </summary>
         protected ApplicationDbContext ApplicationDbContext { get; set; }
-
         /// <summary>
         /// User manager - attached to application DB context
         /// </summary>

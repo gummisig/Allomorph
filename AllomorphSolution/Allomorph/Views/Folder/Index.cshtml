@@ -4,16 +4,18 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Textar";
 }
 
 @{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
 <h3>Textar</h3>
 
-<p>
-    @Html.ActionLink("Senda inn nýja skrá", "Create")
-</p>
+<div id="btnBuaTilTexta">
+    <label>
+        @Html.ActionLink("Senda inn nýja skrá", "Create", "Request", new { @class = "list-group-item" })
+    </label>
+</div>
 
 <table class="table">
     <tr>

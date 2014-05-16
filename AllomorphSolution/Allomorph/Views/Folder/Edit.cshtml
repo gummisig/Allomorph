@@ -27,6 +27,21 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.CategoryID, "Flokkur:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CategoryID,
+                    new List<SelectListItem> {
+                    new SelectListItem { Value = "1", Text = "Kvikmynd" },
+                    new SelectListItem { Value = "2", Text = "Þáttur" },
+                    new SelectListItem { Value = "3", Text = "Teiknimynd" },
+                    new SelectListItem { Value = "4", Text = "Íslenskt efni" }
+                    },
+                new { @class = "btn btn-default btn-sm dropdown-toggle", style = "width:155px" })
+                @Html.ValidationMessageFor(model => model.CategoryID)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Link, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Link)
