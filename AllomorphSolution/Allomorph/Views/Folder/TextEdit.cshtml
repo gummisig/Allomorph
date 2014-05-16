@@ -21,7 +21,21 @@
                 
             <tr>
                 <td class="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
-                <td >@Html.TextAreaFor(ModelItem => s.EngText, new { @class="textEditTranslation"})</td>
+                <td >
+                    @using (Html.BeginForm("TextEdit",
+                        "Folder",
+                        FormMethod.Post,
+                        new { @enctype = "multipart/form-data" }))
+                    { 
+                        @Html.TextAreaFor(ModelItem => s.EngText, new { @class="textEditTranslation"})
+                        @*@Html.Hidden("TextEdit", new { lineId = s.SubLineId})
+
+                        @Html.Hidden("TextEdit", new { text = s.EngText})
+                        @Html.Hidden("TextEdit", new { languageId = 1})*@
+                       
+                        <input type="submit" value="Uppfæra" class="btn btn-default" />
+                    }
+                </td>
                 <td class="textEditTranslation">@Html.TextAreaFor(ModelItem => s.IceText, new { @class="textEditTranslation"})</td>
             </tr>
             }
