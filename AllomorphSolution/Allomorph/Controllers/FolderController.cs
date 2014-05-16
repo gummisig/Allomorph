@@ -384,56 +384,15 @@ namespace Allomorph.Controllers
             string name = file.First().SubName;
             FileInfo info = new FileInfo(name);
             
-            IEnumerable<SubFileLine> lines = from t in db.SubFileLines
-                                             where t.SubFileID == file.First().ID
-                                             select t;
 
-            /*
-            IEnumerable<LinesAndTranslations> TextList = (from z in lines                                                         
-                                                          select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID });
-
-            foreach (var item in TextList)
-            {
-
-                var tempEng = (from z in db.SubFileLineTranslations
-                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
-                               select z).FirstOrDefault();
-
-                if (tempEng == null)
-                {
-                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 1 };
-                    db.SubFileLineTranslations.Add(temp);
-                    db.SaveChanges();
-                    item.EngText = "";
-                }
-                else
-                {
-                    item.EngText = tempEng.LineText;
-                }
-
-                var tempIce = (from z in db.SubFileLineTranslations
-                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 2
-                               select z).FirstOrDefault();
-
-                if (tempIce == null)
-                {
-                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 2 };
-                    db.SubFileLineTranslations.Add(temp);
-                    db.SaveChanges();
-                    item.IceText = "";
-                }
-                else
-                {
-                    item.IceText = tempIce.LineText;
-                }
-            }
-            */
             var combi = (from z in db.SubFileLines
                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
                         where j.LanguageID == langid
-                        select new { z.LineNumber, z.StartTime, z.EndTime, j.LineText });
-            
+                        select new { z.LineNumber,z.SubFileID, z.StartTime, z.EndTime, j.LineText });
 
+            var combiright = from t in combi
+                        where t.SubFileID == file.FirstOrDefault().ID
+                        select t;
             if (info.Exists)
             {
                 int temp = name.Length;
@@ -441,7 +400,7 @@ namespace Allomorph.Controllers
             }
             using (StreamWriter writer = info.CreateText())
             {
-            foreach (var line in combi)
+            foreach (var line in combiright)
                 {
                     writer.WriteLine(line.LineNumber);
                     writer.Write(line.StartTime);
