@@ -12,8 +12,8 @@
 <img src="@Model.Item1.Poster" alt="Ekki til mynd" width="320" height="320" />
 
 <div id="btnRitstyring">
-    <label>
-    @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.First().ID })
+    <label class="btn btn-default btn-lg">
+        @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.First().ID })
     </label>
 </div>
 
