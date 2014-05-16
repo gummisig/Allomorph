@@ -347,11 +347,33 @@ namespace Allomorph.Controllers
                 }
                 else
                 {
-                    item.IceText = tempEng.LineText;
+                    item.IceText = tempIce.LineText;
                 }
             }
             return View(TextList);
-     }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult TextEdit( LinesAndTranslations model)//int? lineId, string text, int? languageId)
+        {/*
+            SubFileLineTranslation temp = (from s in db.SubFileLineTranslations
+                            where s.SubFileLineID == lineId
+                            && s.LanguageID == languageId
+                            select s).First();
+
+            if(languageId == 1)
+            {
+                temp.LineText = text;
+            }
+            else 
+            {
+                temp.LineText = text;
+            }*/
+
+            //int id = db.SubFileLines.Find(model.SubLineId).SubFileID;
+            return RedirectToAction("TextEdit",1);
+        }
 
         public FileStreamResult GetFile(int id, int langid)
         {
