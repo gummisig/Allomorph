@@ -41,9 +41,9 @@ namespace Allomorph.Controllers
             int? page = rvm.page;
 
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.VoteSortParm = String.IsNullOrEmpty(sortOrder) ? "vote_asc" : "";
+            ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
             ViewBag.DateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
-            ViewBag.VoteSortParm = sortOrder == "vote_asc" ? "vote_desc" : "vote_asc";
 
             if (searchString != null)
             {
@@ -77,14 +77,14 @@ namespace Allomorph.Controllers
                 case "date_asc":
                     req = req.OrderBy(s => s.DateCreated);
                     break;
-                case "vote_desc":
-                    req = req.OrderByDescending(s => s.ReqUpvoteCounter);
+                case "name_asc":
+                    req = req.OrderBy(s => s.RequestName);
                     break;
                 case "vote_asc":
                     req = req.OrderBy(s => s.ReqUpvoteCounter);
                     break;
-                default:  // Name ascending 
-                    req = req.OrderBy(s => s.RequestName);
+                default:  // Votes descending
+                    req = req.OrderByDescending(s => s.ReqUpvoteCounter);
                     break;
             }
             int pageSize = 10;
