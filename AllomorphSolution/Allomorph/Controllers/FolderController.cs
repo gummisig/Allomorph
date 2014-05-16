@@ -368,7 +368,7 @@ namespace Allomorph.Controllers
                               select engtrans;
 
                 var tempIce = from icetrans in temp
-                              where icetrans.LanguageID == 1
+                              where icetrans.LanguageID == 2
                               select icetrans;
 
                 tempEng.FirstOrDefault().LineText = s.EngText;
