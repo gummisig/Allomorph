@@ -9,8 +9,90 @@
     padding-right: 15px;
 }
 
+#banner {
+    position: relative;
+    padding-left: 5%;
+    top: 1em;
+    margin: auto;
+    resize: both;
+}
+
+#btnLeitBeidnir {
+    margin-left: 0.5%;
+}
+
+#btnLeitTextar {
+    float: left;
+    left: auto;
+    margin-left: 0.5%;
+}
+
+#btnRitstyring {
+    position: relative;
+    left: 361px;
+    top: -200px;
+    width: 150px;
+}
+
+.createForm {
+    position: relative;
+    right: 75px;
+}
+
+#deleteFolderDetails {
+    position: relative;
+    right: 107px;
+}
+
+#flokkarLeitMaster {
+    float: left;
+    left: 20px;
+    margin-left: 0.5%;
+}
+
+#folderTags {
+    position: relative;
+    left: 250px;
+    top: -360px;
+}
+
+#leitForm {
+    padding-top: 2%;
+    padding-left: 4.5%;
+    margin-bottom: 6%;
+}
+
+#leitFormBeidnir {
+    float: left;
+}
+
+#leitMaster {
+    left: 20px;
+    float: left;
+    padding-left: 15%;
+}
+
+.masterFooterLink {
+    padding-left: 18%;
+}
+
 #masterhaus {
     padding-left: 20%;
+}
+
+#request-list {
+    position: relative;
+    width: 35%;
+    top: -500px;
+    left: 650px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    word-wrap: break-word;
 }
 
 .textEditLineNr {
@@ -21,18 +103,6 @@
     word-wrap:break-word;
     width: 300px;
     height: 100px;  
-}
-
-#banner {
-    position: relative;
-    padding-left: 5%;
-    top: 1em;
-    margin: auto;
-    resize: both;
-}
-
-#topDiv {
-    padding-top: 3%;
 }
 
 #top10label {
@@ -47,70 +117,14 @@
     color: azure; 
 }
 
+#topDiv {
+    padding-top: 3%;
+}
+
 #topsott-list {
     position: relative;
     width: 35%;
     left: 150px;
-}
-
-#request-list {
-    position: relative;
-    width: 35%;
-    top: -500px;
-    left: 650px;
-}
-
-#leitForm {
-    padding-top: 2%;
-    padding-left: 4.5%;
-    margin-bottom: 6%;
-}
-
-#leitMaster {
-    left: 20px;
-    float: left;
-    padding-left: 15%;
-}
-
-#flokkarLeitMaster {
-    float: left;
-    left: 20px;
-    margin-left: 0.5%;
-}
-
-#btnLeitTextar {
-    float: left;
-    left: auto;
-    margin-left: 0.5%;
-}
-
-#leitFormBeidnir {
-    float: left;
-}
-
-#btnLeitBeidnir {
-    margin-left: 0.5%;
-}
-
-table {
-    width: 100%;
-}
-
-td {
-    word-wrap: break-word;
-}
-
-#btnRitstyring {
-    width: 150px;
-}
-
-#folderTags {
-    position: relative;
-    right: 108px;
-}
-
-.masterFooterLink {
-    padding-left: 18%;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
