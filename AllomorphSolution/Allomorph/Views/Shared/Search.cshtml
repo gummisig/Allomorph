@@ -7,7 +7,7 @@
     {
     <div role="search" id="leitForm">
         <div class="form-group" id="leitMaster">
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "  Leita að texta...", style = "width:200px;height:32px;" })
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "  Leita að texta..." })
         </div>
         <div id="flokkarLeitMaster" class="form-group">
             @Html.DropDownListFor(model => model.ID,
@@ -18,7 +18,7 @@
                                 new SelectListItem { Value = "3", Text = "Teiknimynd" },
                                 new SelectListItem { Value = "4", Text = "Íslenskt efni" }
                             },
-                        new { @class = "btn btn-default btn-sm dropdown-toggle", style="height:32px;" })
+                        new { @class = "btn btn-default btn-sm dropdown-toggle", style="height:34px;" })
         </div>
         <button id="btnLeitTextar" class="btn btn-default" type="submit">Leita!</button>
     </div>

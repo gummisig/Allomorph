@@ -93,6 +93,32 @@ namespace Allomorph.Controllers
             return View(req.ToPagedList(pageNumber, pageSize));
         }
 
+        [Authorize]
+        public ActionResult RequestVote(int? requestID)
+        {
+            if (requestID != null)
+            {
+                var request = db.Requests.Find(requestID);
+                if (request != null)
+                {
+                    request.ReqUpvoteCounter += 1;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        //public ActionResult RequestVote(Request request)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        request.ReqUpvoteCounter += 1;
+        //        db.SaveChanges();
+        //    }
+        //    return View("Index");
+        //}
+
         // GET: /Request/Details/5
         public ActionResult Details(int? id)
         {

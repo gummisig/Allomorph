@@ -10,21 +10,21 @@
 
 <h3>Beiðnir</h3>
 
-@using (Html.BeginForm("Index", "Request", FormMethod.Get))
-{      
-    <div role="search">
-        <div class="form-group" id="leitFormBeidnir">
-            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "  Leita í beiðnum...", style = "width:200px" })
-        </div>
-        <button id="btnLeitBeidnir" class="btn btn-default" type="submit">Leita!</button>
-    </div>
-}
-
 <div id="btnBuaTilBeidni">
     <label>
         @Html.ActionLink("Búa til nýja beiðni", "Create", "Request", new { @class = "list-group-item" })
     </label>
 </div>
+
+@using (Html.BeginForm("Index", "Request", FormMethod.Get))
+{      
+    <div role="search">
+        <div class="form-group" id="leitFormBeidnir">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "  Leita í beiðnum..." })
+        </div>
+        <button id="btnLeitBeidnir" class="btn btn-default" type="submit">Leita!</button>
+    </div>
+}
 
 <table class="table">
     <tr>
@@ -54,9 +54,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.RequestText)
             </td>
-            <td>
-                <button id="voteReqBtn" class="glyphicon glyphicon-thumbs-up"></button>
-                @Html.DisplayFor(modelItem => item.ReqUpvoteCounter)</td>
+            <td id="reqVoteColumn">
+                <a href="@Url.Action("RequestVote", "Request", new { requestID = item.ID })">
+                    <span id="voteReqBtn" class="glyphicon glyphicon-thumbs-up"></span>
+                </a>
+                    @Html.DisplayFor(modelItem => item.ReqUpvoteCounter)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
