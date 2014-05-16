@@ -37,7 +37,7 @@
         </td>
 
         <td>
-            @Html.ActionLink(item.DateCreated.ToString(), "Details", new { id = item.ID })
+            @Html.DisplayFor(modelItem => item.DateCreated, "Details")
         </td>
         
         <td>
