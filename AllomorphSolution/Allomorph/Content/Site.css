@@ -23,10 +23,6 @@
     height: 100px;  
 }
 
-#reqTextColumn {
-    
-}
-
 #banner {
     position: relative;
     padding-left: 5%;
@@ -98,24 +94,19 @@
 
 table {
     width: 100%;
-    table-layout: fixed;
 }
 
 td {
     word-wrap: break-word;
 }
 
-#createTextForm {
-    
+#btnRitstyring {
+    width: 150px;
 }
 
-#textAreaFor {
-    
-}
-
-#masterFooter {
-    float: none;
-    
+#folderTags {
+    position: relative;
+    right: 108px;
 }
 
 .masterFooterLink {

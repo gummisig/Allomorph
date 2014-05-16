@@ -283,7 +283,7 @@ namespace Allomorph.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment([Bind(Include = "ID,UserName,FolderID,CommentText,DateCreated")] Comment comment, int id)
+        public ActionResult CreateComment([Bind(Include = "ID,UserName,FolderID,CommentText")] Comment comment, int id)
         {
             if (ModelState.IsValid)
             {

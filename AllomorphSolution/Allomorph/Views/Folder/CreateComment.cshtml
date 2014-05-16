@@ -16,6 +16,9 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.UserName)
+        @Html.HiddenFor(model => model.FolderID)
 
         <div class="form-group">
             @Html.LabelFor(model => model.CommentText, new { @class = "control-label col-md-2" })

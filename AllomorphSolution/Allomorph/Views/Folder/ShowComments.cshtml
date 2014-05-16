@@ -1,23 +1,22 @@
 ﻿@model Tuple<IEnumerable<Allomorph.Models.Comment>, Allomorph.Models.Folder>
 
-<button class="btn-sm">
-    @Html.ActionLink("Skrá nýja athugasemd", "CreateComment", new { id = Model.Item2.ID })
-</button>
+<div id="btnSkraAthugasemd">
+    <label>
+        @Html.ActionLink("Skrá nýja athugasemd", "CreateComment", new { id = Model.Item2.ID })
+    </label>
+</div>
 
 <table class="table">
     @{ var dummy = Model.Item1.FirstOrDefault(); }
     <tr>
         <th>
-            @Html.DisplayNameFor(model => dummy.UserName)
+            @Html.LabelFor(model => dummy.DateCreated, "Notandi")
         </th>
         <th>
-            @Html.DisplayNameFor(model => dummy.FolderID)
+            @Html.LabelFor(model => dummy.CommentText, "Athugasemd")
         </th>
         <th>
-            @Html.DisplayNameFor(model => dummy.CommentText)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => dummy.DateCreated)
+            @Html.LabelFor(model => dummy.DateCreated, "Dagsetning")
         </th>
         <th></th>
     </tr>
@@ -27,9 +26,6 @@
         <td>
             <span class="glyphicon glyphicon-user"></span>
             @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FolderID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CommentText)

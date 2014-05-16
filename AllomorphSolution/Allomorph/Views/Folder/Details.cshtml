@@ -11,14 +11,16 @@
 
 <img src="@Model.Item1.Poster" alt="Ekki til mynd" width="320" height="320" />
 
-<div>
-    @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.First().ID })
+<div id="btnRitstyring">
+    <label>
+        @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.First().ID })
+    </label>
 </div>
 
 <div>
     <dl class="dl-horizontal" id="folderTags">
         <dt>
-            @Html.Label(Model.Item1.FolderName, "Nafn:", new { @class = "control-label col-md-2" })
+            @Html.Label(Model.Item1.FolderName, "Nafn:")
         </dt>
 
         <dd>
@@ -26,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.Label(Model.Item1.Link, "Linkur:", new { @class = "control-label col-md-2" })
+            @Html.Label(Model.Item1.Link, "Linkur:")
         </dt>
 
         <dd>
@@ -34,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.Label(Model.Item1.Description, "Lýsing:", new { @class = "control-label col-md-2" })
+            @Html.Label(Model.Item1.Description, "Lýsing:")
         </dt>
 
         <dd>
@@ -49,10 +51,10 @@
         @{ var dummy = Model.Item2.FirstOrDefault(); }
         <tr>
             <th>
-                @Html.LabelFor(model => dummy.SubName, "Textaskrá", new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => dummy.SubName, "Textaskrá")
             </th>
             <th>
-                @Html.LabelFor(model => dummy.LanguageID, "Tungumál", new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => dummy.LanguageID, "Tungumál")
             </th>
             <th></th>
         </tr>
@@ -64,13 +66,11 @@
                     @Html.DisplayFor(modelItem => item.SubName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LanguageID)
+                    @Html.DisplayFor(modelItem => item.LanguagesID)
                 </td>
                 <td>
-                    @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID , langid = dummy.LanguageID }) |
-                    @Html.ActionLink("Edit", "Edit", new { id = dumdum.FirstOrDefault().ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = dumdum.FirstOrDefault().ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = dumdum.FirstOrDefault().ID })
+                    @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID, langid = dummy.LanguageID })
+                    @*<button onclick="@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = dummy.LanguageID })"><p class="glyphicon glyphicon-save"></p></button>*@
                 </td>
             </tr>
         }
@@ -78,6 +78,6 @@
 </div>
 
 <hr/>
-<h3>Athugasemndir</h3>
+<h3>Athugasemdir</h3>
 
 @{ Html.RenderPartial("ShowComments", Tuple.Create(Model.Item3, Model.Item1)); }
