@@ -1,10 +1,11 @@
 ﻿@model Tuple<IEnumerable<Allomorph.Models.Comment>, Allomorph.Models.Folder>
 
-<div id="btnSkraAthugasemd" class="btn btn-default">
-    <label>
-        @Html.ActionLink("Skrá nýja athugasemd", "CreateComment", new { id = Model.Item2.ID })
+<span class="btn-default btn-lg">
+    <label id="btnSkraAthugasemd">
+        <button type="button" class="btn-success" onclick="location.href='@Url.Action("CreateComment", "Folder", new { id = Model.Item2.ID })'"><i class="icon-edit"></i>Skrá nýja athugasemd</button>
+        @*@Html.ActionLink("Skrá nýja athugasemd", "CreateComment", new { id = Model.Item2.ID })*@
     </label>
-</div>
+</span>
 
 <table class="table">
     @{ var dummy = Model.Item1.FirstOrDefault(); }
@@ -33,10 +34,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.DateCreated)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
+        <td></td>
     </tr>
 }
 

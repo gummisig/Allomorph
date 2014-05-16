@@ -8,15 +8,15 @@
 
 <h3>Ritstýring</h3>
 
-<div class="panel panel-default">
-
-    @using (Html.BeginForm("TextEdit",
+@using (Html.BeginForm("TextEdit",
                             "Folder",
                             FormMethod.Post,
                             new { @enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
+{
+@Html.AntiForgeryToken()
+<input type="submit" value="Vista breytingar" class="btn btn-default btn-lg btn-primary" />
 
+    <div class="panel panel-default">
         <table class="table">
             <tbody>
                 <tr>
@@ -27,25 +27,25 @@
 
                 @for (var s = 0; s < Model.Count(); s++)
                 {
-                <tr>
-                    <td class="textEditLineNr">
-                        @Html.DisplayFor(ModelItem => ModelItem[s].LineNr)
-                    </td>
-                    <td class="textEditTranslation">
-                        @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
-                        <input type="submit" value="Uppfæra" class="btn btn-default" />
-                        @Html.HiddenFor(ModelItem => ModelItem[s].SubLineId)
-                    </td>
-                    <td class="textEditTranslation">
-                        @Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })
-                        <input type="submit" value="Uppfæra" class="btn btn-default" />
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="textEditLineNr">
+                            @Html.DisplayFor(ModelItem => ModelItem[s].LineNr)
+                        </td>
+                        <td class="textEditTranslation">
+                            @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
+                            @*<input type="submit" value="Uppfæra" class="btn btn-default" />*@
+                            @Html.HiddenFor(ModelItem => ModelItem[s].SubLineId)
+                        </td>
+                        <td class="textEditTranslation">
+                            @Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })
+
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
-     }
-    <div>
-        @Html.ActionLink("Til baka í möppu", "Details")
     </div>
+}
+<div>
+    @Html.ActionLink("Til baka í textar", "Index")
 </div>

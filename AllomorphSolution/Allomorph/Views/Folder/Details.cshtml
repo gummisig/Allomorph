@@ -12,8 +12,9 @@
 <img src="@Model.Item1.Poster" alt="Ekki til mynd" width="320" height="320" />
 
 <div id="btnRitstyring">
-    <label class="btn btn-default btn-lg">
-        @Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.FirstOrDefault().ID })
+    <label class="btn-default btn-lg">
+        <button type="button" class="btn-success" onclick="location.href='@Url.Action("TextEdit", "Folder", new { id = Model.Item2.FirstOrDefault().ID })'"><i class="icon-edit"></i>Ritstýring</button>
+        @*@Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.FirstOrDefault().ID })*@
     </label>
 </div>
 
@@ -83,11 +84,7 @@
                 <td>
                     @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID, langid = 2 })
                 </td>
-                <td>                    
-                    @Html.ActionLink("Edit", "Edit", new { id = dumdum.FirstOrDefault().ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = dumdum.FirstOrDefault().ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = dumdum.FirstOrDefault().ID })
-                </td>
+                <td></td>
             </tr>
         }
     </table>

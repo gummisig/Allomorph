@@ -34,6 +34,10 @@
     width: 150px;
 }
 
+#btnSkraAthugasemd {
+    padding-bottom: 1%;
+}
+
 .createForm {
     position: relative;
     right: 75px;
@@ -85,6 +89,10 @@
     width: 35%;
     top: -522px;
     left: 630px;
+}
+
+.requestTable {
+    width: 30%;
 }
 
 table {
