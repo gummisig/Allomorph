@@ -373,9 +373,10 @@ namespace Allomorph.Controllers
 
                 tempEng.FirstOrDefault().LineText = s.EngText;
                 tempIce.FirstOrDefault().LineText = s.IceText;
+                db.SaveChanges();
                 
             }
-            db.SaveChanges();
+            
             int id = db.SubFileLines.Find(model.FirstOrDefault().SubLineId).SubFileID;
 
             return RedirectToAction("TextEdit",id);
