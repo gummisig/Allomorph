@@ -313,14 +313,14 @@ namespace Allomorph.Controllers
 
             IList<LinesAndTranslations> TextList = (from z in db.SubFileLines
                                                           where z.SubFileID == id                           
-                                                select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
+                                                          select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
 
             foreach(var item in TextList)
-                                     {
+            {
 
                 var tempEng = (from z in db.SubFileLineTranslations
-                                where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
-                                select z).FirstOrDefault();
+                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
+                               select z).FirstOrDefault();
 
                 if (tempEng == null)
                 {
@@ -335,8 +335,8 @@ namespace Allomorph.Controllers
                 }
 
                 var tempIce = (from z in db.SubFileLineTranslations
-                                where z.SubFileLineID == item.SubLineId && z.LanguageID == 2
-                                select z).FirstOrDefault();
+                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 2
+                               select z).FirstOrDefault();
 
                 if (tempIce == null)
                 {
@@ -383,13 +383,13 @@ namespace Allomorph.Controllers
 
         public FileStreamResult GetFile(int id, int langid)
         {
-            IEnumerable<SubFile> file = from s in db.SubFiles
-                                        where id == s.FolderID
-                                        select s;
+            var file = (from s in db.SubFiles
+                       where id == s.FolderID
+                       select s).First();
 
-            string name = file.First().SubName;
+            file.SubDownloadCounter += 1;
+            string name = file.SubName;
             FileInfo info = new FileInfo(name);
-            
 
             var combi = (from z in db.SubFileLines
                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
@@ -397,8 +397,9 @@ namespace Allomorph.Controllers
                         select new { z.LineNumber,z.SubFileID, z.StartTime, z.EndTime, j.LineText });
 
             var combiright = from t in combi
-                        where t.SubFileID == file.FirstOrDefault().ID
-                        select t;
+                             where t.SubFileID == file.ID
+                             select t;
+
             if (info.Exists)
             {
                 int temp = name.Length;
@@ -406,7 +407,7 @@ namespace Allomorph.Controllers
             }
             using (StreamWriter writer = info.CreateText())
             {
-            foreach (var line in combiright)
+                foreach (var line in combiright)
                 {
                     writer.WriteLine(line.LineNumber);
                     writer.Write(line.StartTime);
@@ -417,6 +418,7 @@ namespace Allomorph.Controllers
                     writer.WriteLine("");
                 }
             }
+            db.SaveChanges();
 
             return File(info.OpenRead(), "text/plain", name);
         }
