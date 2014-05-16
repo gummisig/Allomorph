@@ -93,6 +93,7 @@ namespace Allomorph.Controllers
         }
 
         [Authorize]
+        [ValidateInput(false)]
         public ActionResult RequestVote(int? requestID)
         {
             if (requestID != null)

@@ -311,7 +311,7 @@ namespace Allomorph.Controllers
         public ActionResult TextEdit(int? id)
         {
 
-            IEnumerable<LinesAndTranslations> TextList = (from z in db.SubFileLines
+            IList<LinesAndTranslations> TextList = (from z in db.SubFileLines
                                                           where z.SubFileID == id                           
                                                 select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
 
@@ -355,24 +355,30 @@ namespace Allomorph.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult TextEdit( LinesAndTranslations model)//int? lineId, string text, int? languageId)
-        {/*
-            SubFileLineTranslation temp = (from s in db.SubFileLineTranslations
-                            where s.SubFileLineID == lineId
-                            && s.LanguageID == languageId
-                            select s).First();
-
-            if(languageId == 1)
+        public ActionResult TextEdit( IList<LinesAndTranslations> model)//int? lineId, string text, int? languageId)
+        {
+            foreach (var s in model)
             {
-                temp.LineText = text;
+                var temp = from trans in db.SubFileLineTranslations
+                           where trans.SubFileLineID == s.SubLineId
+                           select trans;
+
+                var tempEng = from engtrans in temp
+                              where engtrans.LanguageID == 1
+                              select engtrans;
+
+                var tempIce = from icetrans in temp
+                              where icetrans.LanguageID == 1
+                              select icetrans;
+
+                tempEng.FirstOrDefault().LineText = s.EngText;
+                tempIce.FirstOrDefault().LineText = s.IceText;
+                
             }
-            else 
-            {
-                temp.LineText = text;
-            }*/
+            db.SaveChanges();
+            int id = db.SubFileLines.Find(model.FirstOrDefault().SubLineId).SubFileID;
 
-            //int id = db.SubFileLines.Find(model.SubLineId).SubFileID;
-            return RedirectToAction("TextEdit",1);
+            return RedirectToAction("TextEdit",id);
         }
 
         public FileStreamResult GetFile(int id, int langid)

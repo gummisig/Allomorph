@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Allomorph.Models.LinesAndTranslations>
+﻿@model IList<Allomorph.Models.LinesAndTranslations>
 
 @{
     ViewBag.Title = "TextEdit";
@@ -9,6 +9,15 @@
 <h3>Ritstýring</h3>
 
 <div class="panel panel-default">
+
+    @using (Html.BeginForm("TextEdit",
+                            "Folder",
+                            FormMethod.Post,
+                            new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+
     <table class="table">
         <tbody>
             <tr>
@@ -16,30 +25,25 @@
                 <th>Enskur Texti</th>
                 <th>Islenskur Texti</th>
             </tr>
-            @foreach (var s in Model)
-            {
-                
-            <tr>
-                <td class="textEditLineNr">@Html.DisplayFor(ModelItem => s.LineNr)</td>
-                <td >
-                    @using (Html.BeginForm("TextEdit",
-                        "Folder",
-                        FormMethod.Post,
-                        new { @enctype = "multipart/form-data" }))
-                    { 
-                        @Html.TextAreaFor(ModelItem => s.EngText, new { @class="textEditTranslation"})
-                        @*@Html.Hidden("TextEdit", new { lineId = s.SubLineId})
 
-                        @Html.Hidden("TextEdit", new { text = s.EngText})
-                        @Html.Hidden("TextEdit", new { languageId = 1})*@
-                       
-                        <input type="submit" value="Uppfæra" class="btn btn-default" />
-                    }
+           @for (var s = 0; s < Model.Count(); s++)
+            {
+            <tr>
+                <td class="textEditLineNr">@Html.DisplayFor(ModelItem => ModelItem[s].LineNr)</td>
+                <td >
+ 
+                        @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
+                        @Html.HiddenFor(ModelItem => ModelItem[s].SubLineId)
+                
+                   
                 </td>
-                <td class="textEditTranslation">@Html.TextAreaFor(ModelItem => s.IceText, new { @class="textEditTranslation"})</td>
+                <td class="textEditTranslation">@Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })</td>
             </tr>
             }
-
+                
+       
         </tbody>
     </table>
+    <input type="submit" value="Uppfæra" class="btn btn-default" />
+     }
 </div>
