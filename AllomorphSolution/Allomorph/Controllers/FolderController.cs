@@ -96,7 +96,7 @@ namespace Allomorph.Controllers
             }
 
             // Birtir 25 texta á hverri síðu
-            int pageSize = 25;
+            int pageSize = 15;
             // pageNumber er sjálfgefið 1 ef engin síða er valin
             int pageNumber = (page ?? 1);
             return View(folders.ToPagedList(pageNumber, pageSize));
@@ -196,6 +196,10 @@ namespace Allomorph.Controllers
                     // Til að ná öllum textalínum (þ.e. línur sem innihalda lesin texta)
                     while (nextline != "")
                     {
+                        if (nextline == null)
+                        {
+                            break;
+                        }
                         text += "\n" + nextline;
                         nextline = streamReader.ReadLine();
                     }
