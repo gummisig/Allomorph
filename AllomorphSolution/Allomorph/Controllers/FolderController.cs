@@ -15,8 +15,10 @@ namespace Allomorph.Controllers
 {
     public class FolderController : Controller
     {
+        // Database
         private SubtitleContext db = new SubtitleContext();
 
+        // ~/Folder/Index == Yfirlit texta
         public ViewResult Index(SearchViewModel svm)
         {
             string sortOrder = svm.sortOrder;
@@ -25,10 +27,12 @@ namespace Allomorph.Controllers
             int? page = svm.page;
             int category = svm.ID;
             
+            // Til að flokka eftir nafni á texta eða dagsetningunni sem hann var sendur inn
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
 
+            // Alltaf sýna síðu 1 ef það er notað leitina
             if (searchString != null)
             {
                 page = 1;
@@ -43,6 +47,7 @@ namespace Allomorph.Controllers
             var folders = from s in db.Folders
                           select s;
 
+            // Ef það er leitað eftir flokki
             switch (category)
             {
                 case 1:
@@ -67,11 +72,13 @@ namespace Allomorph.Controllers
                     break;
             }
 
+            // Leitað eftir nafni á möppu
             if (!String.IsNullOrEmpty(searchString))
             {
                 folders = folders.Where(s => s.FolderName.ToUpper().Contains(searchString.ToUpper()));
             }
 
+            // Flokka eftir nafni eða dagsetningu
             switch (sortOrder)
             {
                 case "name_desc":
@@ -88,7 +95,9 @@ namespace Allomorph.Controllers
                     break;
             }
 
-            int pageSize = 10;
+            // Birtir 25 texta á hverri síðu
+            int pageSize = 25;
+            // pageNumber er sjálfgefið 1 ef engin síða er valin
             int pageNumber = (page ?? 1);
             return View(folders.ToPagedList(pageNumber, pageSize));
         }
@@ -107,12 +116,12 @@ namespace Allomorph.Controllers
             }
 
             IEnumerable<SubFile> subtitles = (from s in db.SubFiles
-                                             where s.FolderID == folder.ID
-                                             select s).ToList();
+                                              where s.FolderID == folder.ID
+                                              select s).ToList();
 
             IEnumerable<Comment> comment = (from c in db.Comments
-                                           where c.FolderID == folder.ID
-                                           select c).ToList();
+                                            where c.FolderID == folder.ID
+                                            select c).ToList();
 
             IEnumerable<Folder> folders = (from f in db.Folders
                                            where f.ID == folder.ID
@@ -141,6 +150,7 @@ namespace Allomorph.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description,RequestID")] Folder folder, HttpPostedFileBase file, SubFile subfile)
         {
+            // Virkar ekki...
             if (folder.RequestID != null)
             {
                 var req = db.Requests.Find(folder.RequestID);
@@ -157,14 +167,18 @@ namespace Allomorph.Controllers
             //var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
+                // Geymir gögnin úr textaskránni sem er send inn
                 StreamReader streamReader = new StreamReader(file.InputStream);
 
+                // Tengja textaskrána við möppu
                 subfile.FolderID = folder.ID;
                 subfile.SubName = file.FileName;
                 db.Folders.Add(folder);
                 db.SubFiles.Add(subfile);
                 int i = 1;
 
+                // .Peek() skoðar næsta tákn án þess að taka það úr
+                // -1 Þegar öll skráin hefur verið lesin
                 while (streamReader.Peek() != -1)
                 {
                     SubFileLine tempLine = new SubFileLine();
@@ -179,23 +193,28 @@ namespace Allomorph.Controllers
                     string text = streamReader.ReadLine();
                     string nextline = streamReader.ReadLine();
 
+                    // Til að ná öllum textalínum (þ.e. línur sem innihalda lesin texta)
                     while (nextline != "")
                     {
                         text += "\n" + nextline;
                         nextline = streamReader.ReadLine();
                     }
 
+                    // Tekur inn allar upplýsingar fyrir línumódelið
                     tempLine.LineNumber = Convert.ToInt32(lineNumber);
                     tempLine.StartTime = firstTime;
                     tempLine.EndTime = secondTime;
                     tempLine.SubFileID = subfile.ID;
 
+                    // Setja línuna í gagnagrunninn
                     db.SubFileLines.Add(tempLine);
 
+                    // Tengja línurnar við textana (þýðingarnar)
                     tempTranslation.SubFileLineID = tempLine.ID;
                     tempTranslation.LineText = text;
                     tempTranslation.LanguageID = subfile.LanguageID;
-                        
+                    
+                    // Setja textann í gagnagrunninn og vista breytingarnar
                     db.SubFileLineTranslations.Add(tempTranslation);
                     db.SaveChanges();
                     i++;
@@ -277,6 +296,7 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult CreateComment(int? id)
         {
+            // Geyma 'id' svo hægt sé að nálgast það í 'View-inu'
             ViewBag.folderid = id;
             return View(new Comment());
         }
@@ -287,20 +307,30 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Sækja notendanafn þess sem skráði athugasemd
                 string usr = System.Web.HttpContext.Current.User.Identity.Name;
+
+                // Öryggisráðstafanir
                 if (usr == null)
                 {
                     return RedirectToAction("Details", new { ID = id });
                 }
+                // Sækja möppuna þar sem athugasemdin var skráð
                 Folder folder = db.Folders.Find(id);
                 if (folder == null)
                 {
                     return HttpNotFound();
                 }
+                
+                // Tengja athugasemdina við möppuna
                 comment.FolderID = folder.ID;
                 comment.UserName = usr;
+
+                // Setja athugasemdina í gagnagrunninn og vista breytingar
                 db.Comments.Add(comment);
                 db.SaveChanges();
+
+                // Fara til baka á síðuna þar sem athugasemdin var skráð
                 return RedirectToAction("Details", new { ID = id });
             }
             return View(comment);
@@ -310,10 +340,9 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult TextEdit(int? id)
         {
-
             IList<LinesAndTranslations> TextList = (from z in db.SubFileLines
-                                                          where z.SubFileID == id                           
-                                                          select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
+                                                    where z.SubFileID == id                           
+                                                    select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
 
             foreach(var item in TextList)
             {
@@ -355,7 +384,8 @@ namespace Allomorph.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult TextEdit( IList<LinesAndTranslations> model)//int? lineId, string text, int? languageId)
+        [ValidateInput(false)]
+        public ActionResult TextEdit( IList<LinesAndTranslations> model) //int? lineId, string text, int? languageId)
         {
             foreach (var s in model)
             {

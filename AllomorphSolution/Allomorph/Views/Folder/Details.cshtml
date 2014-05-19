@@ -14,7 +14,6 @@
 <div id="btnRitstyring">
     <label class="btn-default btn-lg">
         <button type="button" class="btn-success" onclick="location.href='@Url.Action("TextEdit", "Folder", new { id = Model.Item2.FirstOrDefault().ID })'"><i class="icon-edit"></i>Ritstýring</button>
-        @*@Html.ActionLink("Ritstýring", "TextEdit", new { id = Model.Item2.FirstOrDefault().ID })*@
     </label>
 </div>
 
@@ -55,9 +54,6 @@
                 @Html.LabelFor(model => dummy.SubName, "Textaskrá")
             </th>
             <th>
-                @Html.LabelFor(model => dummy.LanguageID, "Tungumál")
-            </th>
-            <th>
                 Enska
             </th>
             <th>
@@ -73,9 +69,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.SubName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LanguageID)
                 </td>
                 <td>
                     @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID, langid = 1 })
