@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm("Create",
                         "Folder",
+                        new { requestID = @ViewBag.requestId },
                         FormMethod.Post,
                         new { @enctype = "multipart/form-data" })) 
 {         

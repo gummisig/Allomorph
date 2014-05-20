@@ -36,6 +36,7 @@
             @Html.ActionLink("Lýsing", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
+            <span class="glyphicon glyphicon-sort"></span>
             @Html.ActionLink("Atkvæði", "Index", new { sortOrder = ViewBag.VoteSortParm })
         </th>
         <th>
@@ -64,8 +65,6 @@
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
             <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>

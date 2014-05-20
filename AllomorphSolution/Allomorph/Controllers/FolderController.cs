@@ -96,7 +96,7 @@ namespace Allomorph.Controllers
             }
 
             // Birtir 25 texta á hverri síðu
-            int pageSize = 15;
+            int pageSize = 10;
             // pageNumber er sjálfgefið 1 ef engin síða er valin
             int pageNumber = (page ?? 1);
             return View(folders.ToPagedList(pageNumber, pageSize));
@@ -134,13 +134,9 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult Create(int? requestID)
         {
-            Folder folder = new Folder();
-            if (requestID != null)
-            {
-                folder.RequestID = requestID;
-            }
             ViewBag.request = db.Requests.Find(requestID);
-            return View(folder);
+            ViewBag.requestId = requestID;
+            return View(new Folder() { RequestID = requestID });
         }
 
         // POST: /Folder/Create
@@ -148,23 +144,8 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description,RequestID")] Folder folder, HttpPostedFileBase file, SubFile subfile)
+        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description,RequestID")] Folder folder, HttpPostedFileBase file, SubFile subfile, int? requestID)
         {
-            // Virkar ekki...
-            if (folder.RequestID != null)
-            {
-                var req = db.Requests.Find(folder.RequestID);
-                if (req != null)
-                {
-                    db.Requests.Remove(req);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    return View("Error");
-                }
-            }
-            //var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
                 // Geymir gögnin úr textaskránni sem er send inn
@@ -175,7 +156,6 @@ namespace Allomorph.Controllers
                 subfile.SubName = file.FileName;
                 db.Folders.Add(folder);
                 db.SubFiles.Add(subfile);
-                int i = 1;
 
                 // .Peek() skoðar næsta tákn án þess að taka það úr
                 // -1 Þegar öll skráin hefur verið lesin
@@ -221,11 +201,26 @@ namespace Allomorph.Controllers
                     // Setja textann í gagnagrunninn og vista breytingarnar
                     db.SubFileLineTranslations.Add(tempTranslation);
                     db.SaveChanges();
-                    i++;
+                }
+                // requestID != null ef verið er að uppfylla beiðni.
+                if (requestID != null)
+                {
+                    // Ná í beiðni úr gagnagrunni.
+                    var req = db.Requests.Find(requestID);
+                    // Villumeðhöndlun
+                    if (req != null)
+                    {
+                        // Eyða beiðni úr gagnagrunni og vista breytingar.
+                        db.Requests.Remove(req);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return View("Error");
+                    }
                 }
                 return RedirectToAction("Index");
             }
-            
             return View(folder);
         }
 
@@ -342,11 +337,13 @@ namespace Allomorph.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult TextEdit(int? id)
+        public ActionResult TextEdit(int? id, int? page)
         {
             IList<LinesAndTranslations> TextList = (from z in db.SubFileLines
                                                     where z.SubFileID == id                           
-                                                    select new LinesAndTranslations { LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
+                                                    select new LinesAndTranslations { FolderID = z.SubFiles.FolderID, LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
+
+            ViewBag.folderid = TextList.FirstOrDefault().FolderID;
 
             foreach(var item in TextList)
             {
@@ -383,13 +380,15 @@ namespace Allomorph.Controllers
                     item.IceText = tempIce.LineText;
                 }
             }
-            return View(TextList);
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+            return View(TextList.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
-        public ActionResult TextEdit( IList<LinesAndTranslations> model) //int? lineId, string text, int? languageId)
+        public ActionResult TextEdit(IList<LinesAndTranslations> model, int folderId) //int? lineId, string text, int? languageId)
         {
             foreach (var s in model)
             {
@@ -410,10 +409,7 @@ namespace Allomorph.Controllers
                 db.SaveChanges();
                 
             }
-            
-            int id = db.SubFileLines.Find(model.FirstOrDefault().SubLineId).SubFileID;
-
-            return RedirectToAction("TextEdit",id);
+            return RedirectToAction("Details", new { id = folderId });
         }
 
         public FileStreamResult GetFile(int id, int langid)
