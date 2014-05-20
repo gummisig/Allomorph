@@ -12,6 +12,7 @@ namespace Allomorph.Models
     {
         public int ID { get; set; }
         public int CategoryID { get; set; }
+        [Required]
         public string FolderName { get; set; }
         [Required]
         public string Link { get; set; }

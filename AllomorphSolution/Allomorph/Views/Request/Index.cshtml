@@ -28,6 +28,9 @@
 
 <table class="table">
     <tr>
+        <th>
+            Nr.
+        </th>
         <th class="requestTable">
             <span class="glyphicon glyphicon-sort-by-alphabet"></span>
             @Html.ActionLink("Nafn", "Index", new { sortOrder = ViewBag.NameSortParm })
@@ -45,10 +48,21 @@
         </th>
         <th></th>
     </tr>
-
+    @{ int i = 1; }
     @foreach (var item in Model)
     {
         <tr>
+            <td class="nrlist">
+                @if (Model.PageNumber != 1)
+                {
+                    @Model.PageNumber
+                    if (i == 10)
+                    {
+                        i = 0;
+                    }
+                }
+                @i
+            </td>
             <td>
                 @Html.ActionLink(item.RequestName, "Create", "Folder", new { requestID = item.ID }, null)
             </td>
@@ -68,6 +82,7 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
+        i++;
     }
 </table>
 

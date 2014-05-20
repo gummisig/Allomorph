@@ -15,7 +15,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RequestName)
+            @Html.ActionLink(Model.RequestName, "Create", "Folder", new { requestID = Model.ID }, null)
         </dd>
 
         <dt>
@@ -31,6 +31,9 @@
         </dt>
 
         <dd>
+            <a href="@Url.Action("RequestVote", "Request", new { requestID = Model.ID })">
+                <span id="voteReqBtn" class="glyphicon glyphicon-thumbs-up"></span>
+            </a>
             @Html.DisplayFor(model => model.ReqUpvoteCounter)
         </dd>
 

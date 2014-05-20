@@ -47,6 +47,8 @@ namespace Allomorph.Controllers
             var folders = from s in db.Folders
                           select s;
 
+            ViewBag.folderCount = folders.Count();
+
             // Ef það er leitað eftir flokki
             switch (category)
             {
