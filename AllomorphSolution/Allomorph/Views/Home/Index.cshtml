@@ -8,32 +8,30 @@
 <div id="topDiv">
     <div class="list-group" id="topsott-list">
         <span class ="label label-success" id="top10label">Top 10 Textar</span>
-        <table>
+        <ul>
             @foreach (var subfile in Model.Item1)
             {
-                <tr>
-                    <td>
-                        <a href="@Url.Action("Details", "Folder", new { id = subfile.FolderID }, null)" class="list-group-item">@subfile.SubName</a>
-                    </td>
-                </tr>
+                <li>
+                    <a href="@Url.Action("Details", "Folder", new { id = subfile.FolderID }, null)" class="list-group-item">@subfile.SubName</a>
+                </li>
 
             }
-        </table>
+        </ul>
     </div>
-</div>
 
-<div id="topDiv2">
     <div class="list-group" id="request-list">
         <span class="label label-success" id="top10label">Top 10 Beiðnir</span>
-        <table>
+        <ul>
             @foreach (var request in Model.Item2)
             {
-                <tr>
-                    <td>
-                        <a href="@Url.Action("Details", "Request", new { id = request.ID }, null)" class="list-group-item">@request.RequestName</a>
-                    </td>
-                </tr>
+                <li>
+                    <a href="@Url.Action("Details", "Request", new { id = request.ID }, null)" class="list-group-item">@request.RequestName</a>
+                </li>
             }
-        </table>
+        </ul>
     </div>
 </div>
+
+@*<div id="topDiv2">
+    
+</div>*@

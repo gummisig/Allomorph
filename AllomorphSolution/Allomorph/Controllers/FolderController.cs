@@ -202,15 +202,15 @@ namespace Allomorph.Controllers
                     db.SubFileLineTranslations.Add(tempTranslation);
                     db.SaveChanges();
                 }
-                // requestID != null ef verið er að uppfylla beiðni.
+                // requestID != null ef verið er að uppfylla beiðni
                 if (requestID != null)
                 {
-                    // Ná í beiðni úr gagnagrunni.
+                    // Ná í beiðni úr gagnagrunni
                     var req = db.Requests.Find(requestID);
                     // Villumeðhöndlun
                     if (req != null)
                     {
-                        // Eyða beiðni úr gagnagrunni og vista breytingar.
+                        // Eyða beiðni úr gagnagrunni og vista breytingar
                         db.Requests.Remove(req);
                         db.SaveChanges();
                     }
@@ -409,7 +409,7 @@ namespace Allomorph.Controllers
                 db.SaveChanges();
                 
             }
-            return RedirectToAction("Details", new { id = folderId });
+            return RedirectToAction("Details", new { ID = folderId });
         }
 
         public FileStreamResult GetFile(int id, int langid)

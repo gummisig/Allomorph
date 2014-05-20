@@ -85,10 +85,10 @@
 }
 
 #request-list {
-    position: relative;
     width: 35%;
-    top: -482px;
-    left: 630px;
+    float: left;
+    position: relative;
+    left: 20%;
 }
 
 .requestTable {
@@ -127,12 +127,18 @@ td {
 
 #topDiv {
     padding-top: 3%;
+    padding-bottom: 50%;
 }
 
 #topsott-list {
-    position: relative;
     width: 35%;
-    left: 150px;
+    float: left;
+    position: relative;
+    left: 15%;
+}
+
+ul {
+    list-style-type: decimal;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
