@@ -88,7 +88,7 @@
     width: 35%;
     float: left;
     position: relative;
-    left: 20%;
+    left: 18%;
 }
 
 .requestTable {
@@ -108,16 +108,14 @@ td {
 }
 
 .textEditTranslation {
-    word-wrap:break-word;
+    word-wrap: break-word;
     width: 300px;
     height: 100px;  
 }
 
 #top10label {
-    margin-left: 20%;
-    padding-top: 3%;
-    padding-left: 10%;
-    padding-right: 13%;
+    position: relative;
+    left: 34%;
 }
 
 #top10label,p {
@@ -134,7 +132,7 @@ td {
     width: 35%;
     float: left;
     position: relative;
-    left: 15%;
+    left: 16%;
 }
 
 ul {
