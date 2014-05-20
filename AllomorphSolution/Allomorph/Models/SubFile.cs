@@ -15,6 +15,7 @@ namespace Allomorph.Models
             this.LastChange = DateTime.Now;
             this.SubDownloadCounter = 0;
             this.Languages = new List<Language>();
+            //this.LastChangedByUser = System.Web.HttpContext.Current.User.Identity.Name;
         }
         public int ID { get; set; }
         public int FolderID { get; set; }
@@ -22,7 +23,7 @@ namespace Allomorph.Models
         public int SubDownloadCounter { get; set; }
         public string SubName { get; set; }
         public DateTime LastChange { get; set; }
-        public string LastChangedByUser { get; set; }
+        //public string LastChangedByUser { get; set; }
 
         public virtual Folder Folders { get; set; }
         public virtual ICollection<Language> Languages { get; set; }
