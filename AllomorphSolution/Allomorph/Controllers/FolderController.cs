@@ -154,6 +154,7 @@ namespace Allomorph.Controllers
                 // Tengja textaskrána við möppu
                 subfile.FolderID = folder.ID;
                 subfile.SubName = file.FileName;
+                subfile.LastChangedByUser = System.Web.HttpContext.Current.User.Identity.Name;
                 db.Folders.Add(folder);
                 db.SubFiles.Add(subfile);
 
