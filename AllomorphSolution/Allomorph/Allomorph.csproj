@@ -188,6 +188,7 @@
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\LinesAndTranslations.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\RequestViewModel.cs" />

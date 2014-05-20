@@ -94,16 +94,31 @@ namespace Allomorph.Controllers
 
         [Authorize]
         [ValidateInput(false)]
-        public ActionResult RequestVote(int? requestID)
+        public ActionResult RequestVote(int requestID)
         {
-            if (requestID != null)
+            string usr = System.Web.HttpContext.Current.User.Identity.Name;
+
+            var reqLike = db.Likes.Where(s => s.RequestID == requestID);
+
+            if (reqLike != null)
             {
-                var request = db.Requests.Find(requestID);
-                if (request != null)
+                foreach (var like in reqLike)
                 {
-                    request.ReqUpvoteCounter += 1;
-                    db.SaveChanges();
+                    if (like.LikeUserName == usr)
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
+
+            }
+            Like newLike = new Like() { RequestID = requestID, LikeUserName = usr };
+            db.Likes.Add(newLike);
+
+            var request = db.Requests.Find(requestID);
+            if (request != null)
+            {
+                request.ReqUpvoteCounter += 1;
+                db.SaveChanges();
             }
             return RedirectToAction("Index");
         }
