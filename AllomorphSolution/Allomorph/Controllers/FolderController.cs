@@ -136,7 +136,7 @@ namespace Allomorph.Controllers
         {
             ViewBag.request = db.Requests.Find(requestID);
             ViewBag.requestId = requestID;
-            return View(new Folder() { RequestID = requestID });
+            return View(new Folder());
         }
 
         // POST: /Folder/Create

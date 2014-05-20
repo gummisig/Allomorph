@@ -26,7 +26,5 @@ namespace Allomorph.Models
             this.Poster = " ";
             this.Description = " ";
         }
-
-        public int? RequestID { get; set; }
     }
 }
