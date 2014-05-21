@@ -39,9 +39,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @{ var nr = @Model.PageNumber - 1; }
             @if (Model.PageNumber != 1)
             {
-                @Model.PageNumber
+                @nr
                 if (i == 10)
                 {
                     i = 0;
