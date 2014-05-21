@@ -34,7 +34,7 @@
 @{ int i = 1; }
 @foreach (var item in Model) {
     <tr>
-        <td class="nrlist">
+        <td>
             @if (Model.PageNumber != 1)
             {
                 @Model.PageNumber
@@ -53,8 +53,8 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Breyta", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Eyða", "Delete", new { id = item.ID })
         </td>
     </tr>
     i++;
