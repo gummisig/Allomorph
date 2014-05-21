@@ -38,7 +38,7 @@
 }
 
 <div>
-    @Html.ActionLink("Til baka í beiðnir", "Index")
+    <input type="submit" value="Til baka í beiðnir" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Request")'" />
 </div>
 
 @section Scripts {

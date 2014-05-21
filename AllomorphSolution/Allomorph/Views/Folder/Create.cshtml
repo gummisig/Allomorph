@@ -71,7 +71,7 @@
 }
 
 <div>
-    @Html.ActionLink("Til baka í texta", "Index")
+    <input type="submit" value="Til baka í texta" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Folder")'" />
 </div>
 
 @section Scripts {

@@ -48,6 +48,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Breyta", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Til baka í beiðnir", "Index")
+    <input type="submit" value="Breyta" class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Request", new { id = Model.ID })'" /> |
+    <input type="submit" value="Til baka í beiðnir" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Request")'" />
 </p>

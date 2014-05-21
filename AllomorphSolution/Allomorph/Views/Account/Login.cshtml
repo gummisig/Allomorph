@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Nýskráning", "Register") ef þú átt ekki þegar aðgang.
+                    <input type="submit" value="Nýskráning" class="btn btn-default" onclick="location.href='@Url.Action("Register", "Account")'" /> ef þú átt ekki þegar aðgang.
                 </p>
             }
         </section>
