@@ -451,7 +451,14 @@ namespace Allomorph.Controllers
             if (info.Exists)
             {
                 int temp = name.Length;
-                name = name.Substring(0,temp - 4) + "-I.srt"; 
+                if (langid == 1)
+                {
+                    name = name.Substring(0, temp - 4) + ".en.srt";
+                }
+                else
+                {
+                    name = name.Substring(0, temp - 4) + ".is.srt";
+                }
             }
             using (StreamWriter writer = info.CreateText())
             {
