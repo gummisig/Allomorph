@@ -448,7 +448,7 @@ namespace Allomorph.Controllers
                              where t.SubFileID == file.ID
                              select t;
 
-            if (info.Exists)
+            if (name != null)
             {
                 int temp = name.Length;
                 if (langid == 1)
