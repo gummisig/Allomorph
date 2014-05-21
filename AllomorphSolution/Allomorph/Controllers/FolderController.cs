@@ -364,7 +364,6 @@ namespace Allomorph.Controllers
                 {
                     SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 1 };
                     db.SubFileLineTranslations.Add(temp);
-                    db.SaveChanges();
                     item.EngText = "";
                 }
                 else
@@ -380,7 +379,6 @@ namespace Allomorph.Controllers
                 {
                     SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 2 };
                     db.SubFileLineTranslations.Add(temp);
-                    db.SaveChanges();
                     item.IceText = "";
                 }
                 else
@@ -388,6 +386,7 @@ namespace Allomorph.Controllers
                     item.IceText = tempIce.LineText;
                 }
             }
+            db.SaveChanges();
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(TextList.ToPagedList(pageNumber, pageSize));
@@ -414,9 +413,8 @@ namespace Allomorph.Controllers
 
                 tempEng.FirstOrDefault().LineText = s.EngText;
                 tempIce.FirstOrDefault().LineText = s.IceText;
-                db.SaveChanges();
-                
             }
+            db.SaveChanges();
             return RedirectToAction("Details", new { ID = folderId });
         }
 
