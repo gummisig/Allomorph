@@ -11,9 +11,7 @@
 <h3>Beiðnir</h3>
 
 <div id="btnBuaTilBeidni">
-    <label>
-        @Html.ActionLink("Búa til nýja beiðni", "Create", "Request", new { @class = "list-group-item" })
-    </label>
+    <button type="button" class="btn-default btn-success btn-lg" onclick="location.href='@Url.Action("Create", "Request")'"><i class="icon-edit"></i>Búa til nýja beiðni</button>
 </div>
 
 @using (Html.BeginForm("Index", "Request", FormMethod.Get))

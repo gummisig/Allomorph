@@ -17,6 +17,14 @@
     resize: both;
 }
 
+#btnBuaTilBeidni {
+    padding-bottom: 0.5%;
+}
+
+#btnBuaTilTexta {
+    padding-bottom: 0.5%;
+}
+
 #btnLeitBeidnir {
     margin-left: 0.5%;
 }
@@ -119,7 +127,10 @@ td {
 
 #top10label {
     position: relative;
-    left: 34%;
+    padding-top: 3%;
+    padding-left: 7%;
+    padding-right: 7%;
+    left: 30%;
 }
 
 #top10label,p {

@@ -10,10 +10,14 @@
 
 <h3>Textar</h3>
 
-<div id="btnBuaTilTexta">
+@*<div id="btnBuaTilTexta">
     <label>
         @Html.ActionLink("Senda inn nýja skrá", "Create", "Request", new { @class = "list-group-item" })
     </label>
+</div>*@
+
+<div id="btnBuaTilTexta">
+    <button type="button" class="btn-default btn-success btn-lg" onclick="location.href='@Url.Action("Create", "Folder")'"><i class="icon-edit"></i>Senda inn nýja skrá</button>
 </div>
 
 <table class="table">
