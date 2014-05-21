@@ -96,12 +96,15 @@ namespace Allomorph.Controllers
         [ValidateInput(false)]
         public ActionResult RequestVote(int requestID)
         {
+            // Fetch current users UserName
             string usr = System.Web.HttpContext.Current.User.Identity.Name;
 
+            // reqLike is a list of all the likes associated with this request
             var reqLike = db.Likes.Where(s => s.RequestID == requestID);
 
             if (reqLike != null)
             {
+                // Loop to check if the current user has already liked this request
                 foreach (var like in reqLike)
                 {
                     if (like.LikeUserName == usr)
@@ -111,28 +114,20 @@ namespace Allomorph.Controllers
                 }
 
             }
+            // Create the like and add it to the database
             Like newLike = new Like() { RequestID = requestID, LikeUserName = usr };
             db.Likes.Add(newLike);
 
+            // Find the request
             var request = db.Requests.Find(requestID);
             if (request != null)
             {
+                // Add 1 to it's vote counter and save the changes
                 request.ReqUpvoteCounter += 1;
                 db.SaveChanges();
             }
             return RedirectToAction("Index");
         }
-
-        //[HttpPost]
-        //public ActionResult RequestVote(Request request)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        request.ReqUpvoteCounter += 1;
-        //        db.SaveChanges();
-        //    }
-        //    return View("Index");
-        //}
 
         // GET: /Request/Details/5
         public ActionResult Details(int? id)

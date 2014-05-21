@@ -150,7 +150,9 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Nær í skráarendinguna á textaskránni
                 string extension = Path.GetExtension(file.FileName);
+                // Athugar hvort skráin sé á löglegu formi (.srt ending)
                 if (extension != ".srt")
                 {
                     return View("WrongFile");
@@ -158,9 +160,10 @@ namespace Allomorph.Controllers
                 // Geymir gögnin úr textaskránni sem er send inn
                 StreamReader streamReader = new StreamReader(file.InputStream);
 
-                // Tengja textaskrána við möppu
+                // Tengja textaskrána við möppu og gefa henni nafn
                 subfile.FolderID = folder.ID;
                 subfile.SubName = file.FileName;
+                // Setja möppuna og textaskrána í gagnagrunninn
                 db.Folders.Add(folder);
                 db.SubFiles.Add(subfile);
 
@@ -313,7 +316,7 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Sækja notendanafn þess sem skráði athugasemd
+                // Sækja notendanafn þess sem er innskráður
                 string usr = System.Web.HttpContext.Current.User.Identity.Name;
 
                 // Öryggisráðstafanir
@@ -328,7 +331,7 @@ namespace Allomorph.Controllers
                     return HttpNotFound();
                 }
                 
-                // Tengja athugasemdina við möppuna
+                // Tengja athugasemdina við möppu og notanda
                 comment.FolderID = folder.ID;
                 comment.UserName = usr;
 
