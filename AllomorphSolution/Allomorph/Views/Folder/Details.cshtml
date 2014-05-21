@@ -69,11 +69,10 @@
                     @Html.DisplayFor(modelItem => item.SubName)
                 </td>
                 <td>
-                    @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID, langid = 1 })
-
+                    <button class="glyphicon glyphicon-arrow-down btn btn-default btn-success" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 1 })'" />
                 </td>
                 <td>
-                    @Html.ActionLink("Download", "GetFile", new { id = dumdum.FirstOrDefault().ID, langid = 2 })
+                    <button class="glyphicon glyphicon-arrow-down btn btn-default btn-success" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 2 })'" />
                 </td>
                 <td></td>
             </tr>
