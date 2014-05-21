@@ -61,10 +61,7 @@ namespace Allomorph.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                req = (from s in db.Requests
-                      where (s.RequestName.ToUpper().Contains(searchString.ToUpper()))
-                      || (s.RequestText.ToUpper().Contains(searchString.ToUpper()))
-                      select s);
+                req = db.Requests.Where(r => (r.RequestName.ToUpper().Contains(searchString.ToUpper()) || r.RequestText.ToUpper().Contains(searchString.ToUpper())));
             }
             switch (sortOrder)
             {

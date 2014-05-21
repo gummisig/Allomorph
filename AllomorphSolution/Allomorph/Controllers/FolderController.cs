@@ -51,24 +51,16 @@ namespace Allomorph.Controllers
             switch (category)
             {
                 case 1:
-                    folders = from s in folders
-                              where s.CategoryID == 1
-                              select s;
+                    folders = folders.Where(f => f.CategoryID == 1);
                     break;
                 case 2:
-                    folders = from s in folders
-                              where s.CategoryID == 2
-                              select s;
+                    folders = folders.Where(f => f.CategoryID == 2);
                     break;
                 case 3:
-                    folders = from s in folders
-                              where s.CategoryID == 3
-                              select s;
+                    folders = folders.Where(f => f.CategoryID == 3);
                     break;
                 case 4:
-                    folders = from s in folders
-                              where s.CategoryID == 4
-                              select s;
+                    folders = folders.Where(f => f.CategoryID == 4);
                     break;
             }
 
@@ -115,17 +107,11 @@ namespace Allomorph.Controllers
                 return HttpNotFound();
             }
 
-            IEnumerable<SubFile> subtitles = (from s in db.SubFiles
-                                              where s.FolderID == folder.ID
-                                              select s).ToList();
+            IEnumerable<SubFile> subtitles = db.SubFiles.Where(s => s.FolderID == folder.ID).ToList();
 
-            IEnumerable<Comment> comment = (from c in db.Comments
-                                            where c.FolderID == folder.ID
-                                            select c).ToList();
+            IEnumerable<Comment> comment = db.Comments.Where(c => c.FolderID == folder.ID).ToList();
 
-            IEnumerable<Folder> folders = (from f in db.Folders
-                                           where f.ID == folder.ID
-                                           select f).ToList();
+            IEnumerable<Folder> folders = db.Folders.Where(f => f.ID == folder.ID).ToList();
 
             return View(Tuple.Create(folder, subtitles, comment, folders));
         }
@@ -404,21 +390,10 @@ namespace Allomorph.Controllers
         {
             foreach (var s in model)
             {
-                var temp = from trans in db.SubFileLineTranslations
-                           where trans.SubFileLineID == s.SubLineId
-                           select trans;
-
-                var time = from line in db.SubFileLines
-                           where line.ID == s.SubLineId
-                           select line;
-
-                var tempEng = from engtrans in temp
-                              where engtrans.LanguageID == 1
-                              select engtrans;
-
-                var tempIce = from icetrans in temp
-                              where icetrans.LanguageID == 2
-                              select icetrans;
+                var temp = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId);
+                var time = db.SubFileLines.Where(l => l.ID == s.SubLineId);
+                var tempEng = temp.Where(e => e.LanguageID == 1);
+                var tempIce = temp.Where(i => i.LanguageID == 2);
 
                 tempEng.FirstOrDefault().LineText = s.EngText;
                 tempIce.FirstOrDefault().LineText = s.IceText;
@@ -431,22 +406,22 @@ namespace Allomorph.Controllers
 
         public FileStreamResult GetFile(int id, int langid)
         {
-            var file = (from s in db.SubFiles
-                       where id == s.FolderID
-                       select s).First();
+            var file = db.SubFiles.Where(s => s.FolderID == id).First();
 
             file.SubDownloadCounter += 1;
             string name = file.SubName;
             FileInfo info = new FileInfo(name);
 
             var combi = (from z in db.SubFileLines
-                        join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
-                        where j.LanguageID == langid
-                        select new { z.LineNumber,z.SubFileID, z.StartTime, z.EndTime, j.LineText });
+                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
+                         where j.LanguageID == langid
+                         select new { z.LineNumber,
+                                      z.SubFileID,
+                                      z.StartTime,
+                                      z.EndTime,
+                                      j.LineText });
 
-            var combiright = from t in combi
-                             where t.SubFileID == file.ID
-                             select t;
+            var combiright = combi.Where(t => t.SubFileID == file.ID);
 
             if (name != null)
             {
