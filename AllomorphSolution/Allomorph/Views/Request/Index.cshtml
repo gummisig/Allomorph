@@ -24,7 +24,7 @@
     </div>
 }
 
-<table class="table">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th>
             Nr.
@@ -71,7 +71,7 @@
                 <a href="@Url.Action("RequestVote", "Request", new { requestID = item.ID })">
                     <span id="voteReqBtn" class="glyphicon glyphicon-thumbs-up"></span>
                 </a>
-                    @Html.DisplayFor(modelItem => item.ReqUpvoteCounter)
+                @Html.DisplayFor(modelItem => item.ReqUpvoteCounter)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
@@ -81,7 +81,7 @@
                 @Html.ActionLink("Eyða", "Delete", new { id = item.ID })
             </td>
         </tr>
-        i++;
+                i++;
     }
 </table>
 
