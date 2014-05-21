@@ -9,9 +9,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal createForm">
-        <hr />
+        <br />
         @Html.ValidationSummary(true)
 
         <div class="form-group">
