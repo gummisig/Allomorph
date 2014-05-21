@@ -408,6 +408,10 @@ namespace Allomorph.Controllers
                            where trans.SubFileLineID == s.SubLineId
                            select trans;
 
+                var time = from line in db.SubFileLines
+                           where line.ID == s.SubLineId
+                           select line;
+
                 var tempEng = from engtrans in temp
                               where engtrans.LanguageID == 1
                               select engtrans;
@@ -418,6 +422,8 @@ namespace Allomorph.Controllers
 
                 tempEng.FirstOrDefault().LineText = s.EngText;
                 tempIce.FirstOrDefault().LineText = s.IceText;
+                time.FirstOrDefault().StartTime = s.SubFileLineStartTime;
+                time.FirstOrDefault().EndTime = s.SubFileLineEndTime;
             }
             db.SaveChanges();
             return RedirectToAction("Details", new { ID = folderId });
