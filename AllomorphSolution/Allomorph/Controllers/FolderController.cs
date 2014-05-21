@@ -108,9 +108,7 @@ namespace Allomorph.Controllers
             }
 
             IEnumerable<SubFile> subtitles = db.SubFiles.Where(s => s.FolderID == folder.ID).ToList();
-
             IEnumerable<Comment> comment = db.Comments.Where(c => c.FolderID == folder.ID).ToList();
-
             IEnumerable<Folder> folders = db.Folders.Where(f => f.ID == folder.ID).ToList();
 
             return View(Tuple.Create(folder, subtitles, comment, folders));
