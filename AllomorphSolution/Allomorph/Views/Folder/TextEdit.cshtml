@@ -17,15 +17,29 @@
                             new { @enctype = "multipart/form-data" }))
 {
 @Html.AntiForgeryToken()
-    <input type="submit" value="Vista breytingar" class="btn btn-default btn-lg btn-primary" />
-
-    <div class="panel panel-default">
-        <table class="table">
-            <tbody>
+    <div class="btnPaddingBottom">
+        <input type="submit" value="Vista breytingar" class="btn btn-default btn-lg btn-primary" />
+    </div>
+    
+        <div class="panel panel-default">
+            <table class="table">
                 <tr>
-                    <th class="textEditLineNr">Línanúmer</th>
-                    <th>Enskur texti</th>
-                    <th>Íslenskur Texti</th>
+                    <th class="textEditLineNr">
+                        Línunúmer
+                    </th>
+                    <th class="textEditLineNr">
+                        Byrjar
+                    </th>
+                    <th></th>
+                    <th>
+                        Endar
+                    </th>
+                    <th>
+                        Enskur texti
+                    </th>
+                    <th>
+                        Íslenskur texti
+                    </th>
                 </tr>
 
                 @for (var s = 0; s < Model.Count(); s++)
@@ -34,20 +48,26 @@
                         <td class="textEditLineNr">
                             @Html.DisplayFor(ModelItem => ModelItem[s].LineNr)
                         </td>
+                        <td>
+                            @Html.EditorFor(ModelItem => ModelItem[s].SubFileLineStartTime)
+                        </td>
+                        <td>
+                            -->
+                        </td>
+                        <td>
+                            @Html.EditorFor(ModelItem => ModelItem[s].SubFileLineEndTime)
+                        </td>
                         <td class="textEditTranslation">
                             @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
-                            @*<input type="submit" value="Uppfæra" class="btn btn-default" />*@
                             @Html.HiddenFor(ModelItem => ModelItem[s].SubLineId)
                         </td>
                         <td class="textEditTranslation">
                             @Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })
-
                         </td>
                     </tr>
                 }
-            </tbody>
-        </table>
-    </div>
+            </table>
+        </div>
 }
 <div>
     @Html.ActionLink("Til baka", "Details", new { id = @ViewBag.folderid })

@@ -11,7 +11,7 @@
 <h3>Beiðnir</h3>
 
 <div id="btnBuaTilBeidni">
-    <button type="button" class="btn-default btn-success btn-lg" onclick="location.href='@Url.Action("Create", "Request")'"><i class="icon-edit"></i>Búa til nýja beiðni</button>
+    <input type="submit" value="Búa til nýja beiðni" class="btn btn-default btn-lg btn-success" onclick="location.href='@Url.Action("Create", "Request")'" />
 </div>
 
 @using (Html.BeginForm("Index", "Request", FormMethod.Get))

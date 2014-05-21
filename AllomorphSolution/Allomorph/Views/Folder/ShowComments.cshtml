@@ -1,7 +1,7 @@
 ﻿@model Tuple<IEnumerable<Allomorph.Models.Comment>, Allomorph.Models.Folder>
 
-<div id="btnSkraAthugasemd">
-    <button type="button" class="btn-default btn-success btn-lg" onclick="location.href='@Url.Action("CreateComment", "Folder", new { id = Model.Item2.ID })'"><i class="icon-edit"></i>Skrá nýja athugasemd</button>
+<div class="btnPaddingBottom">
+    <input type="submit" value="Skrá nýja athugasemd" class="btn btn-default btn-lg btn-success" onclick="location.href='@Url.Action("CreateComment", "Folder", new { id = Model.Item2.ID })'" />
 </div>
 
 <table class="table">

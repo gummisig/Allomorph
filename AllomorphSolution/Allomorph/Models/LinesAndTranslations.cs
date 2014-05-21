@@ -16,5 +16,7 @@ namespace Allomorph.Models
         public int FolderID { get; set; }
         public string EngText { get; set; }
         public string IceText { get; set; }
+        public string SubFileLineStartTime { get; set; }
+        public string SubFileLineEndTime { get; set; }
     }
 }

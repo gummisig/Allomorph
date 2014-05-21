@@ -348,8 +348,13 @@ namespace Allomorph.Controllers
         public ActionResult TextEdit(int? id, int? page)
         {
             IList<LinesAndTranslations> TextList = (from z in db.SubFileLines
-                                                    where z.SubFileID == id                           
-                                                    select new LinesAndTranslations { FolderID = z.SubFiles.FolderID, LineNr = z.LineNumber, SubFileId = z.SubFileID, SubLineId = z.ID }).ToList();
+                                                    where z.SubFileID == id                        
+                                                    select new LinesAndTranslations { FolderID = z.SubFiles.FolderID,
+                                                                                      LineNr = z.LineNumber,
+                                                                                      SubFileId = z.SubFileID,
+                                                                                      SubLineId = z.ID,
+                                                                                      SubFileLineStartTime = z.StartTime,
+                                                                                      SubFileLineEndTime = z.EndTime }).ToList();
 
             ViewBag.folderid = TextList.FirstOrDefault().FolderID;
 
