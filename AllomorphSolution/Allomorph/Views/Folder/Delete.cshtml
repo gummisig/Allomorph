@@ -42,8 +42,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eyða" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Eyða" class="btn btn-default btn-success" /> |
+            <input type="submit" value="Til baka í texta" class="btn btn-default btn-primary" onclick="location.href='@Url.Action("Index", "Folder")'" />
         </div>
     }
 </div>
