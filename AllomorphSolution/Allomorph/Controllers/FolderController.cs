@@ -150,6 +150,11 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
+                string extension = Path.GetExtension(file.FileName);
+                if (extension != ".srt")
+                {
+                    return View("WrongFile");
+                }
                 // Geymir gögnin úr textaskránni sem er send inn
                 StreamReader streamReader = new StreamReader(file.InputStream);
 
