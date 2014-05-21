@@ -197,7 +197,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserName,RequestName,RequestText,ReqUpvoteCounter,DateCreated")] Request request)
+        public ActionResult Edit([Bind(Include = "ID,RequestName,RequestText")] Request request)
         {
             if (ModelState.IsValid)
             {

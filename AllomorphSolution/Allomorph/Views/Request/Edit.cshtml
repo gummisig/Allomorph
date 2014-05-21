@@ -15,23 +15,6 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.ID)
-                @Html.ValidationMessageFor(model => model.ID)
-            </div>
-        </div>
-
-        @Html.HiddenFor(model => model.UserName)
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.UserName)
-                @Html.ValidationMessageFor(model => model.UserName)
-            </div>
-        </div>
-
         @Html.HiddenFor(model => model.RequestName)
         <div class="form-group">
             @Html.LabelFor(model => model.RequestName, new { @class = "control-label col-md-2" })
@@ -46,24 +29,6 @@
             <div class="col-md-10" id="textAreaFor">
                 @Html.TextAreaFor(model => model.RequestText)
                 @Html.ValidationMessageFor(model => model.RequestText)
-            </div>
-        </div>
-
-        @Html.HiddenFor(model => model.ReqUpvoteCounter)
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReqUpvoteCounter, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.ReqUpvoteCounter)
-                @Html.ValidationMessageFor(model => model.ReqUpvoteCounter)
-            </div>
-        </div>
-
-        @Html.HiddenFor(model => model.DateCreated)
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateCreated, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.DateCreated)
-                @Html.ValidationMessageFor(model => model.DateCreated)
             </div>
         </div>
 
