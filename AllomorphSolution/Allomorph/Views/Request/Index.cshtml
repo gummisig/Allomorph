@@ -54,11 +54,11 @@
                 @{ var nr = @Model.PageNumber - 1; }
                 @if (Model.PageNumber != 1)
                 {
-                    @nr
                     if (i == 10)
                     {
                         i = 0;
-                    }
+                        nr += 1;
+                    }@nr
                 }@i
             </td>
             <td>
