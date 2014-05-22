@@ -119,7 +119,7 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult Create(int? requestID)
         {
-            ViewBag.request = db.Requests.Find(requestID);
+            ViewBag.request = repo.GetRequestById(requestID);
             ViewBag.requestId = requestID;
             return View(new Folder());
         }
@@ -147,8 +147,8 @@ namespace Allomorph.Controllers
                 subfile.FolderID = folder.ID;
                 subfile.SubName = file.FileName;
                 // Setja möppuna og textaskrána í gagnagrunninn
-                db.Folders.Add(folder);
-                db.SubFiles.Add(subfile);
+                repo.AddFolder(folder);
+                repo.AddSubFile(subfile);
 
                 // .Peek() skoðar næsta tákn án þess að taka það úr
                 // -1 Þegar öll skráin hefur verið lesin
@@ -184,7 +184,7 @@ namespace Allomorph.Controllers
                     tempLine.SubFileID = subfile.ID;
 
                     // Setja línuna í gagnagrunninn
-                    db.SubFileLines.Add(tempLine);
+                    repo.AddSubLine(tempLine);
 
                     // Tengja línurnar við textana (þýðingarnar)
                     tempTranslation.SubFileLineID = tempLine.ID;
@@ -192,27 +192,27 @@ namespace Allomorph.Controllers
                     tempTranslation.LanguageID = subfile.LanguageID;
                     
                     // Setja textann í gagnagrunninn og vista breytingarnar
-                    db.SubFileLineTranslations.Add(tempTranslation);
-                    db.SaveChanges();
+                    repo.AddSubLineTranslation(tempTranslation);
+                    repo.Save();
                 }
                 // requestID != null ef verið er að uppfylla beiðni
                 if (requestID != null)
                 {
                     // Ná í beiðni úr gagnagrunni
-                    var req = db.Requests.Find(requestID);
+                    var req = repo.GetRequestById(requestID);
                     // Villumeðhöndlun
                     if (req != null)
                     {
                         // Eyða beiðni úr gagnagrunni og vista breytingar
-                        db.Requests.Remove(req);
-                        db.SaveChanges();
+                        repo.RemoveRequest(req);
+                        repo.Save();
                     }
                     else
                     {
                         return View("Error");
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = folder.ID });
             }
             return View(folder);
         }
@@ -225,7 +225,7 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
-            Folder folder = db.Folders.Find(id);
+            Folder folder = repo.GetFolderById(id);
             if (folder == null)
             {
                 return View("NotFound");
