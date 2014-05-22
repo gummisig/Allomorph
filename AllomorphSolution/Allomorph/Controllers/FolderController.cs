@@ -46,8 +46,7 @@ namespace Allomorph.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var folders = from s in db.Folders
-                          select s;
+            var folders = repo.GetAllFolders();
 
             // Ef það er leitað eftir flokki
             switch (category)
@@ -103,15 +102,15 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
-            Folder folder = db.Folders.Find(id);
+            Folder folder = repo.GetFolderById(id);
             if (folder == null)
             {
                 return View("NotFound");
             }
 
-            IEnumerable<SubFile> subtitles = db.SubFiles.Where(s => s.FolderID == folder.ID).ToList();
-            IEnumerable<Comment> comment = db.Comments.Where(c => c.FolderID == folder.ID).ToList();
-            IEnumerable<Folder> folders = db.Folders.Where(f => f.ID == folder.ID).ToList();
+            IEnumerable<SubFile> subtitles = repo.GetSubFilesById(folder.ID);
+            IEnumerable<Comment> comment = repo.GetCommentsById(folder.ID);
+            IEnumerable<Folder> folders = repo.GetAllFolders().Where(f => f.ID == folder.ID).ToList();
 
             return View(Tuple.Create(folder, subtitles, comment, folders));
         }

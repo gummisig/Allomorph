@@ -30,21 +30,15 @@ namespace Allomorph.Repositories
             db.Folders.Remove(folder);
         }
 
-        
-
         public IEnumerable<SubFile> GetSubFilesById(int? id)
         {
-            var subfiles = (from s in db.SubFiles
-                            where s.FolderID == id
-                            select s).ToList();
+            var subfiles = db.SubFiles.Where(s => s.FolderID == id).ToList();
             return subfiles;
         }
 
         public IEnumerable<Comment> GetCommentsById(int? id)
         {
-            var comments = (from c in db.Comments
-                            where c.FolderID == id
-                            select c).ToList();
+            var comments = db.Comments.Where(c => c.FolderID == id).ToList();
             return comments;
         }
 
@@ -55,9 +49,7 @@ namespace Allomorph.Repositories
 
         public IEnumerable<SubFileLine> GetSubLinesById(int? id)
         {
-            var sublines = (from l in db.SubFileLines
-                            where l.SubFileID == id
-                            select l).ToList();
+            var sublines = db.SubFileLines.Where(l => l.SubFileID == id).ToList();
             return sublines;
         }
 
