@@ -10,6 +10,7 @@ using Allomorph.Models;
 using Allomorph.DAL;
 using PagedList;
 using System.IO;
+using Allomorph.Repositories;
 
 namespace Allomorph.Controllers
 {
@@ -17,6 +18,7 @@ namespace Allomorph.Controllers
     {
         // Database
         private SubtitleContext db = new SubtitleContext();
+        private FolderRepository repo = new FolderRepository();
 
         // ~/Folder/Index == Yfirlit texta
         public ViewResult Index(SearchViewModel svm)

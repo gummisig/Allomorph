@@ -2,6 +2,7 @@
 using Allomorph.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -11,15 +12,10 @@ namespace Allomorph.Repositories
     {
         private SubtitleContext db = new SubtitleContext();
 
-        public IEnumerable<Folder> GetAllFolders(int? id)
+        public IEnumerable<Folder> GetAllFolders()
         {
             var folder = from f in db.Folders
                          select f;
-
-            if (id != null)
-            {
-                folder = folder.Where(f => f.ID == id);
-            }
             return folder;
         }
 
@@ -29,22 +25,50 @@ namespace Allomorph.Repositories
             return folder;
         }
 
+        public void RemoveFolder(Folder folder)
+        {
+            db.Folders.Remove(folder);
+        }
+
+        
+
         public IEnumerable<SubFile> GetSubFilesById(int? id)
         {
-            IEnumerable<SubFile> subfiles = (from s in db.SubFiles
-                                            where s.FolderID == id
-                                            select s).ToList();
+            var subfiles = (from s in db.SubFiles
+                            where s.FolderID == id
+                            select s).ToList();
             return subfiles;
         }
 
         public IEnumerable<Comment> GetCommentsById(int? id)
         {
-            IEnumerable<Comment> comments = (from c in db.Comments
-                                            where c.FolderID == id
-                                            select c).ToList();
+            var comments = (from c in db.Comments
+                            where c.FolderID == id
+                            select c).ToList();
             return comments;
         }
 
+        public void AddComment(Comment comment)
+        {
+            db.Comments.Add(comment);
+        }
 
+        public IEnumerable<SubFileLine> GetSubLinesById(int? id)
+        {
+            var sublines = (from l in db.SubFileLines
+                            where l.SubFileID == id
+                            select l).ToList();
+            return sublines;
+        }
+
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+
+        public void Entry(object obj) 
+        {
+            db.Entry(obj).State = EntityState.Modified;
+        }
     }
 }
