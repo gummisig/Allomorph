@@ -269,6 +269,7 @@
     <Content Include="Views\Folder\TextEdit.cshtml" />
     <Content Include="Views\Shared\WrongFile.cshtml" />
     <Content Include="Views\Shared\TimeControls.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

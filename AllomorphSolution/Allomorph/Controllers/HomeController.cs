@@ -15,28 +15,20 @@ namespace Allomorph.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<SubFile> subfiles = (from s in db.SubFiles
-                                             orderby s.SubDownloadCounter descending
-                                             select s).Take(10).ToList();
-
-            IEnumerable<Request> requests = (from r in db.Requests
-                                             orderby r.ReqUpvoteCounter descending
-                                             select r).Take(10).ToList();
-
+            IEnumerable<SubFile> subfiles = db.SubFiles.OrderByDescending(s => s.SubDownloadCounter).Take(10);
+            IEnumerable<Request> requests = db.Requests.OrderByDescending(r => r.ReqUpvoteCounter).Take(10);
             return View(Tuple.Create(subfiles, requests));
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Message = "Um Allomorph.";
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
+            ViewBag.Message = "Hafðu samband.";
             return View();
         }
     }

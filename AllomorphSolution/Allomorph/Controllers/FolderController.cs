@@ -104,7 +104,7 @@ namespace Allomorph.Controllers
             Folder folder = db.Folders.Find(id);
             if (folder == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
 
             IEnumerable<SubFile> subtitles = db.SubFiles.Where(s => s.FolderID == folder.ID).ToList();
@@ -227,7 +227,7 @@ namespace Allomorph.Controllers
             Folder folder = db.Folders.Find(id);
             if (folder == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(folder);
         }
@@ -259,7 +259,7 @@ namespace Allomorph.Controllers
             Folder folder = db.Folders.Find(id);
             if (folder == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(folder);
         }
@@ -310,7 +310,7 @@ namespace Allomorph.Controllers
                 Folder folder = db.Folders.Find(id);
                 if (folder == null)
                 {
-                    return HttpNotFound();
+                    return View("NotFound");
                 }
                 
                 // Tengja athugasemdina við möppu og notanda
@@ -331,6 +331,10 @@ namespace Allomorph.Controllers
         [Authorize]
         public ActionResult TextEdit(int? id, int? page)
         {
+            if (id == null)
+            {
+                return View("Error");
+            }
             IList<LinesAndTranslations> TextList = (from z in db.SubFileLines
                                                     where z.SubFileID == id                        
                                                     select new LinesAndTranslations { FolderID = z.SubFiles.FolderID,
@@ -339,6 +343,10 @@ namespace Allomorph.Controllers
                                                                                       SubLineId = z.ID,
                                                                                       SubFileLineStartTime = z.StartTime,
                                                                                       SubFileLineEndTime = z.EndTime }).ToList();
+            if (TextList.Count == 0)
+            {
+                return View("NotFound");
+            }
 
             ViewBag.folderid = TextList.FirstOrDefault().FolderID;
 
@@ -386,20 +394,24 @@ namespace Allomorph.Controllers
         [ValidateInput(false)]
         public ActionResult TextEdit(IList<LinesAndTranslations> model, int folderId) //int? lineId, string text, int? languageId)
         {
-            foreach (var s in model)
+            if (ModelState.IsValid)
             {
-                var temp = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId);
-                var time = db.SubFileLines.Where(l => l.ID == s.SubLineId);
-                var tempEng = temp.Where(e => e.LanguageID == 1);
-                var tempIce = temp.Where(i => i.LanguageID == 2);
+                foreach (var s in model)
+                {
+                    var temp = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId);
+                    var time = db.SubFileLines.Where(l => l.ID == s.SubLineId);
+                    var tempEng = temp.Where(e => e.LanguageID == 1);
+                    var tempIce = temp.Where(i => i.LanguageID == 2);
 
-                tempEng.FirstOrDefault().LineText = s.EngText;
-                tempIce.FirstOrDefault().LineText = s.IceText;
-                time.FirstOrDefault().StartTime = s.SubFileLineStartTime;
-                time.FirstOrDefault().EndTime = s.SubFileLineEndTime;
+                    tempEng.FirstOrDefault().LineText = s.EngText;
+                    tempIce.FirstOrDefault().LineText = s.IceText;
+                    time.FirstOrDefault().StartTime = s.SubFileLineStartTime;
+                    time.FirstOrDefault().EndTime = s.SubFileLineEndTime;
+                }
+                db.SaveChanges();
+                return RedirectToAction("Details", new { ID = folderId });
             }
-            db.SaveChanges();
-            return RedirectToAction("Details", new { ID = folderId });
+            return View(model);
         }
 
         public FileStreamResult GetFile(int id, int langid)

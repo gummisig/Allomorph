@@ -1,0 +1,14 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Villa";
+}
+
+<h1 class="text-danger">Villuboð.</h1>
+<h2 class="text-danger">Það kom upp villa við að framkvæma aðgerðina.</h2>
+
+<h3 class="text-info">Viðkomandi gögn fundust ekki, ertu viss um að þau séu til?</h3>
+
+<div>
+    <button type="button" class="btn-default btn-success btn" onclick="location.href='@Url.Action("Index")'"><i class="icon-edit"></i>Til baka</button>
+</div>

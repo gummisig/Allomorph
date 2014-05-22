@@ -57,7 +57,7 @@ namespace Allomorph.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var req = from s in db.Requests
-                          select s;
+                      select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -117,12 +117,13 @@ namespace Allomorph.Controllers
 
             // Find the request
             var request = db.Requests.Find(requestID);
-            if (request != null)
+            if (request == null)
             {
-                // Add 1 to it's vote counter and save the changes
-                request.ReqUpvoteCounter += 1;
-                db.SaveChanges();
+                return View("NotFound");
             }
+            // Add 1 to it's vote counter and save the changes
+            request.ReqUpvoteCounter += 1;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -136,7 +137,7 @@ namespace Allomorph.Controllers
             Request request = db.Requests.Find(id);
             if (request == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(request);
         }
@@ -165,7 +166,6 @@ namespace Allomorph.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(request);
         }
 
@@ -179,7 +179,7 @@ namespace Allomorph.Controllers
             Request request = db.Requests.Find(id);
             if (request == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(request);
         }
@@ -211,7 +211,7 @@ namespace Allomorph.Controllers
             Request request = db.Requests.Find(id);
             if (request == null)
             {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(request);
         }
