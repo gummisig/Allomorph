@@ -8,8 +8,6 @@
 
 @{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
-<h3>Ritstýring</h3>
-
 @using (Html.BeginForm("TextEdit",
                             "Folder",
                             new { folderId = @ViewBag.folderid },
@@ -17,63 +15,66 @@
                             new { @enctype = "multipart/form-data" }))
 {
 @Html.AntiForgeryToken()
-    <div class="btnPaddingBottom">
+    <div class="btnPaddingBottom textEditLeft">
+        <h3>Ritstýring</h3>
         <input type="submit" value="Vista breytingar" class="btn btn-default btn-lg btn-primary" />
     </div>
-    
-        <div class="panel panel-default">
-            <table class="table table-condensed">
-                <tr class="active">
-                    <th class="textEditLineNr">
-                        Línunúmer
-                    </th>
-                    <th class="textEditLineNr">
-                        Byrjar
-                    </th>
-                    <th></th>
-                    <th>
-                        Endar
-                    </th>
-                    <th>
-                        Enskur texti
-                    </th>
-                    <th>
-                        Íslenskur texti
-                    </th>
+
+    <div class="textEditLeft">
+        <table class="table table-condensed table-bordered textEditor">
+            <tr class="active">
+                <th class="textEditLineNr">
+                    Nr.
+                </th>
+                <th class="textEditLineNr">
+                    Byrjar
+                </th>
+                <th></th>
+                <th>
+                    Endar
+                </th>
+                <th>
+                    Enskur texti
+                </th>
+                <th>
+                    Íslenskur texti
+                </th>
+            </tr>
+
+            @for (var s = 0; s < Model.Count(); s++)
+            {
+                <tr>
+                    <td class="textEditLineNr boxPdnTop">
+                        @Html.DisplayFor(ModelItem => ModelItem[s].LineNumber)
+                    </td>
+                    <td class="boxPdnTop">
+                        @Html.TextBoxFor(ModelItem => ModelItem[s].SubFileLineStartTime, new { style = "width:100px;" })
+                    </td>
+                    <td class="boxPdnTop">
+                        -->
+                    </td>
+                    <td class="boxPdnTop">
+                        @Html.TextBoxFor(ModelItem => ModelItem[s].SubFileLineEndTime, new { style = "width:100px;" })
+                    </td>
+                    <td class="textEditTranslation">
+                        @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
+                        @Html.HiddenFor(ModelItem => ModelItem[s].SubFileLineID)
+                    </td>
+                    <td class="textEditTranslation">
+                        @Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })
+                    </td>
                 </tr>
-
-                @for (var s = 0; s < Model.Count(); s++)
-                {
-                    <tr>
-                        <td class="textEditLineNr">
-                            @Html.DisplayFor(ModelItem => ModelItem[s].LineNumber)
-                        </td>
-                        <td>
-                            @Html.EditorFor(ModelItem => ModelItem[s].SubFileLineStartTime)
-                        </td>
-                        <td>
-                            -->
-                        </td>
-                        <td>
-                            @Html.EditorFor(ModelItem => ModelItem[s].SubFileLineEndTime)
-                        </td>
-                        <td class="textEditTranslation">
-                            @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
-                            @Html.HiddenFor(ModelItem => ModelItem[s].SubFileLineID)
-                        </td>
-                        <td class="textEditTranslation">
-                            @Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
+            }
+        </table>
+    </div>
 }
-<div>
+<div class="textEditLeft">
     <input type="button" value="Til baka í möppu" class="btn btn-default btn-primary" onclick="location.href='@Url.Action("Details", "Folder", new { id = @ViewBag.folderid })'" />
+
+    <div class="boxPdnTop">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("TextEdit",
+            new { page }))
+    </div>
 </div>
-
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("TextEdit",
-    new { page }))

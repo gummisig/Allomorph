@@ -20,15 +20,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RequestName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.RequestName)
+                @Html.EditorFor(model => model.RequestName)
                 @Html.ValidationMessageFor(model => model.RequestName)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.RequestText, new { @class = "control-label col-md-2" })
-            <div class="col-md-10" id="textAreaFor">
-                @Html.TextAreaFor(model => model.RequestText)
+            <div class="col-md-10 textAreaFor">
+                @Html.TextAreaFor(model => model.RequestText, 4, 30, new { @class = "foo" })
                 @Html.ValidationMessageFor(model => model.RequestText)
             </div>
         </div>

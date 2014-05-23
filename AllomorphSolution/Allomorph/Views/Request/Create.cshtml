@@ -23,8 +23,8 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.RequestText, "Lýsing á beiðni:", new { @class = "control-label col-md-2" })
-            <div class="col-md-10" id="textAreaFor">
-                @Html.TextAreaFor(model => model.RequestText)
+            <div class="col-md-10 textAreaFor">
+                @Html.TextAreaFor(model => model.RequestText, 4, 30, new { @class = "foo" })
                 @Html.ValidationMessageFor(model => model.RequestText)
             </div>
         </div>
