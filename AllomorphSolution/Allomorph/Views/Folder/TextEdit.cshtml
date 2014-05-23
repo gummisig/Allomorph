@@ -46,7 +46,7 @@
                 {
                     <tr>
                         <td class="textEditLineNr">
-                            @Html.DisplayFor(ModelItem => ModelItem[s].LineNr)
+                            @Html.DisplayFor(ModelItem => ModelItem[s].LineNumber)
                         </td>
                         <td>
                             @Html.EditorFor(ModelItem => ModelItem[s].SubFileLineStartTime)
@@ -59,7 +59,7 @@
                         </td>
                         <td class="textEditTranslation">
                             @Html.TextAreaFor(ModelItem => ModelItem[s].EngText, new { @class = "textEditTranslation" })
-                            @Html.HiddenFor(ModelItem => ModelItem[s].SubLineId)
+                            @Html.HiddenFor(ModelItem => ModelItem[s].SubFileLineID)
                         </td>
                         <td class="textEditTranslation">
                             @Html.TextAreaFor(ModelItem => ModelItem[s].IceText, new { @class = "textEditTranslation" })
