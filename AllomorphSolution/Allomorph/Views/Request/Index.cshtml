@@ -26,7 +26,7 @@
 
 <table class="table table-condensed table-bordered">
     <tr class="active">
-        <th>
+        <th class="indexNrReq">
             Nr.
         </th>
         <th class="requestTable">
@@ -36,15 +36,15 @@
         <th class="requestTable">
             @Html.ActionLink("Lýsing", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        <th>
+        <th class="indexEditDeleteReq">
             <span class="glyphicon glyphicon-sort"></span>
             @Html.ActionLink("Atkvæði", "Index", new { sortOrder = ViewBag.VoteSortParm })
         </th>
-        <th>
+        <th class="indexDateReq">
             <span class="glyphicon glyphicon-sort"></span>
             @Html.ActionLink("Dagsetning", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
-        <th></th>
+        <th class="indexEditDeleteReq"></th>
     </tr>
     @{ int i = 1; }
     @foreach (var item in Model)

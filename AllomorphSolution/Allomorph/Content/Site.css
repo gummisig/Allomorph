@@ -74,7 +74,42 @@
 }
 
 .folderLang {
-    width: 15%;
+    width: 17%;
+}
+
+.indexDate {
+    width: 18%;
+}
+
+.indexEditDelete {
+    width: 12%;
+}
+
+.indexNr {
+    width: 6%;
+}
+
+.indexLeft {
+    position: relative;
+    left: 160px;
+}
+
+.indexTable {
+    position: relative;
+    width: 75%;
+    left: 160px;
+}
+
+.indexDateReq {
+    width: 12%;
+}
+
+.indexEditDeleteReq {
+    width: 8%;
+}
+
+.indexNrReq {
+    width: 4%;
 }
 
 #folderTags {

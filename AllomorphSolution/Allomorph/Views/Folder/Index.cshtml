@@ -8,32 +8,25 @@
 
 @{ Html.RenderPartial("Search", new Allomorph.Models.Folder()); }
 
-<h3>Textar</h3>
-
-@*<div id="btnBuaTilTexta">
-    <label>
-        @Html.ActionLink("Senda inn nýja skrá", "Create", "Request", new { @class = "list-group-item" })
-    </label>
-</div>*@
-
-<div id="btnBuaTilTexta">
+<div id="btnBuaTilTexta" class="indexLeft">
+    <h3>Textar</h3>
     <input type="submit" value="Senda inn nýja skrá" class="btn btn-default btn-lg btn-success" onclick="location.href='@Url.Action("Create", "Folder")'" />
 </div>
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered indexTable">
     <tr class="active">
-        <th>
+        <th class="indexNr">
             Nr.
         </th>
-        <th>
+        <th class="indexName">
             <span class="glyphicon glyphicon-sort-by-alphabet"></span>
             @Html.ActionLink("Nafn", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        <th>
+        <th class="indexDate">
             <span class="glyphicon glyphicon-sort"></span>
             @Html.ActionLink("Sett inn", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
-        <th></th>
+        <th class="indexEditDelete"></th>
     </tr>
 @{ int i = 1; }
 @foreach (var item in Model) {
@@ -66,8 +59,9 @@
 }
 
 </table>
+<div class="indexLeft">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
+    @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
