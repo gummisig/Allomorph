@@ -8,8 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using Allomorph.Models;
 using PagedList;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Allomorph.Repositories;
 
 namespace Allomorph.Controllers
@@ -20,12 +18,12 @@ namespace Allomorph.Controllers
         private FolderRepository repo = new FolderRepository();
 
         // GET: /Request/
-        public ViewResult Index(SearchViewModel rvm)
+        public ViewResult Index(SearchViewModel svm)
         {
-            string sortOrder = rvm.sortOrder;
-            string currentFilter = rvm.currentFilter;
-            string searchString = rvm.searchString;
-            int? page = rvm.page;
+            string sortOrder = svm.sortOrder;
+            string currentFilter = svm.currentFilter;
+            string searchString = svm.searchString;
+            int? page = svm.page;
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.VoteSortParm = String.IsNullOrEmpty(sortOrder) ? "vote_asc" : "";
