@@ -62,6 +62,21 @@
     margin-left: 0.5%;
 }
 
+.folderComments {
+    position: relative;
+    top: -140px;
+}
+
+#folderContent {
+    position: relative;
+    top: -140px;
+    width: 41.4%;
+}
+
+.folderLang {
+    width: 15%;
+}
+
 #folderTags {
     position: relative;
     width: 55%;

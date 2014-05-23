@@ -416,11 +416,14 @@ namespace Allomorph.Controllers
             var combi = (from z in db.SubFileLines
                          join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
                          where j.LanguageID == langid
-                         select new { z.LineNumber,
-                                      z.SubFileID,
-                                      z.StartTime,
-                                      z.EndTime,
-                                      j.LineText });
+                         select new
+                         { 
+                             z.LineNumber,
+                             z.SubFileID,
+                             z.StartTime,
+                             z.EndTime,
+                             j.LineText 
+                         });
 
             var combiright = combi.Where(t => t.SubFileID == file.ID);
 

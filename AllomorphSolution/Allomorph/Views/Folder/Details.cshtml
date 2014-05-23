@@ -45,42 +45,39 @@
 </div>
 
 <div>
-    <table class="table-striped" id="folderContent">
+    <table class="table table-condensed table-bordered" id="folderContent">
         @{ var dummy = Model.Item2.FirstOrDefault(); }
-        <tr>
+        <tr class="active">
             <th>
                 @Html.LabelFor(model => dummy.SubName, "Textaskrá")
             </th>
-            <th>
+            <th class="folderLang">
                 Enska
             </th>
-            <th>
+            <th class="folderLang">
                 Íslenska
-            </th>
-            <th>
-
             </th>
         </tr>
         @{ var dumdum = Model.Item4; }
         @foreach (var item in Model.Item2)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SubName)
-                </td>
-                <td>
-                    <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 1 })'" />
-                </td>
-                <td>
-                    <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 2 })'" />
-                </td>
-                <td></td>
-            </tr>
-        }
+{
+    <tr class="active">
+        <td>
+            @Html.DisplayFor(modelItem => item.SubName)
+        </td>
+        <td class="folderLang">
+            <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 1 })'" />
+        </td>
+        <td class="folderLang">
+            <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 2 })'" />
+        </td>
+    </tr>
+}
     </table>
 </div>
+<div class="folderComments">
+    <hr />
+    <h3>Athugasemdir</h3>
 
-<hr/>
-<h3>Athugasemdir</h3>
-
-@{ Html.RenderPartial("ShowComments", Tuple.Create(Model.Item3, Model.Item1)); }
+    @{ Html.RenderPartial("ShowComments", Tuple.Create(Model.Item3, Model.Item1)); }
+</div>

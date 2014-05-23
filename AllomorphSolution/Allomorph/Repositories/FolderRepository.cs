@@ -164,6 +164,22 @@ namespace Allomorph.Repositories
             return TextList;
         }
 
+        public IQueryable GetSubFile(int langid, int fileid)
+        {
+            var combi = (from z in db.SubFileLines
+                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
+                         where j.LanguageID == langid
+                         select new
+                         {
+                             z.LineNumber,
+                             z.SubFileID,
+                             z.StartTime,
+                             z.EndTime,
+                             j.LineText
+                         }).Where(t => t.SubFileID == fileid);
+            return combi;
+        }
+
         public void Save()
         {
             db.SaveChanges();

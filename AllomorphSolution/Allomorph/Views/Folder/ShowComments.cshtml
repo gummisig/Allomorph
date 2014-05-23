@@ -4,9 +4,9 @@
     <input type="submit" value="Skrá nýja athugasemd" class="btn btn-default btn-lg btn-success" onclick="location.href='@Url.Action("CreateComment", "Folder", new { id = Model.Item2.ID })'" />
 </div>
 
-<table class="table">
+<table class="table table-condensed">
     @{ var dummy = Model.Item1.FirstOrDefault(); }
-    <tr>
+    <tr class="active">
         <th>
             @Html.LabelFor(model => dummy.DateCreated, "Notandi")
         </th>
@@ -19,7 +19,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.Item1) {
+@foreach (var item in Model.Item1) {   
     <tr>
         <td>
             <span class="glyphicon glyphicon-user"></span>
@@ -34,5 +34,4 @@
         <td></td>
     </tr>
 }
-
 </table>
