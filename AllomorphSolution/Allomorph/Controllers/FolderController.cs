@@ -43,7 +43,6 @@ namespace Allomorph.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-
             var folders = repo.GetAllFolders();
 
             // Ef það er leitað eftir flokki
@@ -346,11 +345,10 @@ namespace Allomorph.Controllers
             foreach(var item in TextList)
             {
 
-                var tempEng = repo.GetLineByLang(item.SubLineId, 1);
-
+                var tempEng = repo.GetLineByLang(item.SubFileLineID, 1);
                 if (tempEng == null)
                 {
-                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 1 };
+                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubFileLineID, LineText = "", LanguageID = 1 };
                     repo.AddSubLineTranslation(temp);
                     item.EngText = "";
                 }
@@ -359,11 +357,10 @@ namespace Allomorph.Controllers
                     item.EngText = tempEng.LineText;
                 }
 
-                var tempIce = repo.GetLineByLang(item.SubLineId, 2);
-
+                var tempIce = repo.GetLineByLang(item.SubFileLineID, 2);
                 if (tempIce == null)
                 {
-                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 2 };
+                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubFileLineID, LineText = "", LanguageID = 2 };
                     repo.AddSubLineTranslation(temp);
                     item.IceText = "";
                 }
@@ -387,11 +384,9 @@ namespace Allomorph.Controllers
             {
                 foreach (var s in model)
                 {
-                    var tempEng = repo.GetLineByLang(s.SubLineId, 1);
-                    //var tempEng = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId).Where(e => e.LanguageID == 1);
-                    var tempIce = repo.GetLineByLang(s.SubLineId, 2);
-                    //var tempIce = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId).Where(e => e.LanguageID == 2);
-                    var time = repo.GetTime(s.SubLineId);
+                    var tempEng = repo.GetLineByLang(s.SubFileLineID, 1);
+                    var tempIce = repo.GetLineByLang(s.SubFileLineID, 2);
+                    var time = repo.GetTime(s.SubFileLineID);
 
                     tempEng.LineText = s.EngText;
                     tempIce.LineText = s.IceText;
@@ -406,26 +401,9 @@ namespace Allomorph.Controllers
 
         public FileStreamResult GetFile(int id, int langid)
         {
-            Allomorph.DAL.SubtitleContext db = new Allomorph.DAL.SubtitleContext();
             var file = repo.GetSubFileById(id);
-
-            file.SubDownloadCounter += 1;
             string name = file.SubName;
             FileInfo info = new FileInfo(name);
-
-            var combi = (from z in db.SubFileLines
-                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
-                         where j.LanguageID == langid
-                         select new
-                         { 
-                             z.LineNumber,
-                             z.SubFileID,
-                             z.StartTime,
-                             z.EndTime,
-                             j.LineText 
-                         });
-
-            var combiright = combi.Where(t => t.SubFileID == file.ID);
 
             if (name != null)
             {
@@ -439,19 +417,22 @@ namespace Allomorph.Controllers
                     name = name.Substring(0, temp - 4) + ".is.srt";
                 }
             }
+
+            var textFile = repo.GetSubFile(langid, file.ID);
             using (StreamWriter writer = info.CreateText())
             {
-                foreach (var line in combiright)
+                foreach (var line in textFile)
                 {
                     writer.WriteLine(line.LineNumber);
-                    writer.Write(line.StartTime);
+                    writer.Write(line.SubFileLineStartTime);
                     writer.Write(" --> ");
-                    writer.WriteLine(line.EndTime);
-                    writer.WriteLine(line.LineText);
+                    writer.WriteLine(line.SubFileLineEndTime);
+                    writer.WriteLine(line.EngText);
                     //End of Textblock
                     writer.WriteLine("");
                 }
             }
+            file.SubDownloadCounter += 1;
             repo.Save();
 
             return File(info.OpenRead(), "text/plain", name);

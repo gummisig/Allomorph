@@ -197,7 +197,6 @@
     <Compile Include="Models\SubFileLine.cs" />
     <Compile Include="Models\SubFileLineTranslation.cs" />
     <Compile Include="Models\TimeViewModel.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FolderRepository.cs" />
     <Compile Include="Startup.cs" />

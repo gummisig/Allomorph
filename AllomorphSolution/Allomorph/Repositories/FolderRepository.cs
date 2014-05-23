@@ -155,27 +155,27 @@ namespace Allomorph.Repositories
                             select new LinesAndTranslations
                             {
                                 FolderID = z.SubFiles.FolderID,
-                                LineNr = z.LineNumber,
-                                SubFileId = z.SubFileID,
-                                SubLineId = z.ID,
+                                LineNumber = z.LineNumber,
+                                SubFileID = z.SubFileID,
+                                SubFileLineID = z.ID,
                                 SubFileLineStartTime = z.StartTime,
                                 SubFileLineEndTime = z.EndTime
                             }).ToList();
             return TextList;
         }
 
-        public IQueryable GetSubFile(int langid, int fileid)
+        public IEnumerable<LinesAndTranslations> GetSubFile(int langid, int fileid)
         {
             var combi = (from z in db.SubFileLines
                          join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
                          where j.LanguageID == langid
-                         select new
+                         select new LinesAndTranslations
                          {
-                             z.LineNumber,
-                             z.SubFileID,
-                             z.StartTime,
-                             z.EndTime,
-                             j.LineText
+                             LineNumber = z.LineNumber,
+                             SubFileID = z.SubFileID,
+                             SubFileLineStartTime = z.StartTime,
+                             SubFileLineEndTime = z.EndTime,
+                             EngText = j.LineText
                          }).Where(t => t.SubFileID == fileid);
             return combi;
         }
