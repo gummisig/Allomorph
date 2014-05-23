@@ -242,9 +242,9 @@ namespace Allomorph.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(folder).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                repo.Entry(folder);
+                repo.Save();
+                return RedirectToAction("Details", new { id = folder.ID });
             }
             return View(folder);
         }
@@ -257,7 +257,7 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
-            Folder folder = db.Folders.Find(id);
+            Folder folder = repo.GetFolderById(id);
             if (folder == null)
             {
                 return View("NotFound");
@@ -270,9 +270,9 @@ namespace Allomorph.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Folder folder = db.Folders.Find(id);
-            db.Folders.Remove(folder);
-            db.SaveChanges();
+            Folder folder = repo.GetFolderById(id);
+            repo.RemoveFolder(folder);
+            repo.Save();
             return RedirectToAction("Index");
         }
 
@@ -308,7 +308,7 @@ namespace Allomorph.Controllers
                     return RedirectToAction("Details", new { ID = id });
                 }
                 // Sækja möppuna þar sem athugasemdin var skráð
-                Folder folder = db.Folders.Find(id);
+                Folder folder = repo.GetFolderById(id);
                 if (folder == null)
                 {
                     return View("NotFound");
@@ -319,8 +319,8 @@ namespace Allomorph.Controllers
                 comment.UserName = usr;
 
                 // Setja athugasemdina í gagnagrunninn og vista breytingar
-                db.Comments.Add(comment);
-                db.SaveChanges();
+                repo.AddComment(comment);
+                repo.Save();
 
                 // Fara til baka á síðuna þar sem athugasemdin var skráð
                 return RedirectToAction("Details", new { ID = id });
@@ -336,14 +336,7 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
-            IList<LinesAndTranslations> TextList = (from z in db.SubFileLines
-                                                    where z.SubFileID == id                        
-                                                    select new LinesAndTranslations { FolderID = z.SubFiles.FolderID,
-                                                                                      LineNr = z.LineNumber,
-                                                                                      SubFileId = z.SubFileID,
-                                                                                      SubLineId = z.ID,
-                                                                                      SubFileLineStartTime = z.StartTime,
-                                                                                      SubFileLineEndTime = z.EndTime }).ToList();
+            IList<LinesAndTranslations> TextList = repo.GetText(id);
             if (TextList.Count == 0)
             {
                 return View("NotFound");
@@ -354,14 +347,12 @@ namespace Allomorph.Controllers
             foreach(var item in TextList)
             {
 
-                var tempEng = (from z in db.SubFileLineTranslations
-                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 1
-                               select z).FirstOrDefault();
+                var tempEng = repo.GetLineByLang(item.SubLineId, 1);
 
                 if (tempEng == null)
                 {
                     SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 1 };
-                    db.SubFileLineTranslations.Add(temp);
+                    repo.AddSubLineTranslation(temp);
                     item.EngText = "";
                 }
                 else
@@ -369,14 +360,12 @@ namespace Allomorph.Controllers
                     item.EngText = tempEng.LineText;
                 }
 
-                var tempIce = (from z in db.SubFileLineTranslations
-                               where z.SubFileLineID == item.SubLineId && z.LanguageID == 2
-                               select z).FirstOrDefault();
+                var tempIce = repo.GetLineByLang(item.SubLineId, 2);
 
                 if (tempIce == null)
                 {
                     SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubLineId, LineText = "", LanguageID = 2 };
-                    db.SubFileLineTranslations.Add(temp);
+                    repo.AddSubLineTranslation(temp);
                     item.IceText = "";
                 }
                 else
@@ -384,7 +373,7 @@ namespace Allomorph.Controllers
                     item.IceText = tempIce.LineText;
                 }
             }
-            db.SaveChanges();
+            repo.Save();
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(TextList.ToPagedList(pageNumber, pageSize));
@@ -399,17 +388,18 @@ namespace Allomorph.Controllers
             {
                 foreach (var s in model)
                 {
-                    var temp = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId);
-                    var time = db.SubFileLines.Where(l => l.ID == s.SubLineId);
-                    var tempEng = temp.Where(e => e.LanguageID == 1);
-                    var tempIce = temp.Where(i => i.LanguageID == 2);
+                    var tempEng = repo.GetLineByLang(s.SubLineId, 1);
+                    //var tempEng = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId).Where(e => e.LanguageID == 1);
+                    var tempIce = repo.GetLineByLang(s.SubLineId, 2);
+                    //var tempIce = db.SubFileLineTranslations.Where(t => t.SubFileLineID == s.SubLineId).Where(e => e.LanguageID == 2);
+                    var time = repo.GetTime(s.SubLineId);
 
-                    tempEng.FirstOrDefault().LineText = s.EngText;
-                    tempIce.FirstOrDefault().LineText = s.IceText;
-                    time.FirstOrDefault().StartTime = s.SubFileLineStartTime;
-                    time.FirstOrDefault().EndTime = s.SubFileLineEndTime;
+                    tempEng.LineText = s.EngText;
+                    tempIce.LineText = s.IceText;
+                    time.StartTime = s.SubFileLineStartTime;
+                    time.EndTime = s.SubFileLineEndTime;
                 }
-                db.SaveChanges();
+                repo.Save();
                 return RedirectToAction("Details", new { ID = folderId });
             }
             return View(model);
@@ -417,7 +407,7 @@ namespace Allomorph.Controllers
 
         public FileStreamResult GetFile(int id, int langid)
         {
-            var file = db.SubFiles.Where(s => s.FolderID == id).First();
+            var file = repo.GetSubFileById(id);
 
             file.SubDownloadCounter += 1;
             string name = file.SubName;
@@ -459,7 +449,7 @@ namespace Allomorph.Controllers
                     writer.WriteLine("");
                 }
             }
-            db.SaveChanges();
+            repo.Save();
 
             return File(info.OpenRead(), "text/plain", name);
         }

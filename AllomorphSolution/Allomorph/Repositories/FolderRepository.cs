@@ -63,10 +63,44 @@ namespace Allomorph.Repositories
             return subfiles;
         }
 
+        public SubFile GetSubFileById(int id)
+        {
+            var subfile = db.SubFiles.Where(s => s.FolderID == id).First();
+            return subfile;
+        }
+
+        public IQueryable GetSubFileLine(int langid, int fileid)
+        {
+            var combi = (from z in db.SubFileLines
+                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
+                         where j.LanguageID == langid
+                         select new
+                         {
+                             z.LineNumber,
+                             z.SubFileID,
+                             z.StartTime,
+                             z.EndTime,
+                             j.LineText
+                         }).Where(t => t.SubFileID == fileid);
+            return combi;
+        }
+
         public IEnumerable<SubFileLine> GetSubLinesById(int? id)
         {
             var sublines = db.SubFileLines.Where(l => l.SubFileID == id).ToList();
             return sublines;
+        }
+
+        public SubFileLineTranslation GetLineByLang(int sublineid, int lang)
+        {
+            var line = db.SubFileLineTranslations.Where(l => l.SubFileLineID == sublineid && l.LanguageID == lang).FirstOrDefault();
+            return line;
+        }
+
+        public SubFileLine GetTime(int sublineid)
+        {
+            var time = db.SubFileLines.Where(l => l.ID == sublineid);
+            return time.FirstOrDefault();
         }
 
         public void AddSubFile(SubFile subfile)
@@ -82,6 +116,22 @@ namespace Allomorph.Repositories
         public void AddSubLineTranslation(SubFileLineTranslation trans)
         {
             db.SubFileLineTranslations.Add(trans);
+        }
+
+        public IList<LinesAndTranslations> GetText(int? id)
+        {
+            var TextList = (from z in db.SubFileLines
+                            where z.SubFileID == id
+                            select new LinesAndTranslations
+                            {
+                                FolderID = z.SubFiles.FolderID,
+                                LineNr = z.LineNumber,
+                                SubFileId = z.SubFileID,
+                                SubLineId = z.ID,
+                                SubFileLineStartTime = z.StartTime,
+                                SubFileLineEndTime = z.EndTime
+                            }).ToList();
+            return TextList;
         }
 
         public void Save()
