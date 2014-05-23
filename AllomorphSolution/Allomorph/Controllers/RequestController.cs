@@ -16,26 +16,11 @@ namespace Allomorph.Controllers
 {
     public class RequestController : Controller
     {
-        //public RequestController()
-        //{
-        //    this.ApplicationDbContext = new ApplicationDbContext();
-        //    this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
-        //}
-
         // Database access layer
         private FolderRepository repo = new FolderRepository();
 
-        ///// <summary>
-        ///// Application DB context
-        ///// </summary>
-        //protected ApplicationDbContext ApplicationDbContext { get; set; }
-        ///// <summary>
-        ///// User manager - attached to application DB context
-        ///// </summary>
-        //protected UserManager<ApplicationUser> UserManager { get; set; }
-
         // GET: /Request/
-        public ViewResult Index(RequestViewModel rvm)
+        public ViewResult Index(SearchViewModel rvm)
         {
             string sortOrder = rvm.sortOrder;
             string currentFilter = rvm.currentFilter;

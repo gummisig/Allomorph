@@ -17,11 +17,11 @@ namespace Allomorph.DAL
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Folder> Folders { get; set; }
         public DbSet<Language> Languages { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<SubFile> SubFiles { get; set; }
         public DbSet<SubFileLine> SubFileLines { get; set; }
         public DbSet<SubFileLineTranslation> SubFileLineTranslations { get; set; }
-        public DbSet<Like> Likes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

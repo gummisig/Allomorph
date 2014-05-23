@@ -12,6 +12,7 @@ namespace Allomorph.Models
         public string currentFilter { get; set; }
         public string searchString { get; set; }
         public int? page { get; set; }
+
         public SearchViewModel()
         {
             this.page = 1;
