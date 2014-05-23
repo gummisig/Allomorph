@@ -14,8 +14,9 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.ReqUpvoteCounter)
+        @Html.HiddenFor(model => model.DateCreated)
 
-        @Html.HiddenFor(model => model.RequestName)
         <div class="form-group">
             @Html.LabelFor(model => model.RequestName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">

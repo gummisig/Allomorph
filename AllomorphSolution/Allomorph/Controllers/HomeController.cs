@@ -1,5 +1,5 @@
-﻿using Allomorph.DAL;
-using Allomorph.Models;
+﻿using Allomorph.Models;
+using Allomorph.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +11,13 @@ namespace Allomorph.Controllers
 {
     public class HomeController : Controller
     {
-        private SubtitleContext db = new SubtitleContext();
+        // Database access layer
+        private FolderRepository repo = new FolderRepository();
 
         public ActionResult Index()
         {
-            IEnumerable<SubFile> subfiles = db.SubFiles.OrderByDescending(s => s.SubDownloadCounter).Take(10);
-            IEnumerable<Request> requests = db.Requests.OrderByDescending(r => r.ReqUpvoteCounter).Take(10);
+            IEnumerable<SubFile> subfiles = repo.GetAllSubFiles().OrderByDescending(s => s.SubDownloadCounter).Take(10);
+            IEnumerable<Request> requests = repo.GetAllRequests().OrderByDescending(r => r.ReqUpvoteCounter).Take(10);
             return View(Tuple.Create(subfiles, requests));
         }
 

@@ -7,10 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Allomorph.Models;
-using Allomorph.DAL;
 using PagedList;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Allomorph.Repositories;
 
 namespace Allomorph.Controllers
 {
@@ -22,7 +22,9 @@ namespace Allomorph.Controllers
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
 
-        private SubtitleContext db = new SubtitleContext();
+        // Database access layer
+        private FolderRepository repo = new FolderRepository();
+
         /// <summary>
         /// Application DB context
         /// </summary>
@@ -56,12 +58,11 @@ namespace Allomorph.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var req = from s in db.Requests
-                      select s;
+            var req = repo.GetAllRequests();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                req = db.Requests.Where(r => (r.RequestName.ToUpper().Contains(searchString.ToUpper()) || r.RequestText.ToUpper().Contains(searchString.ToUpper())));
+                req = req.Where(r => (r.RequestName.ToUpper().Contains(searchString.ToUpper()) || r.RequestText.ToUpper().Contains(searchString.ToUpper())));
             }
             switch (sortOrder)
             {
@@ -97,7 +98,7 @@ namespace Allomorph.Controllers
             string usr = System.Web.HttpContext.Current.User.Identity.Name;
 
             // reqLike is a list of all the likes associated with this request
-            var reqLike = db.Likes.Where(s => s.RequestID == requestID);
+            var reqLike = repo.GetAllLikes(requestID);
 
             if (reqLike != null)
             {
@@ -113,17 +114,17 @@ namespace Allomorph.Controllers
             }
             // Create the like and add it to the database
             Like newLike = new Like() { RequestID = requestID, LikeUserName = usr };
-            db.Likes.Add(newLike);
+            repo.AddLike(newLike);
 
             // Find the request
-            var request = db.Requests.Find(requestID);
+            Request request = repo.GetRequestById(requestID);
             if (request == null)
             {
                 return View("NotFound");
             }
             // Add 1 to it's vote counter and save the changes
             request.ReqUpvoteCounter += 1;
-            db.SaveChanges();
+            repo.Save();
             return RedirectToAction("Index");
         }
 
@@ -134,7 +135,7 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
-            Request request = db.Requests.Find(id);
+            Request request = repo.GetRequestById(id);
             if (request == null)
             {
                 return View("NotFound");
@@ -162,8 +163,8 @@ namespace Allomorph.Controllers
                 {
                     request.UserName = usr;
                 }
-                db.Requests.Add(request);
-                db.SaveChanges();
+                repo.AddRequest(request);
+                repo.Save();
                 return RedirectToAction("Index");
             }
             return View(request);
@@ -176,7 +177,7 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
-            Request request = db.Requests.Find(id);
+            Request request = repo.GetRequestById(id);
             if (request == null)
             {
                 return View("NotFound");
@@ -189,12 +190,12 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,RequestName,RequestText")] Request request)
+        public ActionResult Edit([Bind(Include = "ID,RequestName,RequestText,ReqUpvoteCounter,DateCreated")] Request request)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(request).State = EntityState.Modified;
-                db.SaveChanges();
+                repo.Entry(request);
+                repo.Save();
                 return RedirectToAction("Index");
             }
             return View(request);
@@ -208,7 +209,7 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
-            Request request = db.Requests.Find(id);
+            Request request = repo.GetRequestById(id);
             if (request == null)
             {
                 return View("NotFound");
@@ -221,9 +222,9 @@ namespace Allomorph.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Request request = db.Requests.Find(id);
-            db.Requests.Remove(request);
-            db.SaveChanges();
+            Request request = repo.GetRequestById(id);
+            repo.RemoveRequest(request);
+            repo.Save();
             return RedirectToAction("Index");
         }
 
@@ -231,7 +232,7 @@ namespace Allomorph.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repo.Dispose();
             }
             base.Dispose(disposing);
         }

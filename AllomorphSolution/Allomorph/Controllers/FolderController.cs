@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Allomorph.Models;
-using Allomorph.DAL;
 using PagedList;
 using System.IO;
 using Allomorph.Repositories;
@@ -16,7 +15,7 @@ namespace Allomorph.Controllers
 {
     public class FolderController : Controller
     {
-        // Database access
+        // Database access layer
         private FolderRepository repo = new FolderRepository();
 
         // ~/Folder/Index == Yfirlit texta
@@ -224,6 +223,7 @@ namespace Allomorph.Controllers
             {
                 return View("Error");
             }
+            //Folder folder = repo.GetFolderById(id);
             Folder folder = repo.GetFolderById(id);
             if (folder == null)
             {
@@ -237,7 +237,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder)
+        public ActionResult Edit([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description,DateCreated")] Folder folder)
         {
             if (ModelState.IsValid)
             {
@@ -406,7 +406,7 @@ namespace Allomorph.Controllers
 
         public FileStreamResult GetFile(int id, int langid)
         {
-            SubtitleContext db = new SubtitleContext();
+            Allomorph.DAL.SubtitleContext db = new Allomorph.DAL.SubtitleContext();
             var file = repo.GetSubFileById(id);
 
             file.SubDownloadCounter += 1;

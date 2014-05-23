@@ -46,15 +46,45 @@ namespace Allomorph.Repositories
             db.Folders.Remove(folder);
         }
 
+        public IEnumerable<Like> GetAllLikes(int id)
+        {
+            var likes = db.Likes.Where(s => s.RequestID == id);
+            return likes;
+        }
+
+        public void AddLike(Like like)
+        {
+            db.Likes.Add(like);
+        }
+
+        public IEnumerable<Request> GetAllRequests()
+        {
+            var req = from r in db.Requests
+                      select r;
+            return req;
+        }
+
         public Request GetRequestById(int? id)
         {
             var req = db.Requests.Find(id);
             return req;
         }
 
+        public void AddRequest(Request request)
+        {
+            db.Requests.Add(request);
+        }
+
         public void RemoveRequest(Request request)
         {
             db.Requests.Remove(request);
+        }
+
+        public IEnumerable<SubFile> GetAllSubFiles()
+        {
+            var subfiles = from s in db.SubFiles
+                           select s;
+            return subfiles;
         }
 
         public IEnumerable<SubFile> GetSubFilesById(int? id)
