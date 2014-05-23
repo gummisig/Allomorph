@@ -16,8 +16,7 @@ namespace Allomorph.Controllers
 {
     public class FolderController : Controller
     {
-        // Database
-        private SubtitleContext db = new SubtitleContext();
+        // Database access
         private FolderRepository repo = new FolderRepository();
 
         // ~/Folder/Index == Yfirlit texta
@@ -280,7 +279,7 @@ namespace Allomorph.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repo.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -407,6 +406,7 @@ namespace Allomorph.Controllers
 
         public FileStreamResult GetFile(int id, int langid)
         {
+            SubtitleContext db = new SubtitleContext();
             var file = repo.GetSubFileById(id);
 
             file.SubDownloadCounter += 1;

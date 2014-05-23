@@ -62,12 +62,9 @@
     margin-left: 0.5%;
 }
 
-.folderDescription {
-    width: 42%;
-}
-
 #folderTags {
     position: relative;
+    width: 55%;
     left: 250px;
     top: -360px;
 }

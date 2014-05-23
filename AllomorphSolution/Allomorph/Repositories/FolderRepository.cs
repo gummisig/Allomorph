@@ -143,5 +143,10 @@ namespace Allomorph.Repositories
         {
             db.Entry(obj).State = EntityState.Modified;
         }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
     }
 }
