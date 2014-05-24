@@ -181,6 +181,10 @@
     <Compile Include="Migrations\201405131546484_Initial.Designer.cs">
       <DependentUpon>201405131546484_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405241930368_DataSchema.cs" />
+    <Compile Include="Migrations\201405241930368_DataSchema.Designer.cs">
+      <DependentUpon>201405241930368_DataSchema.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -282,6 +286,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201405131546484_Initial.resx">
       <DependentUpon>201405131546484_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405241930368_DataSchema.resx">
+      <DependentUpon>201405241930368_DataSchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -36,13 +36,13 @@
         <th class="requestTable">
             @Html.ActionLink("Lýsing", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        <th class="indexEditDeleteReq">
+        <th class="indexVotes">
             <span class="glyphicon glyphicon-sort"></span>
             @Html.ActionLink("Atkvæði", "Index", new { sortOrder = ViewBag.VoteSortParm })
         </th>
         <th class="indexDateReq">
             <span class="glyphicon glyphicon-sort"></span>
-            @Html.ActionLink("Dagsetning", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.ActionLink("Sett inn", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th class="indexEditDeleteReq"></th>
     </tr>

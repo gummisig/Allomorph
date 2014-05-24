@@ -8,6 +8,7 @@ namespace Allomorph.Models
 {
     public class Like
     {
+        [Key]
         public int ID { get; set; }
         [Required]
         public int RequestID { get; set; }
