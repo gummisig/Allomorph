@@ -12,19 +12,19 @@ namespace Allomorph.Models
     {
         [Key]
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Er ekki hægt að setja þetta í einhvern flokk?")]
         public int CategoryID { get; set; }
 
-        [Required]
-        [StringLength(50, ErrorMessage = "Nafn á möppu má ekki vera meira en 50 stafir.")]
+        [Required(ErrorMessage = "Skráin hlýtur að hafa nafn.")]
+        [StringLength(100, ErrorMessage = "Nafn á möppu má ekki vera meira en 100 stafir.")]
         public string FolderName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "T.d. slóð inn á IMDB.com eða Kvikmyndir.is")]
         public string Link { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Nennirðu að reyna að finna góða mynd?")]
         public string Poster { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bara einhver stutt lýsing.")]
         [StringLength(500, ErrorMessage = "Lýsing má ekki vera meira en 500 stafir.")]
         public string Description { get; set; }
 

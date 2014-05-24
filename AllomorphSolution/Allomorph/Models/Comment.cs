@@ -17,8 +17,8 @@ namespace Allomorph.Models
         [Required]
         public int FolderID { get; set; }
 
-        [Required]
-        [StringLength(120, ErrorMessage = "Athugasemd má ekki vera meira en 120 stafir.")]
+        [Required(ErrorMessage = "Nothing is just nothing.")]
+        [StringLength(160, ErrorMessage = "Athugasemd má ekki vera meira en 160 stafir.")]
         public string CommentText { get; set; }
 
         [DataType(DataType.Date)]

@@ -15,12 +15,12 @@ namespace Allomorph.Models
         [Required]
         public string UserName { get; set; }
 
-        [Required]
-        [StringLength(50, ErrorMessage = "Nafn á beiðni má ekki vera meira en 50 stafir.")]
+        [Required(ErrorMessage = "Þú verður að velja nafn.")]
+        [StringLength(100, ErrorMessage = "Nafn á beiðni má ekki vera meira en 100 stafir.")]
         public string RequestName { get; set; }
 
-        [Required]
-        [StringLength(120, ErrorMessage = "Lýsing á beiðni má ekki vera meira en 120 stafir.")]
+        [Required(ErrorMessage = "T.d. slóð inn á IMDB.com eða inn á síðu með enskum texta.")]
+        [StringLength(500, ErrorMessage = "Lýsing á beiðni má ekki vera meira en 500 stafir.")]
         public string RequestText { get; set; }
 
         public int ReqUpvoteCounter { get; set; }
