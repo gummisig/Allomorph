@@ -10,9 +10,7 @@ namespace Allomorph.Models
     [Table("Request")]
     public class Request
     {
-        [Key]
         public int ID { get; set; }
-        [Required]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Þú verður að velja nafn.")]
@@ -22,7 +20,6 @@ namespace Allomorph.Models
         [Required(ErrorMessage = "T.d. slóð inn á IMDB.com eða inn á síðu með enskum texta.")]
         [StringLength(500, ErrorMessage = "Lýsing á beiðni má ekki vera meira en 500 stafir.")]
         public string RequestText { get; set; }
-
         public int ReqUpvoteCounter { get; set; }
 
         [DataType(DataType.Date)]

@@ -10,15 +10,10 @@ namespace Allomorph.Models
     [Table("SubFile")]
     public class SubFile
     {
-        [Key]
         public int ID { get; set; }
-        [Required]
         public int FolderID { get; set; }
-        [Required]
         public int LanguageID { get; set; }
         public int SubDownloadCounter { get; set; }
-
-        [Required]
         public string SubName { get; set; }
 
         [DataType(DataType.Date)]

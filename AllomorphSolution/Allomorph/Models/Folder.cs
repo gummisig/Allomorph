@@ -10,9 +10,7 @@ namespace Allomorph.Models
     [Table("Folder")]
     public class Folder
     {
-        [Key]
         public int ID { get; set; }
-        [Required(ErrorMessage = "Er ekki hægt að setja þetta í einhvern flokk?")]
         public int CategoryID { get; set; }
 
         [Required(ErrorMessage = "Skráin hlýtur að hafa nafn.")]
@@ -21,6 +19,7 @@ namespace Allomorph.Models
 
         [Required(ErrorMessage = "T.d. slóð inn á IMDB.com eða Kvikmyndir.is")]
         public string Link { get; set; }
+
         [Required(ErrorMessage = "Nennirðu að reyna að finna góða mynd?")]
         public string Poster { get; set; }
 

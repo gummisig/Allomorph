@@ -10,11 +10,8 @@ namespace Allomorph.Models
     [Table("Comment")]
     public class Comment
     {
-        [Key]
         public int ID { get; set; }
-        [Required]
         public string UserName { get; set; }
-        [Required]
         public int FolderID { get; set; }
 
         [Required(ErrorMessage = "Nothing is just nothing.")]
