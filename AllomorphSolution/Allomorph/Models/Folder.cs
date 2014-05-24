@@ -11,6 +11,8 @@ namespace Allomorph.Models
     public class Folder
     {
         public int ID { get; set; }
+
+        [Required(ErrorMessage = "Er ekki hægt að setja þetta í einhvern flokk?")]
         public int CategoryID { get; set; }
 
         [Required(ErrorMessage = "Skráin hlýtur að hafa nafn.")]
