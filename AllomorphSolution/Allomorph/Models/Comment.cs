@@ -10,11 +10,6 @@ namespace Allomorph.Models
     [Table("Comment")]
     public class Comment
     {
-        public Comment()
-        {
-            DateCreated = DateTime.Now;
-        }
-
         public int ID { get; set; }
         public string UserName { get; set; }
         public int FolderID { get; set; }
@@ -26,5 +21,10 @@ namespace Allomorph.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateCreated { get; set; }
+
+        public Comment()
+        {
+            DateCreated = DateTime.Now;
+        }
     }
 }
