@@ -105,11 +105,12 @@ namespace Allomorph.Controllers
                 return View("NotFound");
             }
 
-            IEnumerable<SubFile> subtitles = repo.GetSubFilesById(folder.ID);
+            //IEnumerable<SubFile> subtitles = repo.GetSubFilesById(folder.ID);
+            SubFile subtitle = repo.GetSubFileById(folder.ID);
             IEnumerable<Comment> comment = repo.GetCommentsById(folder.ID);
             IEnumerable<Folder> folders = repo.GetAllFolders().Where(f => f.ID == folder.ID).ToList();
 
-            return View(Tuple.Create(folder, subtitles, comment, folders));
+            return View(Tuple.Create(folder, subtitle, comment, folders));
         }
 
         // GET: /Folder/Create
@@ -173,11 +174,11 @@ namespace Allomorph.Controllers
 
                     // Tekur inn allar upplýsingar fyrir línumódelið
                     SubFileLine tempLine = new SubFileLine()
-                    { 
+                    {
+                        SubFileID = subfile.ID,
                         LineNumber = Convert.ToInt32(lineNumber), 
                         StartTime = firstTime, 
-                        EndTime = secondTime, 
-                        SubFileID = subfile.ID 
+                        EndTime = secondTime
                     }; 
 
                     // Tengja línurnar við textana (þýðingarnar)
@@ -374,7 +375,7 @@ namespace Allomorph.Controllers
                 {
                     var tempEng = repo.GetLineByLang(s.SubFileLineID, 1);
                     var tempIce = repo.GetLineByLang(s.SubFileLineID, 2);
-                    var time = repo.GetTime(s.SubFileLineID);
+                    var time = repo.GetSubFileLineById(s.SubFileLineID);
 
                     tempEng.LineText = s.EngText;
                     tempIce.LineText = s.IceText;

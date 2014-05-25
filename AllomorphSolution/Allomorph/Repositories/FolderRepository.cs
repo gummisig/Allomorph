@@ -10,150 +10,182 @@ namespace Allomorph.Repositories
 {
     public class FolderRepository
     {
+        // Database
         private SubtitleContext db = new SubtitleContext();
-
-        public IEnumerable<Comment> GetCommentsById(int? id)
+        
+        /// <summary>
+        ///     Comment functions
+        /// </summary>
+        /// <returns>
+        ///     Comment.ToList();
+        /// </returns>
+        
+        // Get all comments associated with 'folderId'
+        public IEnumerable<Comment> GetCommentsById(int? folderId)
         {
-            var comments = db.Comments.Where(c => c.FolderID == id).ToList();
+            var comments = db.Comments.Where(c => c.FolderID == folderId).ToList();
             return comments;
         }
-
-        public void AddComment(Comment comment)
+        // Add comment 'c' to the database
+        public void AddComment(Comment c)
         {
-            db.Comments.Add(comment);
+            db.Comments.Add(c);
         }
 
+        /// <summary>
+        ///     Folder functions
+        /// </summary>
+        /// <returns>
+        ///     Folder; || Folder.ToList();
+        /// </returns>
+        
+        // Get all Folders
         public IEnumerable<Folder> GetAllFolders()
         {
-            var folder = from f in db.Folders
-                         select f;
+            var folder = db.Folders.ToList();
             return folder;
         }
-
+        // Get the folder where ID == 'id'
         public Folder GetFolderById(int? id)
         {
             Folder folder = db.Folders.Find(id);
             return folder;
         }
-
-        public void AddFolder(Folder folder)
+        // Add Folder 'f' to the database
+        public void AddFolder(Folder f)
         {
-            db.Folders.Add(folder);
+            db.Folders.Add(f);
+        }
+        // Remove Folder 'f'f from the database
+        public void RemoveFolder(Folder f)
+        {
+            db.Folders.Remove(f);
         }
 
-        public void RemoveFolder(Folder folder)
+        /// <summary>
+        ///     Like functions
+        /// </summary>
+        /// <returns>
+        ///     Like.ToList();
+        /// </returns>
+        
+        // Get all Likes where associated with 'requestId'
+        public IEnumerable<Like> GetAllLikes(int requestId)
         {
-            db.Folders.Remove(folder);
-        }
-
-        public IEnumerable<Like> GetAllLikes(int id)
-        {
-            var likes = db.Likes.Where(s => s.RequestID == id);
+            var likes = db.Likes.Where(s => s.RequestID == requestId);
             return likes;
         }
-
-        public void AddLike(Like like)
+        // Add Like 'l' to the database
+        public void AddLike(Like l)
         {
-            db.Likes.Add(like);
+            db.Likes.Add(l);
         }
 
+        /// <summary>
+        ///     Request functions
+        /// </summary>
+        /// <returns>
+        ///     Request.ToList();
+        /// </returns>
+        
+        // Get all Requests
         public IEnumerable<Request> GetAllRequests()
         {
-            var req = from r in db.Requests
-                      select r;
+            var req = db.Requests.ToList();
             return req;
         }
-
+        // Get Request where ID == 'id'
         public Request GetRequestById(int? id)
         {
             var req = db.Requests.Find(id);
             return req;
         }
-
-        public void AddRequest(Request request)
+        // Add Request 'r' to the database
+        public void AddRequest(Request r)
         {
-            db.Requests.Add(request);
+            db.Requests.Add(r);
+        }
+        // Remove Request 'r' from the database
+        public void RemoveRequest(Request r)
+        {
+            db.Requests.Remove(r);
         }
 
-        public void RemoveRequest(Request request)
-        {
-            db.Requests.Remove(request);
-        }
-
+        /// <summary>
+        ///     SubFile functions
+        /// </summary>
+        /// <returns>
+        ///     SubFile || SubFile.ToList();
+        /// </returns>
+        
+        // Get all SubFiles
         public IEnumerable<SubFile> GetAllSubFiles()
         {
-            var subfiles = from s in db.SubFiles
-                           select s;
+            var subfiles = db.SubFiles.ToList();
             return subfiles;
         }
-
-        public IEnumerable<SubFile> GetSubFilesById(int? id)
+        // Get the SubFile associated with 'folderId'
+        public SubFile GetSubFileById(int? folderId)
         {
-            var subfiles = db.SubFiles.Where(s => s.FolderID == id).ToList();
-            return subfiles;
-        }
-
-        public SubFile GetSubFileById(int? id)
-        {
-            var subfile = db.SubFiles.Where(s => s.FolderID == id).First();
+            var subfile = db.SubFiles.Where(s => s.FolderID == folderId).First();
             return subfile;
         }
-
-        public IQueryable GetSubFileLine(int langid, int fileid)
+        // Add SubFile 's' to the database
+        public void AddSubFile(SubFile s)
         {
-            var combi = (from z in db.SubFileLines
-                         join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
-                         where j.LanguageID == langid
-                         select new
-                         {
-                             z.LineNumber,
-                             z.SubFileID,
-                             z.StartTime,
-                             z.EndTime,
-                             j.LineText
-                         }).Where(t => t.SubFileID == fileid);
-            return combi;
+            db.SubFiles.Add(s);
         }
 
-        public IEnumerable<SubFileLine> GetSubLinesById(int? id)
+        /// <summary>
+        ///     SubFileLine functions
+        /// </summary>
+        /// <returns>
+        /// 
+        /// </returns>
+        
+        // Get all SubFileLines associated with 'subFileId'
+        public IEnumerable<SubFileLine> GetSubFileLinesById(int? subFileId)
         {
-            var sublines = db.SubFileLines.Where(l => l.SubFileID == id).ToList();
+            var sublines = db.SubFileLines.Where(l => l.SubFileID == subFileId).ToList();
             return sublines;
         }
-
-        public IEnumerable<SubFileLineTranslation> GetTransById(int id)
+        // Get the SubFileLine where ID == 'subLineId'
+        public SubFileLine GetSubFileLineById(int subLineId)
         {
-            var trans = db.SubFileLineTranslations.Where(t => t.SubFileLineID == id).ToList();
-            return trans;
-        }
-
-        public SubFileLineTranslation GetLineByLang(int sublineid, int lang)
-        {
-            var line = db.SubFileLineTranslations.Where(l => l.SubFileLineID == sublineid && l.LanguageID == lang).FirstOrDefault();
+            var line = db.SubFileLines.Where(l => l.ID == subLineId).FirstOrDefault();
             return line;
         }
-
-        public SubFileLine GetTime(int sublineid)
+        // Add SubFileLine 'l' to the database
+        public void AddSubLine(SubFileLine l)
         {
-            var time = db.SubFileLines.Where(l => l.ID == sublineid);
-            return time.FirstOrDefault();
+            db.SubFileLines.Add(l);
         }
 
-        public void AddSubFile(SubFile subfile)
+        /// <summary>
+        ///     SubFileLineTranslation functions
+        /// </summary>
+        /// <returns>
+        ///     SubFileLineTranslation; || SubFileLineTranslation.ToList();
+        /// </returns>
+        
+        // Get all SubFileLineTranslations associated with 'subFileLineId'
+        public IEnumerable<SubFileLineTranslation> GetTransById(int subFileLineId)
         {
-            db.SubFiles.Add(subfile);
+            var trans = db.SubFileLineTranslations.Where(t => t.SubFileLineID == subFileLineId).ToList();
+            return trans;
         }
-
-        public void AddSubLine(SubFileLine line)
+        // Get specific SubFileLineTranslation associated with 'subLineId' and 'langId'
+        public SubFileLineTranslation GetLineByLang(int subLineId, int langId)
         {
-            db.SubFileLines.Add(line);
+            var line = db.SubFileLineTranslations.Where(l => l.SubFileLineID == subLineId && l.LanguageID == langId).FirstOrDefault();
+            return line;
         }
-
-        public void AddSubLineTranslation(SubFileLineTranslation trans)
+        // Add SubFileLineTranslation 't' to the database
+        public void AddSubLineTranslation(SubFileLineTranslation t)
         {
-            db.SubFileLineTranslations.Add(trans);
+            db.SubFileLineTranslations.Add(t);
         }
-
+        // Add SubFileLine 'l' and SubFileLineTranslations 'trans1 & trans2' to the database
         public void AddLines(SubFileLine line, SubFileLineTranslation trans1, SubFileLineTranslation trans2)
         {
             db.SubFileLines.Add(line);
@@ -161,10 +193,18 @@ namespace Allomorph.Repositories
             db.SubFileLineTranslations.Add(trans2);
         }
 
-        public IList<LinesAndTranslations> GetText(int? id)
+        /// <summary>
+        ///     Other functions
+        /// </summary>
+        /// <returns>
+        ///     LinesAndTranslations.ToList();
+        /// </returns>
+
+        // Get all the lines (translations too) associated with 'subFileId'
+        public IList<LinesAndTranslations> GetText(int? subFileId)
         {
             var TextList = (from z in db.SubFileLines
-                            where z.SubFileID == id
+                            where z.SubFileID == subFileId
                             select new LinesAndTranslations
                             {
                                 FolderID = z.SubFiles.FolderID,
@@ -176,12 +216,12 @@ namespace Allomorph.Repositories
                             }).ToList();
             return TextList;
         }
-
-        public IEnumerable<LinesAndTranslations> GetSubFile(int langid, int fileid)
+        // Get the SubFile associated with 'fileId' and 'langId'
+        public IEnumerable<LinesAndTranslations> GetSubFile(int langId, int fileId)
         {
             var combi = (from z in db.SubFileLines
                          join j in db.SubFileLineTranslations on z.ID equals j.SubFileLineID
-                         where j.LanguageID == langid
+                         where j.LanguageID == langId
                          select new LinesAndTranslations
                          {
                              LineNumber = z.LineNumber,
@@ -189,15 +229,15 @@ namespace Allomorph.Repositories
                              SubFileLineStartTime = z.StartTime,
                              SubFileLineEndTime = z.EndTime,
                              EngText = j.LineText
-                         }).Where(t => t.SubFileID == fileid);
+                         }).Where(t => t.SubFileID == fileId);
             return combi;
         }
-
+        // Save changes to the database
         public void Save()
         {
             db.SaveChanges();
         }
-
+        // Modify properties of specific Model 'obj'
         public void Entry(object obj) 
         {
             db.Entry(obj).State = EntityState.Modified;

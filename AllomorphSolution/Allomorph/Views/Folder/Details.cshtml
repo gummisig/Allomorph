@@ -1,4 +1,4 @@
-﻿    @model Tuple<Allomorph.Models.Folder, IEnumerable<Allomorph.Models.SubFile>, IEnumerable<Allomorph.Models.Comment>, IEnumerable<Allomorph.Models.Folder>>
+﻿    @model Tuple<Allomorph.Models.Folder, Allomorph.Models.SubFile, IEnumerable<Allomorph.Models.Comment>, IEnumerable<Allomorph.Models.Folder>>
 
 @{
     ViewBag.Title = "Upplýsingar um textaskrá";
@@ -12,7 +12,7 @@
 <img src="@Model.Item1.Poster" alt="Ekki til mynd" width="320" height="320" />
 
 <div id="btnRitstyring">
-    <input type="submit" value="Ritstýring" class="btn btn-default btn-lg btn-success" onclick="location.href='@Url.Action("TextEdit", "Folder", new { id = Model.Item2.FirstOrDefault().ID })'" />
+    <input type="submit" value="Ritstýring" class="btn btn-default btn-lg btn-success" onclick="location.href='@Url.Action("TextEdit", "Folder", new { id = Model.Item2.ID })'" />
 </div>
 
 <div>
@@ -40,16 +40,14 @@
         <dd>
             @Html.DisplayFor(model => model.Item1.Description)
         </dd>
-
     </dl>
 </div>
 
 <div>
     <table class="table table-condensed table-bordered" id="folderContent">
-        @{ var dummy = Model.Item2.FirstOrDefault(); }
         <tr class="active">
             <th>
-                @Html.LabelFor(model => dummy.SubName, "Textaskrá")
+                @Html.Label(Model.Item2.SubName, "Textaskrá")
             </th>
             <th class="folderLang">
                 Enska
@@ -58,21 +56,17 @@
                 Íslenska
             </th>
         </tr>
-        @{ var dumdum = Model.Item4; }
-        @foreach (var item in Model.Item2)
-{
-    <tr class="active">
-        <td>
-            @Html.DisplayFor(modelItem => item.SubName)
-        </td>
-        <td class="folderLang">
-            <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 1 })'" />
-        </td>
-        <td class="folderLang">
-            <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = dumdum.FirstOrDefault().ID, langid = 2 })'" />
-        </td>
-    </tr>
-}
+        <tr class="active">
+            <td>
+                @Html.DisplayFor(model => Model.Item2.SubName)
+            </td>
+            <td class="folderLang">
+                <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = Model.Item2.FolderID, langid = 1 })'" />
+            </td>
+            <td class="folderLang">
+                <button class="glyphicon glyphicon-arrow-down btn btn-default btn-primary" onclick="location.href='@Url.Action("GetFile", "Folder", new { id = Model.Item2.FolderID, langid = 2 })'" />
+            </td>
+        </tr>
     </table>
 </div>
 <div class="folderComments">
