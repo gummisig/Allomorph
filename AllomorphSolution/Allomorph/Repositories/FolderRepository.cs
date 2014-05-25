@@ -93,7 +93,7 @@ namespace Allomorph.Repositories
             return subfiles;
         }
 
-        public SubFile GetSubFileById(int id)
+        public SubFile GetSubFileById(int? id)
         {
             var subfile = db.SubFiles.Where(s => s.FolderID == id).First();
             return subfile;
@@ -121,6 +121,12 @@ namespace Allomorph.Repositories
             return sublines;
         }
 
+        public IEnumerable<SubFileLineTranslation> GetTransById(int id)
+        {
+            var trans = db.SubFileLineTranslations.Where(t => t.SubFileLineID == id).ToList();
+            return trans;
+        }
+
         public SubFileLineTranslation GetLineByLang(int sublineid, int lang)
         {
             var line = db.SubFileLineTranslations.Where(l => l.SubFileLineID == sublineid && l.LanguageID == lang).FirstOrDefault();
@@ -146,6 +152,13 @@ namespace Allomorph.Repositories
         public void AddSubLineTranslation(SubFileLineTranslation trans)
         {
             db.SubFileLineTranslations.Add(trans);
+        }
+
+        public void AddLines(SubFileLine line, SubFileLineTranslation trans1, SubFileLineTranslation trans2)
+        {
+            db.SubFileLines.Add(line);
+            db.SubFileLineTranslations.Add(trans1);
+            db.SubFileLineTranslations.Add(trans2);
         }
 
         public IList<LinesAndTranslations> GetText(int? id)

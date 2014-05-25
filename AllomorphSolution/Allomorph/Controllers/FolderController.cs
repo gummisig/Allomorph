@@ -178,9 +178,7 @@ namespace Allomorph.Controllers
                         StartTime = firstTime, 
                         EndTime = secondTime, 
                         SubFileID = subfile.ID 
-                    };
-                    // Setja línuna í gagnagrunninn
-                    repo.AddSubLine(tempLine);     
+                    }; 
 
                     // Tengja línurnar við textana (þýðingarnar)
                     SubFileLineTranslation tempTranslation = new SubFileLineTranslation()
@@ -189,9 +187,18 @@ namespace Allomorph.Controllers
                         LineText = text,
                         LanguageID = subfile.LanguageID
                     };
+                    SubFileLineTranslation trans = new SubFileLineTranslation()
+                    {
+                        SubFileLineID = tempLine.ID,
+                        LineText = "",
+                        LanguageID = 2
+                    };
+                    if (subfile.LanguageID == 2) {
+                        trans.LanguageID = 1;
+                    };
                     
                     // Setja textann í gagnagrunninn og vista breytingarnar
-                    repo.AddSubLineTranslation(tempTranslation);
+                    repo.AddLines(tempLine, tempTranslation, trans);
                     repo.Save();
                 }
                 // requestID != null ef verið er að uppfylla beiðni
@@ -346,32 +353,11 @@ namespace Allomorph.Controllers
 
             foreach(var item in TextList)
             {
-
                 var tempEng = repo.GetLineByLang(item.SubFileLineID, 1);
-                if (tempEng == null)
-                {
-                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubFileLineID, LineText = "", LanguageID = 1 };
-                    repo.AddSubLineTranslation(temp);
-                    item.EngText = "";
-                }
-                else
-                {
-                    item.EngText = tempEng.LineText;
-                }
-
                 var tempIce = repo.GetLineByLang(item.SubFileLineID, 2);
-                if (tempIce == null)
-                {
-                    SubFileLineTranslation temp = new SubFileLineTranslation { SubFileLineID = item.SubFileLineID, LineText = "", LanguageID = 2 };
-                    repo.AddSubLineTranslation(temp);
-                    item.IceText = "";
-                }
-                else
-                {
-                    item.IceText = tempIce.LineText;
-                }
+                item.EngText = tempEng.LineText;
+                item.IceText = tempIce.LineText;
             }
-            repo.Save();
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(TextList.ToPagedList(pageNumber, pageSize));
@@ -409,14 +395,13 @@ namespace Allomorph.Controllers
 
             if (name != null)
             {
-                int temp = name.Length;
                 if (langid == 1)
                 {
-                    name = name.Substring(0, temp - 4) + ".en.srt";
+                    name = name.Substring(0, name.Length - 4) + ".en.srt";
                 }
                 else
                 {
-                    name = name.Substring(0, temp - 4) + ".is.srt";
+                    name = name.Substring(0, name.Length - 4) + ".is.srt";
                 }
             }
 
