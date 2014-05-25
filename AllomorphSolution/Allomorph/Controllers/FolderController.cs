@@ -126,7 +126,7 @@ namespace Allomorph.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description,RequestID")] Folder folder, HttpPostedFileBase file, SubFile subfile, int? requestID)
+        public ActionResult Create([Bind(Include = "ID,CategoryID,FolderName,Link,Poster,Description")] Folder folder, HttpPostedFileBase file, SubFile subfile, int? requestID)
         {
             if (ModelState.IsValid)
             {
@@ -147,13 +147,10 @@ namespace Allomorph.Controllers
                 repo.AddFolder(folder);
                 repo.AddSubFile(subfile);
 
-                // .Peek() skoðar næsta tákn án þess að taka það úr
+                // .Peek() skoðar næsta tákn án þess að taka það úr strauminum
                 // -1 Þegar öll skráin hefur verið lesin
                 while (streamReader.Peek() != -1)
                 {
-                    SubFileLine tempLine = new SubFileLine();
-                    SubFileLineTranslation tempTranslation = new SubFileLineTranslation();
-                        
                     string lineNumber = streamReader.ReadLine();
                     string timeLine = streamReader.ReadLine();
 
@@ -175,18 +172,23 @@ namespace Allomorph.Controllers
                     }
 
                     // Tekur inn allar upplýsingar fyrir línumódelið
-                    tempLine.LineNumber = Convert.ToInt32(lineNumber);
-                    tempLine.StartTime = firstTime;
-                    tempLine.EndTime = secondTime;
-                    tempLine.SubFileID = subfile.ID;
-
+                    SubFileLine tempLine = new SubFileLine()
+                    { 
+                        LineNumber = Convert.ToInt32(lineNumber), 
+                        StartTime = firstTime, 
+                        EndTime = secondTime, 
+                        SubFileID = subfile.ID 
+                    };
                     // Setja línuna í gagnagrunninn
-                    repo.AddSubLine(tempLine);
+                    repo.AddSubLine(tempLine);     
 
                     // Tengja línurnar við textana (þýðingarnar)
-                    tempTranslation.SubFileLineID = tempLine.ID;
-                    tempTranslation.LineText = text;
-                    tempTranslation.LanguageID = subfile.LanguageID;
+                    SubFileLineTranslation tempTranslation = new SubFileLineTranslation()
+                    {
+                        SubFileLineID = tempLine.ID,
+                        LineText = text,
+                        LanguageID = subfile.LanguageID
+                    };
                     
                     // Setja textann í gagnagrunninn og vista breytingarnar
                     repo.AddSubLineTranslation(tempTranslation);
