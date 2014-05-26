@@ -282,15 +282,6 @@ namespace Allomorph.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                repo.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         [Authorize]
         public ActionResult CreateComment(int? id)
         {
@@ -422,6 +413,15 @@ namespace Allomorph.Controllers
             repo.Save();
 
             return File(info.OpenRead(), "text/plain", name);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                repo.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

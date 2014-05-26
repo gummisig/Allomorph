@@ -231,6 +231,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Folder\TextEdit.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -272,7 +273,6 @@
     <Content Include="Views\Request\Delete.cshtml" />
     <Content Include="Views\Request\Details.cshtml" />
     <Content Include="Views\Shared\FileUpload.cshtml" />
-    <Content Include="Views\Folder\TextEdit.cshtml" />
     <Content Include="Views\Shared\WrongFile.cshtml" />
     <Content Include="Views\Shared\TimeControls.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
