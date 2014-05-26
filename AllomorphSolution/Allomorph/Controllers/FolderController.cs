@@ -105,12 +105,10 @@ namespace Allomorph.Controllers
                 return View("NotFound");
             }
 
-            //IEnumerable<SubFile> subtitles = repo.GetSubFilesById(folder.ID);
             SubFile subtitle = repo.GetSubFileById(folder.ID);
             IEnumerable<Comment> comment = repo.GetCommentsById(folder.ID);
-            IEnumerable<Folder> folders = repo.GetAllFolders().Where(f => f.ID == folder.ID).ToList();
 
-            return View(Tuple.Create(folder, subtitle, comment, folders));
+            return View(Tuple.Create(folder, subtitle, comment));
         }
 
         // GET: /Folder/Create
